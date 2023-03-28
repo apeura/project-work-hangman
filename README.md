@@ -2,16 +2,16 @@
 Project Title
 A little info about your project and/ or overview that explains what the project is about.
 
-Author
+# Author
 Anni Peura
 
-Screenshots
+# Screenshots
 Alt text
 
-Tech/framework used
+# Tech/framework used
 What language is used, what external modules are used (if any).
 
-Installation and running
+# Installation and running
 Provide step by step series of examples and explanations about how to get a development env running. Example:
 
 # clone repo
