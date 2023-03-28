@@ -7,14 +7,14 @@ Author
 Peura Anni
 
 Screenshots
-#Alt text
+Alt text
 
 Tech/framework used
 Python
-#What language is used, what external modules are used (if any).
+What language is used, what external modules are used (if any).
 
 Installation and running
-#Provide step by step series of examples and explanations about how to get a development env running. Example:
+Provide step by step series of examples and explanations about how to get a development env running. Example:
 
 # clone repo
 git clone reop
