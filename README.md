@@ -1,16 +1,14 @@
 # project-work-hangman
 Project Title
-Contains hangman game / course: 4A00EZ53 Python - Development 2023.
-For this project we've made a hangman game that stores highscores in the cloud.
+A little info about your project and/ or overview that explains what the project is about.
 
 Author
-Peura Anni
+Anni Peura
 
 Screenshots
 Alt text
 
 Tech/framework used
-Python
 What language is used, what external modules are used (if any).
 
 Installation and running
