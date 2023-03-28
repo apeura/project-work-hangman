@@ -1,20 +1,20 @@
 # project-work-hangman
-Contains hangman game / course: 4A00EZ53 Python - Development 2023
-
-<h1>Project Title</h1>
-A little info about your project and/ or overview that explains what the project is about.
+Project Title
+Contains hangman game / course: 4A00EZ53 Python - Development 2023.
+For this project we've made a hangman game that stores highscores in the cloud.
 
 Author
-Firstname Lastname
+Peura Anni
 
 Screenshots
-Alt text
+#Alt text
 
 Tech/framework used
-What language is used, what external modules are used (if any).
+Python
+#What language is used, what external modules are used (if any).
 
 Installation and running
-Provide step by step series of examples and explanations about how to get a development env running. Example:
+#Provide step by step series of examples and explanations about how to get a development env running. Example:
 
 # clone repo
 git clone reop
