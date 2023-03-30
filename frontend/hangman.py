@@ -4,7 +4,6 @@ import time
 from util.drawings import draw_hangman
 
 #global variables, näkyy kaikille funktioille
-lives = 3
 amount_of_correct_letters = 0
 amount_of_wrong_letters = 0
 secret_word = ""
@@ -47,15 +46,15 @@ def show_highscores():
 #Pelin käynnistys, kaksi while looppia jotka menee kunnes voitto/häviö. Voitosta mennään voitto funktioon, häviöstä häviöön.
 def run_game():
     #incorrect_guess_limittiä käytetään pelin lopettamisessa, start aloittaa ajan ottamisen
-    global secret_word, lives, amount_of_correct_letters, amount_of_wrong_letters
+    global secret_word, amount_of_correct_letters, amount_of_wrong_letters
     incorrect_guess_limit = 6
     rounds = 1
     start = time.time()
 
-    #ulommainen loop: jatkuu kun roundeja on vähemmän kuin 4 ja kun elämiä on enemmän kuin 0
+    #ulommainen loop: jatkuu kun roundeja on vähemmän kuin 4
     #ottaa arvuutettavan sanan choose_secret_word funktion kautta 
     #nollaa muuttujat uuden roundin kohdalla + uus secret word
-    while rounds < 4 and lives > 0:
+    while rounds < 4:
 
         print("     *** ROUND ", rounds, "! ***", sep="")
         secret_word = choose_secret_word()
@@ -155,7 +154,3 @@ if __name__ == "__main__":
 
 
 #validointi, testaus
-#  try:
-#       execute_game_choice(int(user_choice))
-#   except ValueError:
-#       print("Invalid value, must input a whole number")

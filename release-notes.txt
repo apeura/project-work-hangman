@@ -1,0 +1,7 @@
+
+RELEASE 1
+- working hangman game with 3 rounds
+- 
+
+
+
