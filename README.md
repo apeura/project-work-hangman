@@ -1,5 +1,5 @@
 # project-work-hangman
-Project Title
+Hangman game with highscore that is stored in the cloud
 A little info about your project and/ or overview that explains what the project is about.
 
 # Author
@@ -9,14 +9,14 @@ Anni Peura
 Alt text
 
 # Tech/framework used
-What language is used, what external modules are used (if any).
+Python (What language is used, what external modules are used (if any).)
 
 # Installation and running
 Provide step by step series of examples and explanations about how to get a development env running. Example:
 
 # clone repo
-git clone reop
-cd repo
+git clone https://github.com/apeura/project-work-hangman
+cd https://github.com/apeura/project-work-hangman
 
 # start backend
 python backend.py
