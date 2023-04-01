@@ -16,7 +16,7 @@ Provide step by step series of examples and explanations about how to get a deve
 
 # clone repo
 git clone https://github.com/apeura/project-work-hangman
-cd https://github.com/apeura/project-work-hangman
+cd project-work-hangman
 
 # start backend
 python backend.py
