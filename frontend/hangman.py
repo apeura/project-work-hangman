@@ -8,20 +8,21 @@ amount_of_correct_letters = 0
 amount_of_wrong_letters = 0
 secret_word = ""
 
-#printtaa menun ja ottaa user_inputin, input lähetetään execute_menu_choice funktioon
-#Try except ValueErrorille (jos ei tuu int)
+#printtaa menun ja ottaa user inputin, input lähetetään execute_menu_choice funktioon
 def print_menu_take_choice():
 
     print("1) Play Game", "2) Display high scores", "3) Quit", sep="\n")
-    user_choice = input()
-
-    try:
-        execute_menu_choice(int(user_choice))
-    except ValueError:
-        print("Invalid value, must input a whole number")
+    execute_menu_choice(input())
 
 #match-case johon käyttähän antama int menee, käynnistää eri funktioita sen perusteella minkä numeron käyttäjä on antanut
 def execute_menu_choice(user_choice):
+
+    try:
+        int(user_choice)
+    except ValueError:
+        print("Invalid value, must input a whole number")
+        print_menu_take_choice()
+
     match user_choice:
         #käynnistää pelin, once over vie alkuun
         case 1:
