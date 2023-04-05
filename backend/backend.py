@@ -32,7 +32,7 @@ def get_asc_or_desc_scores(order_score):
 @app.route("/scores")
 def get_scores_limit(limit):
     for x in scores:
-        
+
 
 #Delete a score
 @app.route('/scores/<int:the_id>', methods=['DELETE'])
@@ -59,6 +59,14 @@ def add_score():
     
     scores.append(score)
     return make_response("Score added succesfully!", 209)
+
+    #Id generation copied from exercise 8
+    generated_id = int(1000000 * random.random())
+    for i in range(0, len(customers)):
+        if customers[i]['id'] == generated_id:
+            return make_response(jsonify("Error: id already exists"), 409)
+    save_to_database(customer_name, str(generated_id))
+    return make_response("", 201)
 
 #Allow origins
 @app.after_request
