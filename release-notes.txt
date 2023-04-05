@@ -1,7 +1,8 @@
 
 RELEASE 1
 - working hangman game with 3 rounds
-- 
+- early base for ui test
+- render cloud created for backend, non-functional
 
 
 
