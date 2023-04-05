@@ -1,4 +1,4 @@
-from git_copy.frontend.hangman import execute_menu_choice
+from frontend.hangman import execute_menu_choice
 import unittest
 
 class TestValidation(unittest.TestCase):

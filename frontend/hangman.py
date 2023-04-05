@@ -1,7 +1,10 @@
-#import requests
+import requests
 import random
 import time
 from util.drawings import draw_hangman
+
+#Url /score?
+url = 'https://apeura-server.onrender.com/customers'
 
 #global variables, näkyy kaikille funktioille
 amount_of_correct_letters = 0
@@ -23,7 +26,7 @@ def execute_menu_choice(user_choice):
         print("Invalid value, must input a whole number")
         print_menu_take_choice()
 
-    match user_choice:
+    match int(user_choice):
         #käynnistää pelin, once over vie alkuun
         case 1:
             run_game()
@@ -103,11 +106,30 @@ def run_game():
 #jos voitti niin kerrotaan aika, minuuteissa jos yli 60 sec, jos alle niin sekunneissa
 #!!! Kesken, pitää vielä ottaa ylös highscoret !!!!
 def game_won(time):
+
+    minutes = time/60
+    seconds = (time-minutes)
+
+    print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
+
                 #time jaetaan 60 jos yli 1 min
     time_taken = time / 60 if time > 60.0 else time
                 #jos yli 60 sec unit = minuutti else sekuntti
     unit = "minutes" if time > 60.0 else "seconds"
     print(f"WINNER! It took you {time_taken:.5f} {unit} to finish\n")
+
+    add_to_highscore(time_taken)
+
+def add_to_highscore(time):
+
+    name = input("Please input a name for the leaderboard: ")
+    while 10 > len(name) < 2:
+        print("Name should be 2-10 characters.")
+        name = input("Please input a name for the leaderboard: ")
+
+    myobj = {'time': time, 'name': name}
+    x = requests.post(url, json = myobj)
+    print(x.text)
 
 #loser :(
 def game_lost():
@@ -122,10 +144,12 @@ def user_guess(guessed_letters):
         #jos arvaus on arvatuissa kirjaimissa
         if guess in guessed_letters:
             print("Guess something else please.")
+        elif not guess.isalpha():
+            print("Guess should be alphabethical.")
         #jos arvausksen pituus ei ole 1 
         elif len(guess) != 1:
-            print("Please enter one letter.")
-        guess = input("Guess a single letter: ").lower()
+            print("Please enter only one letter.")
+        guess = input("Guess a letter: ").lower()
 
     return guess
 
