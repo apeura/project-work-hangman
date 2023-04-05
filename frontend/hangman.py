@@ -3,8 +3,9 @@ import random
 import time
 from util.drawings import draw_hangman
 
+app = Flask(__name__)
 #Url /score?
-url = 'https://apeura-server.onrender.com/customers'
+url = 'https://apeura-server.onrender.com/scores'
 
 #global variables, näkyy kaikille funktioille
 amount_of_correct_letters = 0
@@ -174,8 +175,7 @@ def main():
     print_menu_take_choice()
 
 if __name__ == "__main__":
-    main()
-
+    app.run()
 
 
 #validointi, testaus
