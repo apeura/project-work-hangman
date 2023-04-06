@@ -69,6 +69,9 @@ def add_score():
     save_to_database(customer_name, str(generated_id))
     return make_response("", 201)
 
+# ids always based on how many lines are in scores.txt 
+# iteration through current ids, if gap e.g. 1, 2, 4 ... it uses 3 
+
 #Allow origins
 @app.after_request
 def after_request(response):

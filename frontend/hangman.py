@@ -3,10 +3,6 @@ import random
 import time
 from util.drawings import draw_hangman
 
-app = Flask(__name__)
-#Url /score?
-url = 'https://127.0.0.1/scores'
-
 #global variables, näkyy kaikille funktioille
 amount_of_correct_letters = 0
 amount_of_wrong_letters = 0
@@ -173,9 +169,6 @@ def choose_secret_word():
 #aloitetaan peli
 def main():
     print_menu_take_choice()
-
-if __name__ == "__main__":
-    app.run()
 
 
 #validointi, testaus
