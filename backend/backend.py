@@ -26,13 +26,12 @@ def get_score(the_id):
 #Returns a descended or ascended order of the score list.
 @app.route("/scores")
 def get_asc_or_desc_scores(order_score):
-    print("moi")
+
 
 #Fetching all scores with limit
 @app.route("/scores")
 def get_scores_limit(limit):
     for x in scores:
-            print("moi")
 
 
 #Delete a score
@@ -46,7 +45,7 @@ def delete_score(the_id):
             scores.remove(score)
             return make_response("Score removed succesfully!", 204)
         
-    return abort(404, description= "Score not found")
+return abort(404, description= "Score not found")
 
 #Add a score
 @app.route('/scores', methods=['POST'])
