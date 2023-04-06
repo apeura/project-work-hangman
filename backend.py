@@ -32,7 +32,6 @@ def get_scores_limit(limit):
     for x in scores:
             print("moi")
 
-
 #Delete a score
 @app.route('/scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
@@ -46,15 +45,11 @@ def delete_score(the_id):
         
     return abort(404, description= "Score not found")
 
-
-
 #Add a score
 @app.route('/scores', methods=['POST'])
 def add_score():
     # load given string and turn in into dictionary
     #score = json.loads(request.data)
-
-    all_ids = get_id()
     
     for id in all_ids:
         if id["id"] == score["id"]:
