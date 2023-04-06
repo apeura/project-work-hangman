@@ -3,8 +3,6 @@ from flask import Flask, Response, jsonify, abort, make_response, request, json
 from frontend.util import save_to_score, generate_id
 app = Flask(__name__)
 
-scores = [{"id": 1, "time": "1m 20s", "name": "jack"}]
-
 #Get all scores
 @app.route("/scores")
 def get_scores():
@@ -73,5 +71,3 @@ def after_request(response):
 
 if __name__ == "__main__":
     app.run()
-
-    
