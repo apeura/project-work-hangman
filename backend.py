@@ -1,6 +1,6 @@
 
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-
+from frontend.util import get_id
 app = Flask(__name__)
 
 scores = [{"id": 1, "time": "1m 20s", "name": "jack"}]
@@ -48,14 +48,18 @@ def delete_score(the_id):
         
     return abort(404, description= "Score not found")
 
+
+
 #Add a score
 @app.route('/scores', methods=['POST'])
 def add_score():
     # load given string and turn in into dictionary
-    score = json.loads(request.data)
+    #score = json.loads(request.data)
 
-    for c in scores:
-        if c["id"] == score["id"]:
+    all_ids = get_id()
+    
+    for id in all_ids:
+        if id["id"] == score["id"]:
             abort(409, description= "Score already excists!")
     
     scores.append(score)

@@ -3,17 +3,8 @@ import random
 import time
 from util.drawings import draw_hangman
 
-<<<<<<< HEAD
-=======
-app = Flask(__name__)
-#Url /score?
-<<<<<<< HEAD
-url = 'http://127.0.0.1:5000/score'
-=======
-url = 'https://127.0.0.1/scores'
->>>>>>> d1e55c5ea47cc9e469ccea162ee84d06f90d5beb
+url = "https://127.0.0.1:5000/scores"
 
->>>>>>> a346125e6cc47ea586dc325ec799cfc0ac3254ee
 #global variables, näkyy kaikille funktioille
 amount_of_correct_letters = 0
 amount_of_wrong_letters = 0
@@ -119,12 +110,7 @@ def game_won(time):
     seconds = (time-minutes)
 
     print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
-
-                #time jaetaan 60 jos yli 1 min
-    time_taken = time / 60 if time > 60.0 else time
-                #jos yli 60 sec unit = minuutti else sekuntti
-    unit = "minutes" if time > 60.0 else "seconds"
-    print(f"WINNER! It took you {time_taken:.5f} {unit} to finish\n")
+    time_taken = (f"{minutes:.0f}m {seconds:.0f}s")
 
     add_to_highscore(time_taken)
 
@@ -181,5 +167,6 @@ def choose_secret_word():
 def main():
     print_menu_take_choice()
 
-
+if __name__ == "__main__":
+    main()
 #validointi, testaus
