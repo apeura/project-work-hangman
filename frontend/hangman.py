@@ -3,6 +3,8 @@ import random
 import time
 from util.drawings import draw_hangman
 
+url = "https://127.0.0.1:5000/scores"
+
 #global variables, näkyy kaikille funktioille
 amount_of_correct_letters = 0
 amount_of_wrong_letters = 0
@@ -108,8 +110,7 @@ def game_won(time):
     seconds = (time-minutes)
 
     print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
-
-    time_taken = f"{minutes:.0f}m {seconds:.0f}s"
+    time_taken = (f"{minutes:.0f}m {seconds:.0f}s")
 
     add_to_highscore(time_taken)
 
@@ -168,5 +169,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 #validointi, testaus
