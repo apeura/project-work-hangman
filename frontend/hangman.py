@@ -42,6 +42,7 @@ def execute_menu_choice(user_choice):
 def show_highscores():
     print("HIGH SCORES")
 
+#runs game for max 3 rounds, takes time
 def run_game():
 
     global secret_word, amount_of_correct_letters, amount_of_wrong_letters
@@ -76,7 +77,7 @@ def run_game():
         print_game(secret_word, guessed_letters)
         print()
 
-        # leaving outer loop when game is lost or won
+        # quitting outer loop when game is lost or won
         if amount_of_wrong_letters == incorrect_guess_limit:
             end = time.time()
             game_lost()
@@ -88,6 +89,7 @@ def run_game():
         
         rounds += 1
 
+#formats game time & gives game won message
 def game_won(time):
 
     minutes = time/60
@@ -113,6 +115,7 @@ def add_to_highscore(time):
 def game_lost():
     print("loser :(\n ")
 
+#takes user guess & checks it's valid
 def user_guess(guessed_letters):
 
     guess = input("Guess a letter: ").lower()
@@ -128,12 +131,14 @@ def user_guess(guessed_letters):
 
     return guess
 
+#prints hangman and secret word ( _ _ _ _ _ / k i _ _ a / etc)
 def print_game(secret_word, guessed_letters):
 
     global amount_of_wrong_letters
     draw_hangman(amount_of_wrong_letters)
     print(" ".join([c if c in guessed_letters else "_" for c in secret_word]))
 
+#chooses secret word randomly from a list
 def choose_secret_word():
         
     with open('words.txt', 'r') as file:
