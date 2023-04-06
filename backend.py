@@ -1,6 +1,6 @@
 
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util import get_id
+from frontend.util import save_to_score, generate_id
 app = Flask(__name__)
 
 scores = [{"id": 1, "time": "1m 20s", "name": "jack"}]
@@ -50,31 +50,20 @@ def delete_score(the_id):
 
 
 
-#Add a score
+#saving a core
 @app.route('/scores', methods=['POST'])
-def add_score():
+def save_highscore():
+
     # load given string and turn in into dictionary
-    #score = json.loads(request.data)
+    user_data = json.loads(request.data)
 
-    all_ids = get_id()
+    name = user_data['name']
+    time = user_data['time']
+    id = generate_id()
     
-    for id in all_ids:
-        if id["id"] == score["id"]:
-            abort(409, description= "Score already excists!")
-    
-    scores.append(score)
-    return make_response("Score added succesfully!", 209)
+    save_to_score(id, time, name)
 
-    #Id generation copied from exercise 8
-    generated_id = int(1000000 * random.random())
-    for i in range(0, len(customers)):
-        if customers[i]['id'] == generated_id:
-            return make_response(jsonify("Error: id already exists"), 409)
-    save_to_database(customer_name, str(generated_id))
-    return make_response("", 201)
-
-# ids always based on how many lines are in scores.txt 
-# iteration through current ids, if gap e.g. 1, 2, 4 ... it uses 3 
+    #return make_response("Score added succesfully!", 209)
 
 #Allow origins
 @app.after_request
