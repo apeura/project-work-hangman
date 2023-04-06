@@ -5,7 +5,7 @@ from util.drawings import draw_hangman
 
 app = Flask(__name__)
 #Url /score?
-url = 'https://apeura-server.onrender.com/scores'
+url = 'http://127.0.0.1:5000/score'
 
 #global variables, näkyy kaikille funktioille
 amount_of_correct_letters = 0
