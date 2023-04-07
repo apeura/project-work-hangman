@@ -1,5 +1,5 @@
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util import save_to_score, generate_id
+from frontend.util.utility import save_to_score, generate_id
 app = Flask(__name__)
 
 #Get all scores
