@@ -24,13 +24,14 @@ def get_score(the_id):
 @app.route("/scores")
 def get_asc_or_desc_scores(order_score):
     print("moi")
-    pass
+
 
 #Fetching all scores with limit
 @app.route("/scores")
 def get_scores_limit(limit):
     for x in scores:
         pass
+    
 
 #Delete a score
 @app.route('/scores/<int:the_id>', methods=['DELETE'])
@@ -59,7 +60,7 @@ def save_highscore():
     id = generate_id()
     
     save_to_score(id, time, name)
-    pass
+
 
     #return make_response("Score added succesfully!", 209)
 
