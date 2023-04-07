@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 1,1m 20s,tiina
 2,1m 35s,kalle
 3,0m 56s,jukka
 7,0m 41s,jaska
+=======
+4,0m 8s,koira
+2,0m 7s,wilma
+>>>>>>> 6e313ad4a5fb7ed44a298cbca50a1e5f393b1d83
