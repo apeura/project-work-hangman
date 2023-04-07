@@ -3,8 +3,6 @@ from frontend.util.utility import save_to_score, generate_id
 
 app = Flask(__name__)
 
-
-
 #Get all scores
 @app.route("/scores")
 def get_scores():

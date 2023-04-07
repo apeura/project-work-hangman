@@ -1,6 +1,7 @@
 #match-case formatointi funtioiden sijaan?
 import time
 
+#returns time name without id in asc order WIP
 def format_score():
     all_data = read_score()
     all_scores = ""
@@ -21,7 +22,6 @@ def format_score():
     print(all_scores_dict)
 
     sorted((time.strptime(d, "%H:%M:%S")))
-    #regex intm / ints 2 loops? to find smallest time
 
     return all_scores
 
