@@ -3,7 +3,7 @@ from frontend.util.utility import save_to_score, generate_id
 
 app = Flask(__name__)
 
-scores = [{'id': 1, 'name': 'moi', 'time': '1m 2s'}]
+
 
 #Get all scores
 @app.route("/scores")

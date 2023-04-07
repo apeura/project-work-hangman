@@ -3,6 +3,8 @@ def read_score():
     data = open("scores.txt", "r")
     return data.read()
 
+
+
 # Saves data to the text file as "(id),(time),(name)"
 def save_to_score(id, time, name):
     f = open("scores.txt", "a")
