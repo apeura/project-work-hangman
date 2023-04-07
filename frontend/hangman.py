@@ -3,7 +3,7 @@ import random
 import time
 from util.drawings import draw_hangman
 
-url = "https://127.0.0.1:5000/scores"
+url = "https://hangman-highscores-amif.onrender.com/scores"
 
 #global variables
 amount_of_correct_letters = 0
