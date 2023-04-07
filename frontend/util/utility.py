@@ -31,8 +31,3 @@ def generate_id():
     new_id = id_line_amount + 1
 
     return new_id
-
-def main():
-
-if __name__ == "__main__":
-    main()
