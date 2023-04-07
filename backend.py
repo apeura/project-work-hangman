@@ -65,7 +65,7 @@ def save_highscore():
     save_to_score(id, time, name)
 
 
-    #return make_response("Score added succesfully!", 209)
+    return make_response("Score added succesfully!", 209)
 
 #Allow origins
 @app.after_request
