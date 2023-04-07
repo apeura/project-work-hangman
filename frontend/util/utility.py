@@ -1,3 +1,30 @@
+#match-case formatointi funtioiden sijaan?
+import time
+
+def format_score():
+    all_data = read_score()
+    all_scores = ""
+    all_scores_dict = []
+
+    player_lines = all_data.split('\n')
+    for data in player_lines:
+        values = data.split(',')
+        
+        one_player_score = {'id': int(values[0]), 'time': (values[1]), 'name': (values[2])}
+        all_scores_dict.append(one_player_score)
+
+        del values[0]
+        values_string = " ".join(values)
+        values_string += '\n'
+        all_scores += values_string
+
+    print(all_scores_dict)
+
+    sorted((time.strptime(d, "%H:%M:%S")))
+    #regex intm / ints 2 loops? to find smallest time
+
+    return all_scores
+
 
 def read_score():
     data = open("scores.txt", "r")
@@ -31,3 +58,5 @@ def generate_id():
     new_id = id_line_amount + 1
 
     return new_id
+
+    

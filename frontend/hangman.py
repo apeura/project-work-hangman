@@ -1,11 +1,12 @@
 import requests
 import random
 import time
+from datetime import datetime
 from util.drawings import draw_hangman
 
-#url = "https://hangman-highscores-amif.onrender.com/scores"
+url = "https://hangman-highscores-amif.onrender.com/scores"
 
-url = "http://127.0.0.1:5000/scores"
+#url = "http://127.0.0.1:5000/scores"
 
 #global variables
 amount_of_correct_letters = 0
@@ -96,10 +97,13 @@ def game_won(time):
 
     minutes = time/60
     seconds = (time-minutes)
-    time_taken = (f"{minutes:.0f}m {seconds:.0f}s")
-
+    #time_taken = (f"{minutes:.0f}m {seconds:.0f}s")
     print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
-    add_to_highscore(time_taken)
+    
+    output = datetime.strftime(datetime.utcfromtimestamp(time), '%H:%M:%S')
+    print(type(output))
+    
+    add_to_highscore(output)
 
 #### WORK IN PROGRESS..? ###
 def add_to_highscore(time):
