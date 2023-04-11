@@ -1,5 +1,5 @@
 #match-case formatointi funtioiden sijaan?
-import time
+import time, json
 
 def scores_to_list():
     all_data = read_score()
@@ -31,14 +31,22 @@ def format_score():
 
 
 def read_score():
-    data = open("scores.txt", "r")
+    data = open("scores.json", "r")
     return data.read()
 
 # Saves data to the text file as "(id),(time),(name)"
 def save_to_score(id, time, name):
-    f = open("scores.txt", "a")
-    f.write(f"\n{id},{time},{name}")
-    f.close()
+    with open('scores.json', 'r') as file:
+        scores_data = json.load(file)
+        new_score = {"id": id, "time": time, "name": name}
+        scores_data["scores"].append(new_score)
+
+    
+        with open("scores.json", "w") as file:
+            json.dump(scores_data, file, indent=2)
+    
+    #f.write("\n" + f"(id: {id}, time: {time}, name: {name})")
+    #f.close()
 
 # Creates a list of all current ID values
 def get_id_list():
@@ -56,7 +64,7 @@ def get_id_list():
 def generate_id():
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
-    with open('scores.txt') as f:
+    with open('scores.json') as f:
         id_line_amount = sum(1 for _ in f)
     
     new_id = id_line_amount + 1
