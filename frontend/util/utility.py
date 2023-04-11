@@ -1,33 +1,36 @@
 #match-case formatointi funtioiden sijaan?
 import time
-
-def scores_to_list():
-    all_data = read_score()
-    all_scores_list = ""
+import json
 
 #returns time name without id in asc order WIP
 def format_score():
-    all_data = read_score()
-    all_scores = ""
-    all_scores_dict = []
+    all_data = json.loads(read_score())
+    all_scores = all_data["player_scores"]
+    #all_scores_formatted = ""
+    #printtaa kaikki scoret riveittäin
+    
+    for score in all_scores:
+        print(score["id"], score["time"], score["name"])
 
-    player_lines = all_data.split('\n')
-    for data in player_lines:
-        values = data.split(',')
+    
+
+    #player_lines = all_data.split('\n')
+    #for data in player_lines:
+    #    values = data.split(',')
         
-        one_player_score = {'id': int(values[0]), 'time': (values[1]), 'name': (values[2])}
-        all_scores_dict.append(one_player_score)
+    #    one_player_score = {'id': int(values[0]), 'time': (values[1]), 'name': (values[2])}
+    #    all_scores_dict.append(one_player_score)
 
-        del values[0]
-        values_string = " ".join(values)
-        values_string += '\n'
-        all_scores += values_string
+     #   del values[0]#
+     #   values_string = " ".join(values)
+     #   values_string += '\n'
+      #  all_scores += values_string
 
-    print(all_scores_dict)
+    #print(all_scores_dict)
 
     #all_scores_dict = sorted((time.strptime(d, "%H:%M:%S")))
-    all_scores_dict = sorted(all_scores_dict, key=lambda x: datetime.datetime.strptime(x['time'], "%H:%M:%S").time())
-    return all_scores
+    #all_scores_dict = sorted(all_scores_dict, key=lambda x: datetime.datetime.strptime(x['time'], "%H:%M:%S").time())
+    #return all_scores
 
 
 def read_score():
