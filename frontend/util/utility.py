@@ -1,6 +1,10 @@
 #match-case formatointi funtioiden sijaan?
 import time
 
+def scores_to_list():
+    all_data = read_score()
+    all_scores_list = ""
+
 #returns time name without id in asc order WIP
 def format_score():
     all_data = read_score()
@@ -21,16 +25,14 @@ def format_score():
 
     print(all_scores_dict)
 
-    sorted((time.strptime(d, "%H:%M:%S")))
-
+    #all_scores_dict = sorted((time.strptime(d, "%H:%M:%S")))
+    all_scores_dict = sorted(all_scores_dict, key=lambda x: datetime.datetime.strptime(x['time'], "%H:%M:%S").time())
     return all_scores
 
 
 def read_score():
     data = open("scores.txt", "r")
     return data.read()
-
-
 
 # Saves data to the text file as "(id),(time),(name)"
 def save_to_score(id, time, name):
