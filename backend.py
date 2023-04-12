@@ -1,9 +1,7 @@
-
 from flask import Flask, Response, jsonify, abort, make_response, request, json
+from frontend.util.utility import save_to_score, generate_id
 
 app = Flask(__name__)
-
-scores = [{"id": 1, "time": "1m 20s", "name": "jack"}]
 
 #Get all scores
 @app.route("/scores")
@@ -26,13 +24,15 @@ def get_score(the_id):
 #Returns a descended or ascended order of the score list.
 @app.route("/scores")
 def get_asc_or_desc_scores(order_score):
+    print("moi")
 
 
 #Fetching all scores with limit
 @app.route("/scores")
 def get_scores_limit(limit):
     for x in scores:
-
+        pass
+    
 
 #Delete a score
 @app.route('/scores/<int:the_id>', methods=['DELETE'])
@@ -47,26 +47,23 @@ def delete_score(the_id):
         
     return abort(404, description= "Score not found")
 
-#Add a score
+
+
+#saving a core
 @app.route('/scores', methods=['POST'])
-def add_score():
+def save_highscore():
+
     # load given string and turn in into dictionary
-    score = json.loads(request.data)
+    user_data = json.loads(request.data)
 
-    for c in scores:
-        if c["id"] == score["id"]:
-            abort(409, description= "Score already excists!")
+    name = user_data['name']
+    time = user_data['time']
+    id = generate_id()
     
-    scores.append(score)
-    return make_response("Score added succesfully!", 209)
+    save_to_score(id, time, name)
 
-    #Id generation copied from exercise 8
-    generated_id = int(1000000 * random.random())
-    for i in range(0, len(customers)):
-        if customers[i]['id'] == generated_id:
-            return make_response(jsonify("Error: id already exists"), 409)
-    save_to_database(customer_name, str(generated_id))
-    return make_response("", 201)
+
+    return make_response("Score added succesfully!", 209)
 
 #Allow origins
 @app.after_request
@@ -75,6 +72,4 @@ def after_request(response):
     return response
 
 if __name__ == "__main__":
-    app.run()
-
-    
+    app.run(debug=True)
