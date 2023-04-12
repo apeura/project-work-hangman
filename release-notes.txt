@@ -6,5 +6,10 @@ RELEASE 1
 - barebones backend fetching features
 - html template for highscores
 
+RELEASE 2
+- score saving improvements
+- JSON partially implemented
+- render cloud works
+- new functions: id generation, score_formatting
 
 
