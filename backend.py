@@ -1,7 +1,13 @@
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import save_to_score, generate_id
+from frontend.util.utility import read_score, save_to_score, generate_id
 
 app = Flask(__name__)
+
+#Allow origins
+@app.after_request
+def after_request(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 @app.route("/")
 def root():
@@ -10,7 +16,9 @@ def root():
 #Get all scores
 @app.route("/scores")
 def get_scores():
-    return "<h1>hello, this is the scores location for highscores</h1>" #jsonify(scores)
+    scores_all = read_score()
+    my_response = jsonify(scores_all)
+    return make_response(my_response, 200)
 
 #Get a single score based on the id
 @app.route('/scores/<int:the_id>')
@@ -68,12 +76,6 @@ def save_highscore():
 
 
     return make_response("Score added succesfully!", 209)
-
-#Allow origins
-@app.after_request
-def after_request(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
