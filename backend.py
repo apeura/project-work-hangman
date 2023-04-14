@@ -10,7 +10,7 @@ def root():
 #Get all scores
 @app.route("/scores")
 def get_scores():
-    return jsonify(scores)
+    return "<h1>hello, this is the root location for highscores</h1>" #jsonify(scores)
 
 #Get a single score based on the id
 @app.route('/scores/<int:the_id>')
