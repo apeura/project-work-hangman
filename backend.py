@@ -3,6 +3,10 @@ from frontend.util.utility import save_to_score, generate_id
 
 app = Flask(__name__)
 
+@app.route("/")
+def root():
+    return "<h1>hello, this is the root location for highscores</h1>"
+
 #Get all scores
 @app.route("/scores")
 def get_scores():

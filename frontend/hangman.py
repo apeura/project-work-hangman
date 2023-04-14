@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 from util.drawings import draw_hangman
 
-url = "http://127.0.0.1:5000/scores"
+url = "https://hangman-highscores-amif.onrender.com/"
 
 #url = "http://127.0.0.1:5000/scores"
 
