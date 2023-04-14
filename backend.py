@@ -13,7 +13,7 @@ def after_request(response):
 
 @app.route("/")
 def root():
-    return scores
+    return "<h1>hello, this is the root location for highscores</h1>"
 
 #Get all scores
 @app.route("/scores")
