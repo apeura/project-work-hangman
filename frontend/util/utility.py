@@ -16,10 +16,12 @@ def sort_score(descending=True):
         single_score = {"id": str(id), "time": str(time), "name": str(name)}
         sorted_scores.append(single_score)
 
-    format_score(sorted_scores)
+    return sorted_scores
 
-def format_score(all_scores):
+def format_score():
+    all_scores = sort_score()
     formatted_data = ""
+    
     for score in all_scores:
         id = score["id"]
         time = score["time"] 
