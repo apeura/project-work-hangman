@@ -30,7 +30,7 @@ def format_score():
 
         # formatted_data = "" --> formatted_data += f'{time} {name} \n' --> "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" on page
         
-        #["02.11.01Leevi","00.33.00Hanna","00.22.00Anni","00.00.01Leevi"] on page
+        #["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"] on page
         formatted_data.append(score)
     
     return formatted_data
@@ -39,15 +39,21 @@ def read_score():
     data = open("scores.json", "r")
     return data.read()
 
+
+def save_score(scores):
+    with open('scores.txt', 'w') as f:
+        json.dump(scores, f)
+
+
 # Saves data to the text file as "(id),(time),(name)"
 def save_to_score(id, time, name):
 
-    scores_data = json.load(scores.json)
+    #scores_data = json.load(scores.json)
     new_score = {"id": id, "time": time, "name": name}
     
-    with open('scores.json', 'a') as file:
-        scores_data["scores"].append(new_score)
-        print("done!")
+    with open('scores.json', 'w') as file:
+        json.dump(new_score, file)
+
         #with open("scores.json", "w") as file:
         #    json.dump(scores_data, file, indent=2)
     

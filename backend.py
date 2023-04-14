@@ -70,8 +70,15 @@ def save_highscore():
     time = user_data['time']
     id = generate_id()
 
-    new_score = {"id": id, "time": time, "name": name}
-    scores.append(new_score)
+    #1
+    #new_score = {"id": id, "time": time, "name": name}
+    #print(new_score)
+
+    #2
+    #scores["id"].append(id)
+    #scores["time"].append(time)
+    #scores["name"].append(name)
+
     return make_response("Score added succesfully!", 209)
 
 if __name__ == "__main__":
