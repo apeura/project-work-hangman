@@ -3,7 +3,7 @@ from frontend.util.utility import format_score, read_score, generate_id
 
 app = Flask(__name__)
 
-scores = format_score()
+scores = format_score(False)
 
 #Allow origins
 @app.after_request
@@ -18,8 +18,7 @@ def root():
 #Get all scores
 @app.route("/scores")
 def get_scores():
-    scores_all = read_score()
-    my_response = jsonify(scores_all)
+    my_response = jsonify(scores)
     return make_response(my_response, 200)
 
 #Get a single score based on the id
