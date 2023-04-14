@@ -26,8 +26,11 @@ def format_score():
         id = score["id"]
         time = score["time"] 
         name = score["name"]
-        score = f'{time}{name}'
-        # formatted_data = "") --> formatted_data += f'{time} {name} \n' --> "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" on page
+        score = f'{time} {name}'
+
+        # formatted_data = "" --> formatted_data += f'{time} {name} \n' --> "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" on page
+        
+        #["02.11.01Leevi","00.33.00Hanna","00.22.00Anni","00.00.01Leevi"] on page
         formatted_data.append(score)
     
     return formatted_data
