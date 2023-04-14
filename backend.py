@@ -73,7 +73,7 @@ def save_highscore():
     id = generate_id()
 
     new_score = {"id": id, "time": time, "name": name}
-    scores.append(new.score)
+    scores.append(new_score)
     return make_response("Score added succesfully!", 209)
 
 if __name__ == "__main__":

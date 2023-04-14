@@ -7,9 +7,16 @@ def format_score(descending=True):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
     times = sorted(all_scores, key=lambda k: k['time'], reverse=descending)
+    sorted_scores = []
 
     for score in times:
-        print(score["id"], score["time"], score["name"])
+        id = score["id"]
+        time = score["time"] 
+        name = score["name"]
+        single_score = {"id": str(id), "time": str(time), "name": str(name)}
+        sorted_scores.append(single_score)
+
+    return sorted_scores
 
 def read_score():
     data = open("scores.json", "r")
