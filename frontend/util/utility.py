@@ -3,51 +3,13 @@ import time, json
 from datetime import datetime
 
 #returns time name without id in asc order WIP
-def format_score():
+def format_score(descending=True):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
-    all_scores_formatted = []
-    id = ""
-    name = ""
-    time = ""
-    #printtaa kaikki scoret riveittäin
-    
-    all_scores_string = ""
+    times = sorted(all_scores, key=lambda k: k['time'], reverse=descending)
 
-    for score in all_scores:
+    for score in times:
         print(score["id"], score["time"], score["name"])
-        id = score["id"]
-        time = score["time"]
-        name = score["name"]
-        all_scores_string += f'{id} {time} {name} "\n"'
-
-    #player_lines = all_data.split('\n')
-    #for data in player_lines:
-    #    values = data.split(',')
-        
-    #    one_player_score = {'id': int(values[0]), 'time': (values[1]), 'name': (values[2])}
-    #    all_scores_dict.append(one_player_score)
-
-     #   del values[0]#
-     #   values_string = " ".join(values)
-     #   values_string += '\n'
-      #  all_scores += values_string
-
-    #print(all_scores_dict)
-    DS_list = read_score()
-
-
-    sorted_time_list = []
-    #sorted_time_list += 
-
-
-    #all_scores_formatted = sorted((time.strptime(d, "%H:%M:%S")) for d in sorted_time_list)
-    
-    #timees = sorted(timees, key=lambda x: time.strptime(score['time'], reverse=True))
-    
-    #all_scores_formatted = sorted(all_scores_formatted, key=lambda x: time.strptime(score['time'], "%H:%M:%S").time())
-    return timees
-
 
 def read_score():
     data = open("scores.json", "r")
