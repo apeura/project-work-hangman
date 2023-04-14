@@ -3,7 +3,7 @@ import time, json
 from datetime import datetime
 
 #returns data in asc order WIP
-def format_score(descending=True):
+def sort_score(descending=True):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
     times = sorted(all_scores, key=lambda k: k['time'], reverse=descending)
@@ -16,7 +16,11 @@ def format_score(descending=True):
         single_score = {"id": str(id), "time": str(time), "name": str(name)}
         sorted_scores.append(single_score)
 
-    return sorted_scores
+    format_score(sorted_scores)
+
+def format_score(all_scores):
+    for score in all_scores:
+        print(score["id"], score["time"], score["name"])
 
 def read_score():
     data = open("scores.json", "r")

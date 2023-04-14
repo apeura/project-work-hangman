@@ -1,9 +1,9 @@
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import format_score, read_score, generate_id
+from frontend.util.utility import sort_score, read_score, generate_id
 
 app = Flask(__name__)
 
-scores = format_score(False)
+scores = sort_score(False)
 
 #Allow origins
 @app.after_request
@@ -60,9 +60,7 @@ def delete_score(the_id):
         
     return abort(404, description= "Score not found")
 
-
-
-#saving a core
+#saving a score
 @app.route('/scores', methods=['POST'])
 def save_highscore():
     # load given string and turn in into dictionary
