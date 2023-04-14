@@ -72,7 +72,6 @@ def save_highscore():
     time = user_data['time']
     id = generate_id()
     
-    save_to_score(id, time, name)
 
 
     return make_response("Score added succesfully!", 209)
