@@ -1,18 +1,25 @@
 #match-case formatointi funtioiden sijaan?
 import time, json
-
+from datetime import datetime
 
 #returns time name without id in asc order WIP
 def format_score():
     all_data = json.loads(read_score())
-    all_scores = all_data["player_scores"]
-    #all_scores_formatted = ""
+    all_scores = all_data["scores"]
+    all_scores_formatted = []
+    id = ""
+    name = ""
+    time = ""
     #printtaa kaikki scoret riveittäin
     
+    all_scores_string = ""
+
     for score in all_scores:
         print(score["id"], score["time"], score["name"])
-
-    
+        id = score["id"]
+        time = score["time"]
+        name = score["name"]
+        all_scores_string += f'{id} {time} {name} "\n"'
 
     #player_lines = all_data.split('\n')
     #for data in player_lines:
@@ -27,10 +34,19 @@ def format_score():
       #  all_scores += values_string
 
     #print(all_scores_dict)
+    DS_list = read_score()
 
-    #all_scores_dict = sorted((time.strptime(d, "%H:%M:%S")))
-    #all_scores_dict = sorted(all_scores_dict, key=lambda x: datetime.datetime.strptime(x['time'], "%H:%M:%S").time())
-    #return all_scores
+
+    sorted_time_list = []
+    #sorted_time_list += 
+
+
+    #all_scores_formatted = sorted((time.strptime(d, "%H:%M:%S")) for d in sorted_time_list)
+    
+    #timees = sorted(timees, key=lambda x: time.strptime(score['time'], reverse=True))
+    
+    #all_scores_formatted = sorted(all_scores_formatted, key=lambda x: time.strptime(score['time'], "%H:%M:%S").time())
+    return timees
 
 
 def read_score():
@@ -75,3 +91,8 @@ def generate_id():
     return new_id
 
     
+def main():
+    format_score()
+
+if __name__ == "__main__":
+    main()
