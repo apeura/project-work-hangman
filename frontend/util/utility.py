@@ -24,7 +24,7 @@ def format_score(all_scores):
         id = score["id"]
         time = score["time"] 
         name = score["name"]
-        formatted_data =  f'{time} {name} \n'
+        formatted_data += f'{time} {name} \n'
     
     return formatted_data
 
