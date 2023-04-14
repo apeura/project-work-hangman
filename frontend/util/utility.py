@@ -1,6 +1,7 @@
 #match-case formatointi funtioiden sijaan?
 import time, json
 
+
 #returns time name without id in asc order WIP
 def format_score():
     all_data = json.loads(read_score())
