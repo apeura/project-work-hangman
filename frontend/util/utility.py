@@ -20,13 +20,15 @@ def sort_score(descending=True):
 
 def format_score():
     all_scores = sort_score()
-    formatted_data = ""
-    
+    formatted_data = []
+
     for score in all_scores:
         id = score["id"]
         time = score["time"] 
         name = score["name"]
-        formatted_data += f'{time} {name} \n'
+        score = f'{time}{name}'
+        # formatted_data = "") --> formatted_data += f'{time} {name} \n' --> "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" on page
+        formatted_data.append(score)
     
     return formatted_data
 
