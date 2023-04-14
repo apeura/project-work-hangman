@@ -83,7 +83,7 @@ def run_game():
         # quitting outer loop when game is lost or won
         if amount_of_wrong_letters == incorrect_guess_limit:
             end = time.time()
-            game_lost()
+            print("loser :(\n ")
             break
         elif amount_of_correct_letters == len(secret_word) and rounds == 3:
             end = time.time()
@@ -100,10 +100,9 @@ def game_won(time):
     #time_taken = (f"{minutes:.0f}m {seconds:.0f}s")
     print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
     
-    output = datetime.strftime(datetime.utcfromtimestamp(time), '%H:%M:%S')
-    print(type(output))
+    full_format_time = datetime.strftime(datetime.utcfromtimestamp(time), '%H:%M:%S')
     
-    add_to_highscore(output)
+    add_to_highscore(full_format_time)
 
 #### WORK IN PROGRESS..? ###
 def add_to_highscore(time):
@@ -116,10 +115,6 @@ def add_to_highscore(time):
     myobj = {'time': time, 'name': name}
     x = requests.post(url, json = myobj)
     print(x.text)
-
-#loser :(
-def game_lost():
-    print("loser :(\n ")
 
 #takes user guess & checks it's valid
 def user_guess(guessed_letters):

@@ -1,7 +1,9 @@
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import read_score, save_to_score, generate_id
+from frontend.util.utility import format_score, read_score, generate_id
 
 app = Flask(__name__)
+
+scores = format_score()
 
 #Allow origins
 @app.after_request
@@ -11,7 +13,7 @@ def after_request(response):
 
 @app.route("/")
 def root():
-    return "<h1>hello, this is the root location for highscores</h1>"
+    return scores
 
 #Get all scores
 @app.route("/scores")
@@ -64,16 +66,15 @@ def delete_score(the_id):
 #saving a core
 @app.route('/scores', methods=['POST'])
 def save_highscore():
-
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
 
     name = user_data['name']
     time = user_data['time']
     id = generate_id()
-    
 
-
+    new_score = {"id": id, "time": time, "name": name}
+    scores.append(new.score)
     return make_response("Score added succesfully!", 209)
 
 if __name__ == "__main__":

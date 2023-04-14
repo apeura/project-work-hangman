@@ -2,7 +2,7 @@
 import time, json
 from datetime import datetime
 
-#returns time name without id in asc order WIP
+#returns data in asc order WIP
 def format_score(descending=True):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
