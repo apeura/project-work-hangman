@@ -19,8 +19,14 @@ def sort_score(descending=True):
     format_score(sorted_scores)
 
 def format_score(all_scores):
+    formatted_data = ""
     for score in all_scores:
-        print(score["id"], score["time"], score["name"])
+        id = score["id"]
+        time = score["time"] 
+        name = score["name"]
+        formatted_data =  f'{time} {name} \n'
+    
+    return formatted_data
 
 def read_score():
     data = open("scores.json", "r")
