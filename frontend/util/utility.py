@@ -34,10 +34,10 @@ def format_score():
         scores_list.append(score)           # -->      ["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"]
     
     for s in scores_list:
-        time = scores_list[0]
-        name = scores_list[1]
-        formatted_scores += f'{time} {name}'
-    
+        player_score = str(scores_list[s])
+        formatted_scores += player_score
+
+    "02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna"
     return formatted_scores
 
 def read_score():
