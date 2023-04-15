@@ -32,9 +32,9 @@ def format_score():
 
         #scores_string += f'{time} {name} \n' -->      "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" 
         scores_list.append(score)           # -->      ["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"]
-    
-    for s in scores_list:
-        player_score = scores_list[s]
+
+    for i in range(len(scores_list)):
+        player_score = scores_list[i]
         formatted_scores += player_score
 
     "02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna"
