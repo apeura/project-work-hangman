@@ -37,7 +37,7 @@ def format_score():
         player_score = scores_list[i]
         formatted_scores += player_score
 
-    "02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna"
+    # "02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna"
     return formatted_scores
 
 def read_score():
