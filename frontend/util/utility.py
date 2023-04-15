@@ -34,6 +34,7 @@ def format_score():
         scores_list.append(score)           # -->      ["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"]
 
     n = 0
+    
     while len(scores_list) > n:
         player_score = scores_list[n]
         formatted_scores += player_score    # --> ["0","2",".","1","1",".","0","1"," ","L","e","e","v","i","0","0",".","3","3",".","0","0"," ","H","a","n","n","a","0","0",".","2","2",".","0","0"," ","A","n","n","i","0","0",".","0","0",".","0","1"," ","L","e","e","v","i"]
