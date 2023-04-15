@@ -22,7 +22,7 @@ def format_score():
     all_scores = sort_score()
     scores_list = []
     # scores_string = "" 
-    formatted_scores = []
+    formatted_scores = ""
 
     for score in all_scores:
         #id = score["id"]
