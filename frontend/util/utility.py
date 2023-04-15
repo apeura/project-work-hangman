@@ -34,7 +34,9 @@ def format_score():
         scores_list.append(score)           # -->      ["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"]
     
     for s in scores_list:
-        formatted_scores += scores_list[0], scores_list[1]
+        time = scores_list[0]
+        name = scores_list[1]
+        formatted_scores += f'{time} {name}'
     
     return formatted_scores
 
