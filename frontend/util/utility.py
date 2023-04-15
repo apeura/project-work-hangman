@@ -42,7 +42,7 @@ def format_score():
 
 
     # "02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna02.11.01 Leevi 00.33.00 Hanna"
-    return scores_list[0]
+    return formatted_scores
 
 def read_score():
     data = open("scores.json", "r")
