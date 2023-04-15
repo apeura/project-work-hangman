@@ -20,7 +20,9 @@ def sort_score(descending=True):
 
 def format_score():
     all_scores = sort_score()
-    formatted_data = []
+    scores_list = []
+    # scores_string = "" 
+    formatted_scores = ""
 
     for score in all_scores:
         id = score["id"]
@@ -28,24 +30,19 @@ def format_score():
         name = score["name"]
         score = f'{time} {name}'
 
-        # formatted_data = "" --> formatted_data += f'{time} {name} \n' --> "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" on page
-        
-        #["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"] on page
-        formatted_data.append(score)
+        #scores_string += f'{time} {name} \n' -->      "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" 
+        scores_list.append(score)           # -->      ["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"]
     
-    return formatted_data
+    for s in scores_list:
+        formatted_scores += scores_list[0], scores_list[1]
+    
+    return formatted_scores
 
 def read_score():
     data = open("scores.json", "r")
     return data.read()
 
-
-def save_score(scores):
-    with open('scores.txt', 'w') as f:
-        json.dump(scores, f)
-
-
-# Saves data to the text file as "(id),(time),(name)"
+# Saves data to a json file 
 def save_to_score(id, time, name):
 
     #scores_data = json.load(scores.json)
