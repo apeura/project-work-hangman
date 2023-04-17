@@ -3,9 +3,9 @@ import time, json
 from datetime import datetime
 import json
 import os
+from backend 
 
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
-
 
 #returns data in asc order WIP
 def sort_score(descending=True):
@@ -52,12 +52,12 @@ def read_score():
     return data.read()
 
 # Saves data to a json file 
-#def save_to_score(id, time, name):
-
-    #scores_data = json.load(scores.json)
+def save_to_score(id, time, name):
+    scores = format_score()
+    scores_data = json.load(scores.json)
     
-#    with open('scores.json', 'w') as file:
-#        json.dump(new_score, file)
+    with open('scores.json', 'w') as file:
+        json.dump(scores_data, file)
 
         #with open("scores.json", "w") as file:
         #    json.dump(scores_data, file, indent=2)
@@ -71,7 +71,5 @@ def generate_id():
     with open(scores_path, 'r') as f:
         scores_dict = json.load(f)
         new_id = len(scores_dict['scores']) + 1
-
     
-
     return new_id
