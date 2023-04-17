@@ -1,5 +1,5 @@
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import save_to_score, format_score, read_score
+from frontend.util.utility import save_to_score, format_score, read_score, adjust_ids
 
 app = Flask(__name__)
 
@@ -56,6 +56,7 @@ def delete_score(the_id):
     for score in scores:
         if score["id"] == the_id:
             scores.remove(score)
+            adjust_ids(the_id)
             return make_response("Score removed succesfully!", 204)
         
     return abort(404, description= "Score not found")

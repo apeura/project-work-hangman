@@ -108,7 +108,7 @@ def game_won(time):
     
     add_to_highscore(full_format_time)
 
-#### WORK IN PROGRESS..? ###
+#### DONE? ###
 def add_to_highscore(time):
 
     name = input("Please input a name for the leaderboard: ")
@@ -116,8 +116,8 @@ def add_to_highscore(time):
         print("Name should be 2-10 characters.")
         name = input("Please input a name for the leaderboard: ")
 
-    time_s = time
     id = generate_id()
+
     save_to_score(id,time,name)
 
     myobj = {'id': id, 'time': time, 'name': name}

@@ -43,7 +43,6 @@ def format_score():
         formatted_scores += scores_list[n]  # --> "02.11.01 Leevi00.33.00 Hanna00.22.00 Anni00.00.01 Leevi"
         n += 1
 
-    
     # player_score = scores_list[n].strip('\"')
     return formatted_scores
 
@@ -51,11 +50,9 @@ def read_score():
     data = open("scores.json", "r")
     return data.read()
 
-# Saves data to a json file 
+# Saves data to a json file
 def save_to_score(id, time, name):
-#    scores_data = json.load(scores_path.json)
-#    with open('scores.json', 'w') as file:
-#        json.dump(scores_data, file)
+
     myobj = {'id': id, 'time': time, 'name': name}
 
     with open(scores_path) as f:
@@ -66,12 +63,7 @@ def save_to_score(id, time, name):
     with open(scores_path, 'w') as f:
         json.dump(data, f)
 
-    #f = open(scores_path, "a")
-    #f.write(myobj)
-    #f.close()
-
-    #with open("scores.json", "w") as file:3
-    #    json.dump(scores_data, file, indent=2)
+    print("saved to json!")
 
 # Generates
 def generate_id():
@@ -83,3 +75,36 @@ def generate_id():
         new_id = len(scores_dict['scores']) + 1
     
     return new_id
+
+def adjust_ids(removed_id):
+    all_data = json.loads(read_score())
+    all_scores = all_data["scores"]
+
+    # Loop through all the scores and update the IDs
+    for score in all_scores:
+        if score["id"] > removed_id:
+            score["id"] -= 1
+
+    # Write the updated data back to the JSON file
+    with open(scores_path, 'w') as f:
+        json.dump(all_data, f)
+
+#format game time from 00:00:00 to e.g. 1m 20sec
+def format_time(game_time):
+    
+    # Split the time string into hours, minutes, and seconds
+    hours, minutes, seconds = map(int, game_time.split(':'))
+
+    time_components = []
+
+    # Check for time and add to the time_components list if it's greater than 0
+    if hours > 0:
+        time_components.append(f"{hours} hour{'s' if hours > 1 else ''}")
+    if minutes > 0:
+        time_components.append(f"{minutes} minute{'s' if minutes > 1 else ''}")
+    if seconds > 0:
+        time_components.append(f"{seconds} second{'s' if seconds > 1 else ''}")
+
+    game_time = " ".join(time_components)
+
+    return game_time

@@ -1,34 +1,34 @@
 {
   "scores": [
     {
-      "id": "1",
+      "id": 1,
       "time": "00.00.01",
       "name": "Leevi"
     },
     {
-      "id": "2",
+      "id": 2,
       "time": "00.33.00",
       "name": "Hanna"
     },
     {
-      "id": "5",
+      "id": 5,
       "time": "02.11.01",
       "name": "Juho"
     },
     {
-      "id": "4",
+      "id": 4,
       "time": "00.22.00",
       "name": "Viivi"
-    },
-    {
-      "id": 5,
-      "time": "00:00:01",
-      "name": "MOIKKA"
     },
     {
       "id": 6,
       "time": "00:00:02",
       "name": "ANNI"
+    },
+    {
+      "id": 7,
+      "time": "00:00:01",
+      "name": "Lasse"
     }
   ]
 }
