@@ -66,10 +66,10 @@ def add_highscore():
     user_data = json.loads(request.data)
     scores.append(user_data)
 
-    id = user_data['id']
-    name = user_data['name']
-    time = user_data['time']
-    save_to_score(id, time, name)
+   # id = user_data['id']
+   # name = user_data['name']
+    #time = user_data['time']
+    #save_to_score(id, time, name)
     
     return make_response("", 201)
 
