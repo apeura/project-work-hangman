@@ -3,7 +3,6 @@ import time, json
 from datetime import datetime
 import json
 import os
-from backend 
 
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 
