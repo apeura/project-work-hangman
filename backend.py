@@ -60,15 +60,25 @@ def delete_score(the_id):
         
     return abort(404, description= "Score not found")
 
-#saving a score
-@app.route('/scores', methods=['POST'])
-def save_highscore():
-    # load given string and turn in into dictionary
-    user_data = json.loads(request.data)
+#save score
+def save_score(scores):
+    with open('scores.txt', 'w') as f:
+        json.dump(scores, f)
 
-    name = user_data['name']
-    time = user_data['time']
-    id = generate_id()
+
+#adding a score
+@app.route('/scores', methods=['POST'])
+def add_highscore():
+    user_data = json.loads(request.data)
+    scores.append(user_data)
+    return make_response("", 201)
+
+    # load given string and turn in into dictionary
+    #user_data = json.loads(request.data)
+
+    #name = user_data['name']
+    #time = user_data['time']
+    #id = generate_id()
 
     #1
     #new_score = {"id": id, "time": time, "name": name}
@@ -79,7 +89,7 @@ def save_highscore():
     #scores["time"].append(time)
     #scores["name"].append(name)
 
-    return make_response("Score added succesfully!", 209)
+    #return make_response("Score added succesfully!", 209)
 
 if __name__ == "__main__":
     app.run(debug=True)
