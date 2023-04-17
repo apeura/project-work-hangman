@@ -114,6 +114,7 @@ def add_to_highscore(time):
         name = input("Please input a name for the leaderboard: ")
 
     id = generate_id()
+    
     myobj = {'id': id, 'time': time, 'name': name}
     x = requests.post(url, json = myobj)
     print(x.text)

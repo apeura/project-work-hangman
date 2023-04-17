@@ -50,7 +50,6 @@ def read_score():
 def save_to_score(id, time, name):
 
     #scores_data = json.load(scores.json)
-    new_score = {"id": id, "time": time, "name": name}
     
     with open('scores.json', 'w') as file:
         json.dump(new_score, file)
