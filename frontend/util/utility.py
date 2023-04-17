@@ -43,7 +43,7 @@ def format_score():
     return formatted_scores
 
 def read_score():
-    data = open("\project-work-hangman\scores.json", "r")
+    data = open("scores.json", "r")
     return data.read()
 
 # Saves data to a json file 
