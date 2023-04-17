@@ -3,7 +3,7 @@ from frontend.util.utility import save_to_score, format_score, read_score, gener
 
 app = Flask(__name__)
 
-scores = format_score()
+scores = read_score()
 
 #Allow origins
 @app.after_request
