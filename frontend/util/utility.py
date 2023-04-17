@@ -56,13 +56,22 @@ def save_to_score(id, time, name):
 #    scores_data = json.load(scores_path.json)
 #    with open('scores.json', 'w') as file:
 #        json.dump(scores_data, file)
+    myobj = {'id': id, 'time': time, 'name': name}
 
-    f = open(scores_path, "a")
-    f.write(f"\n{id},{time},{name}")
-    f.close()
+    with open(scores_path) as f:
+        data = json.load(f)
 
-        #with open("scores.json", "w") as file:3
-        #    json.dump(scores_data, file, indent=2)
+    data['scores'].append(myobj)
+
+    with open(scores_path, 'w') as f:
+        json.dump(data, f)
+
+    #f = open(scores_path, "a")
+    #f.write(myobj)
+    #f.close()
+
+    #with open("scores.json", "w") as file:3
+    #    json.dump(scores_data, file, indent=2)
 
 # Generates
 def generate_id():

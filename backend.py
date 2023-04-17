@@ -1,5 +1,5 @@
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import save_to_score, format_score, read_score, generate_id
+from frontend.util.utility import save_to_score, format_score, read_score
 
 app = Flask(__name__)
 
@@ -63,6 +63,7 @@ def delete_score(the_id):
 #adding a score
 @app.route('/scores', methods=['POST'])
 def add_highscore():
+    # load given string and turn in into dictionary
     user_data = json.loads(request.data)
     scores.append(user_data)
 
@@ -71,14 +72,7 @@ def add_highscore():
     #time = user_data['time']
     #save_to_score(id, time, name)
     
-    return make_response("", 201)
-
-    # load given string and turn in into dictionary
-    #user_data = json.loads(request.data)
-
-    #name = user_data['name']
-    #time = user_data['time']
-    #id = generate_id()
+    #return make_response("", 201)
 
     #1
     #new_score = {"id": id, "time": time, "name": name}
@@ -89,7 +83,7 @@ def add_highscore():
     #scores["time"].append(time)
     #scores["name"].append(name)
 
-    #return make_response("Score added succesfully!", 209)
+    return make_response("Score added succesfully!", 209)
 
 if __name__ == "__main__":
     app.run(debug=True)

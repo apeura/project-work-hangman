@@ -3,7 +3,7 @@ import random
 import time
 from datetime import datetime
 from util.drawings import draw_hangman
-from util.utility import generate_id
+from util.utility import generate_id, save_to_score
 
 url = "https://hangman-highscores-amif.onrender.com/scores"
 
@@ -116,7 +116,10 @@ def add_to_highscore(time):
         print("Name should be 2-10 characters.")
         name = input("Please input a name for the leaderboard: ")
 
+    time_s = time
     id = generate_id()
+    save_to_score(id,time,name)
+
     myobj = {'id': id, 'time': time, 'name': name}
     x = requests.post(url, json = myobj)
     print(x.text)
