@@ -62,7 +62,9 @@ def read_score():
 def generate_id():
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
-    scores_dict = json.loads(read_score())
+    data = open("scores.json", "r")
+
+    scores_dict = json.loads(data)
     new_id = len(scores_dict['scores']) + 1
 
     return new_id
