@@ -45,6 +45,10 @@ def execute_menu_choice(user_choice):
 #### WORK IN PROGRESS ###
 def show_highscores():
     print("HIGH SCORES")
+    print("Top 10 best times")
+
+    r = requests.get('https://hangman-highscores-amif.onrender.com/scores')
+    print(r.text)
 
 #runs game for max 3 rounds, takes time
 def run_game():
@@ -66,7 +70,6 @@ def run_game():
 
             # leaving inner loop when game is lost
             if amount_of_wrong_letters == incorrect_guess_limit:
-               game_lost()
                break
 
             print_game(secret_word, guessed_letters)
@@ -114,7 +117,6 @@ def add_to_highscore(time):
         name = input("Please input a name for the leaderboard: ")
 
     id = generate_id()
-    
     myobj = {'id': id, 'time': time, 'name': name}
     x = requests.post(url, json = myobj)
     print(x.text)
