@@ -43,16 +43,16 @@ def format_score():
     return formatted_scores
 
 def read_score():
-    data = open("scores.json", "r")
+    data = open("\project-work-hangman\scores.json", "r")
     return data.read()
 
 # Saves data to a json file 
-def save_to_score(id, time, name):
+#def save_to_score(id, time, name):
 
     #scores_data = json.load(scores.json)
     
-    with open('scores.json', 'w') as file:
-        json.dump(new_score, file)
+#    with open('scores.json', 'w') as file:
+#        json.dump(new_score, file)
 
         #with open("scores.json", "w") as file:
         #    json.dump(scores_data, file, indent=2)
