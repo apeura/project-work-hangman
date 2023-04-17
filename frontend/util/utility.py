@@ -52,8 +52,7 @@ def read_score():
 
 # Saves data to a json file 
 def save_to_score(id, time, name):
-    scores = format_score()
-    scores_data = json.load(scores.json)
+    scores_data = json.load(scores_path.json)
     
     with open('scores.json', 'w') as file:
         json.dump(scores_data, file)
