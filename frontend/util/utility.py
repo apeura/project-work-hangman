@@ -52,12 +52,15 @@ def read_score():
 
 # Saves data to a json file 
 def save_to_score(id, time, name):
-    scores_data = json.load(scores_path.json)
-    
-    with open('scores.json', 'w') as file:
-        json.dump(scores_data, file)
+#    scores_data = json.load(scores_path.json)
+#    with open('scores.json', 'w') as file:
+#        json.dump(scores_data, file)
 
-        #with open("scores.json", "w") as file:
+    f = open(scores_path, "a")
+    f.write(f"\n{id},{time},{name}")
+    f.close()
+
+        #with open("scores.json", "w") as file:3
         #    json.dump(scores_data, file, indent=2)
     
 
