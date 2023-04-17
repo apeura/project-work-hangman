@@ -62,7 +62,7 @@ def delete_score(the_id):
 
 #save score
 def save_score(scores):
-    with open('scores.txt', 'w') as f:
+    with open('scores.json', 'w') as f:
         json.dump(scores, f)
 
 
