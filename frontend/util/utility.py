@@ -1,9 +1,9 @@
 #match-case formatointi funtioiden sijaan?
-import time, json
-from datetime import datetime
 import json
+from datetime import datetime
 import os
 
+#fix to scores.json not being found
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 
 #returns data in asc order WIP
@@ -22,6 +22,7 @@ def sort_score(descending=True):
 
     return sorted_scores
 
+#formats score to show only time and name + time formatting?
 def format_score():
     all_scores = sort_score()
     scores_list = []
@@ -62,7 +63,6 @@ def save_to_score(id, time, name):
 
         #with open("scores.json", "w") as file:3
         #    json.dump(scores_data, file, indent=2)
-    
 
 # Generates
 def generate_id():

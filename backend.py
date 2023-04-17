@@ -60,13 +60,6 @@ def delete_score(the_id):
         
     return abort(404, description= "Score not found")
 
-#save score
-#@app.route('/customers', methods=['POST'])
-#def save_score(scores):
- #   with open('scores.json', 'w') as f:
- #       json.dump(scores, f)
-
-
 #adding a score
 @app.route('/scores', methods=['POST'])
 def add_highscore():
