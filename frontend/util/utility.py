@@ -1,6 +1,11 @@
 #match-case formatointi funtioiden sijaan?
 import time, json
 from datetime import datetime
+import json
+import os
+
+scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
+
 
 #returns data in asc order WIP
 def sort_score(descending=True):
@@ -62,9 +67,11 @@ def read_score():
 def generate_id():
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
-    data = open("scores.json", "r")
 
-    scores_dict = json.loads(data)
-    new_id = len(scores_dict['scores']) + 1
+    with open(scores_path, 'r') as f:
+        scores_dict = json.load(f)
+        new_id = len(scores_dict['scores']) + 1
+
+    
 
     return new_id
