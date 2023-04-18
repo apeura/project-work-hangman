@@ -120,9 +120,3 @@ def format_time(game_time):
     # 1 minute 1 second
 
     return game_time
-
-def main():
-    print(adjust_ids(3))
-
-if __name__ == "__main__":
-    main()
