@@ -57,7 +57,7 @@ def delete_score(the_id):
     
     for score in scores:
         if score["id"] == the_id:
-            scores.remove(score)
+            scores.pop(score)
             adjust_ids(the_id)
             return make_response("Score removed succesfully!", 204)
         
