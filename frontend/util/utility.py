@@ -49,7 +49,7 @@ def format_score():
     return formatted_scores
 
 def read_score():
-    data = open("scores.json", "r")
+    data = open(scores_path, "r")
     return data.read()
 
 # Saves data to a json file
@@ -122,7 +122,7 @@ def format_time(game_time):
     return game_time
 
 def main():
-    print(format_time("00:01:01"))
+    print(adjust_ids(3))
 
 if __name__ == "__main__":
     main()
