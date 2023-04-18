@@ -32,9 +32,10 @@ def format_score():
 
     for score in all_scores:
         #id = score["id"]
-        time = score["time"] 
+        time = score["time"]
+        f_time = format_time(time) #format time --> 1 minute 15 seconds
         name = score["name"]
-        score = f'{time} {name}'
+        score = f'{f_time} {name}' # --> 1 minute 15 seconds Jonne
 
         #scores_string += f'{time} {name} \n' -->      "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" 
         scores_list.append(score)           # -->      ["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"]

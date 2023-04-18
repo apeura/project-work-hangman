@@ -1,8 +1,8 @@
-GET https://apeura-server.onrender.com/scores
+GET https://hangman-highscores-amif.onrender.com/scores
 ###
-GET https://apeura-server.onrender.com/scores/99
+GET https://hangman-highscores-amif.onrender.com/scores/99
 ###
-DELETE https://apeura-server.onrender.com/scores/1
+DELETE https://hangman-highscores-amif.onrender.com/scores/1
 ###
 post http://apeura-server.onrender.com/scores
 #Content-type: application/json
