@@ -7,7 +7,7 @@ import os
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 
 #returns data in asc order WIP
-def sort_score(descending=True):
+def sort_score(descending=False):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
     times = sorted(all_scores, key=lambda k: k['time'], reverse=descending)
@@ -17,12 +17,13 @@ def sort_score(descending=True):
         id = score["id"]
         time = score["time"] 
         name = score["name"]
-        single_score = {"id": str(id), "time": str(time), "name": str(name)}
+        single_score = {"id": id, "time": str(time), "name": str(name)}
         sorted_scores.append(single_score)
 
     return sorted_scores
 
 #formats score to show only time and name + time formatting?
+#
 def format_score():
     all_scores = sort_score()
     scores_list = []
@@ -89,22 +90,38 @@ def adjust_ids(removed_id):
     with open(scores_path, 'w') as f:
         json.dump(all_data, f)
 
-#format game time from 00:00:00 to e.g. 1m 20sec
+# format game time from 00:00:00 to e.g. 1minute 20seconds
+# hours added only if time is over an hour
 def format_time(game_time):
-    
+
     # Split the time string into hours, minutes, and seconds
     hours, minutes, seconds = map(int, game_time.split(':'))
 
     time_components = []
 
-    # Check for time and add to the time_components list if it's greater than 0
     if hours > 0:
         time_components.append(f"{hours} hour{'s' if hours > 1 else ''}")
-    if minutes > 0:
-        time_components.append(f"{minutes} minute{'s' if minutes > 1 else ''}")
-    if seconds > 0:
-        time_components.append(f"{seconds} second{'s' if seconds > 1 else ''}")
+    
+    if minutes == 1:
+        time_components.append(f"{minutes} minute")
+    else:
+        time_components.append(f"{minutes} minutes")
+
+    if seconds == 1:
+        time_components.append(f"{seconds} second")
+    else:
+        time_components.append(f"{seconds} seconds")
 
     game_time = " ".join(time_components)
 
+    # e.g. 1 hour 3 minutes 59 seconds
+    # 3 minutes 0 seconds
+    # 1 minute 1 second
+
     return game_time
+
+def main():
+    print(format_time("00:01:01"))
+
+if __name__ == "__main__":
+    main()

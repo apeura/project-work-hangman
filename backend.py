@@ -1,5 +1,5 @@
 from flask import Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import save_to_score, format_score, read_score, adjust_ids
+from frontend.util.utility import sort_score, format_score, read_score, adjust_ids
 
 app = Flask(__name__)
 
@@ -37,12 +37,14 @@ def get_score(the_id):
 #Returns a descended or ascended order of the score list.
 @app.route("/scores")
 def get_asc_or_desc_scores(order_score):
-    print("moi")
+    sort_score()
+    pass
 
 
 #Fetching all scores with limit
 @app.route("/scores")
 def get_scores_limit(limit):
+
     for x in scores:
         pass
     
