@@ -18,9 +18,8 @@ def root():
 #Get all scores
 @app.route("/scores")
 def get_scores():
-    #my_response = jsonify(scores)
-    my_response = Response(scores, content_type='application/json')
-    return (my_response, 200)
+    my_response = jsonify(scores)
+    return make_response(my_response, 200)
 
 #Get a single score based on the id
 @app.route('/scores/<int:the_id>')
