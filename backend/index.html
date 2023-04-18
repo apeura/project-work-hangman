@@ -19,6 +19,10 @@
         let hr = await fetch("https://hangman-highscores-amif.onrender.com/scores");
         let data = await hr.json();
         console.log(data);
+        let ul = document.querySelector("ul");
+        ul.innerHTML = data
+          .map((scores) => `<li>${scores.id}</li>`)
+          .join("");
       });
     </script>
   </body>
