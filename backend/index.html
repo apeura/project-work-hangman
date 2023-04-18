@@ -16,7 +16,7 @@
     <script>
       let b = document.querySelector("button");
       b.addEventListener("click", async () => {
-        let hr = await fetch("https://hangman-highscores-amif.onrender.com/");
+        let hr = await fetch("https://hangman-highscores-amif.onrender.com/scores");
         let data = await hr.json();
         console.log(data);
       });
