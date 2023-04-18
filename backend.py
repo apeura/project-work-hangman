@@ -18,7 +18,8 @@ def root():
 #Get all scores
 @app.route("/scores")
 def get_scores():
-    my_response = jsonify(scores)
+    #my_response = jsonify(scores)
+    my_response = Response(scores, content_type='application/json')
     return (my_response, 200)
 
 #Get a single score based on the id
@@ -76,15 +77,6 @@ def add_highscore():
     #save_to_score(id, time, name)
     
     #return make_response("", 201)
-
-    #1
-    #new_score = {"id": id, "time": time, "name": name}
-    #print(new_score)
-
-    #2
-    #scores["id"].append(id)
-    #scores["time"].append(time)
-    #scores["name"].append(name)
 
     return make_response("Score added succesfully!", 209)
 
