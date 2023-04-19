@@ -75,7 +75,7 @@ def add_highscore():
 
     return make_response("Score added succesfully!", 209)
 
-@app.route('/kakka', methods = ['GET'])
+@app.route('/scores/array', methods = ['GET'])
 def index():
     #2D array
     scores_list = make_2D_array()
