@@ -78,16 +78,10 @@ def add_highscore():
 @app.route('/scores', methods = ['GET'])
 def index():
 
-    #time =""
-    #name =""
-
-    #save_to_database(name, lname)
-
-    with open('scores.json', 'r') as f:
-        data = f.read()
+    scores_dict = json.loads(scores_str)
 
     #2D array
-    rows = data.split('\n')
+    rows = scores_dict.split('\n')
     table_data = [row.split(',') for row in rows]
 
     return render_template('form.html', names=table_data, name=name, lname=lname)
