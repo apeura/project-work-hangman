@@ -120,3 +120,9 @@ def format_time(game_time):
     # 1 minute 1 second
 
     return game_time
+
+def main():
+    print(read_score())
+
+if __name__ == "__main__":
+    main()

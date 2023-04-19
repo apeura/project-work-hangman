@@ -1,11 +1,11 @@
-GET https://hangman-highscores-amif.onrender.com/scores
+GET http://127.0.0.1:5000/scores
 ###
-GET https://hangman-highscores-amif.onrender.com/scores/2
+GET http://127.0.0.1:5000/scores/2
 ###
-DELETE https://hangman-highscores-amif.onrender.com/scores/1
+DELETE http://127.0.0.1:5000/scores/1
 ###
-post http://apeura-server.onrender.com/scores
-#Content-type: application/json
+post http://127.0.0.1:5000/scores
+Content-type: application/json
 
-#{ "id": 10, "name": "maija" }
+{"id": 6, "time": "00:03:02", "name": "maija"}
 ###
