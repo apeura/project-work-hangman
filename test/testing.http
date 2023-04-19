@@ -7,5 +7,5 @@ DELETE http://127.0.0.1:5000/scores/3
 post http://127.0.0.1:5000/scores
 Content-type: application/json
 
-{"id": 6, "time": "00:03:02", "name": "maija"}
+{"id": 7, "time": "00:03:02", "name": "maija"}
 ###

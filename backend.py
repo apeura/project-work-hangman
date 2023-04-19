@@ -1,4 +1,4 @@
-from flask import Flask, Response, jsonify, abort, make_response, request, json
+from flask import render_template, Flask, Response, jsonify, abort, make_response, request, json
 from frontend.util.utility import sort_score, format_score, read_score, adjust_ids
 
 app = Flask(__name__)
@@ -74,6 +74,24 @@ def add_highscore():
     scores_str.append(user_data)
 
     return make_response("Score added succesfully!", 209)
+
+@app.route('/scores', methods = ['GET'])
+def index():
+
+    #time =""
+    #name =""
+
+    #save_to_database(name, lname)
+
+    with open('scores.json', 'r') as f:
+        data = f.read()
+
+    #2D array
+    rows = data.split('\n')
+    table_data = [row.split(',') for row in rows]
+
+    return render_template('form.html', names=table_data, name=name, lname=lname)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
