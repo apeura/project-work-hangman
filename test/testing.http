@@ -1,19 +1,13 @@
-GET http://127.0.0.1:5000/scores
+GET https://hangman-highscores-amif.onrender.com/scores/scores
 ###
-GET http://127.0.0.1:5000/scores/2
+GET https://hangman-highscores-amif.onrender.com/scores/2
 ###
-DELETE http://127.0.0.1:5000/scores/3
+DELETE https://hangman-highscores-amif.onrender.com/scores/3
 ###
-post http://127.0.0.1:5000/scores
+post https://hangman-highscores-amif.onrender.com/scores
 Content-type: application/json
 
 {"id": 7, "time": "00:03:02", "name": "maija"}
 ###
 
-<<<<<<< HEAD
-GET http://127.0.0.1:5000/scores/limit/3
-###
-scores[i][0]
-=======
-GET http://127.0.0.1:5000/kakka
->>>>>>> 9215bffdeabbae14bc2500417e72d31170d27664
+GET https://hangman-highscores-amif.onrender.com/scores/array
