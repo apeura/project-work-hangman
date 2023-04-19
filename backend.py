@@ -1,5 +1,5 @@
 from flask import render_template, Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import sort_score, format_score, read_score, adjust_ids
+from frontend.util.utility import sort_score, format_score, read_score, adjust_ids, make_2D_array
 
 app = Flask(__name__)
 
@@ -75,17 +75,24 @@ def add_highscore():
 
     return make_response("Score added succesfully!", 209)
 
-@app.route('/scores', methods = ['GET'])
+@app.route('/kakka', methods = ['GET'])
 def index():
-
-    scores_dict = json.loads(scores_str)
-
     #2D array
-    rows = scores_dict.split('\n')
-    table_data = [row.split(',') for row in rows]
+    scores_list = make_2D_array()
+    scores_string = ""
+    i = 0
+    while i < len(scores_list):
+    #for score in scores_list:
+        time = str(scores_list[i][0])
+        name = str(scores_list[i][1])
+        scores_string += (f'{time}, {name}\n')
+        i = i + 1
 
-    return render_template('form.html', names=table_data, name=name, lname=lname)
+    print (scores_string)
+    #table_data = [row.split(',') for row in rows]
 
+    #return render_template('form.html', name=name, lname=lname)
+    return make_response("nice!", 209)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -9,3 +9,5 @@ Content-type: application/json
 
 {"id": 7, "time": "00:03:02", "name": "maija"}
 ###
+
+GET http://127.0.0.1:5000/kakka
