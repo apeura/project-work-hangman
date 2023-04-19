@@ -14,9 +14,9 @@ RELEASE 2
 
 RELEASE 3
 - JSON fully implemented
-- get_score functional
-- get_scores_limit functional
-- delete_score functional
+- get one score implemented
+- get scores with limit implemented
+- delete score implemented
 - utility functions added and updated: format_time, adjust_ids, sort_score, format_score
 - html updated
 

@@ -1,5 +1,5 @@
-from flask import render_template, Flask, Response, jsonify, abort, make_response, request, json
-from frontend.util.utility import sort_score, format_score, read_score, adjust_ids, make_2D_array
+from flask import render_template, Flask, jsonify, abort, make_response, request, json
+from frontend.util.utility import sort_score, read_score, adjust_ids, make_2D_array
 
 app = Flask(__name__)
 
@@ -36,10 +36,6 @@ def get_score(the_id):
 #Returns a descended or ascended order of the score list.
 @app.route("/scores/")
 def get_asc_or_desc_scores(order_score):
-    #all_scores_sorted = sort_score()
-    #i = 0
-    w#hile i > order
-    #return make_response(scores_str, 200)
     pass
 
 #Fetching all scores with limit DONE!
@@ -63,8 +59,6 @@ def get_scores_limit(limit):
 #Delete a score DONE!
 @app.route('/scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
-    if the_id < 0:
-        return abort(404)
 
     scores_s = json.loads(read_score())
     print(scores_s)
@@ -76,7 +70,6 @@ def delete_score(the_id):
 
         return make_response("Score removed succesfully!", 204)
     except:
-
         return abort(404, description= "Score not found")
 
 #adding a score DONE! But testing?

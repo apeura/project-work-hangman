@@ -3,10 +3,10 @@ import json
 from datetime import datetime
 import os
 
-#fix to scores.json not being found
+#fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 
-#returns data in asc order WIP
+#returns data in asc order (default)
 def sort_score(descending=False):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
@@ -38,7 +38,7 @@ def make_2D_array(descending=False):
     return score_list
 
 #formats score to show only time and name + time formatting?
-#
+#outdated for current build?
 def format_score():
     all_scores = sort_score()
     scores_list = []
@@ -82,7 +82,7 @@ def save_to_score(id, time, name):
 
     print("saved to json!")
 
-# Generates
+# Generates id
 def generate_id():
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
@@ -93,16 +93,16 @@ def generate_id():
     
     return new_id
 
+#fills any gaps when a score has been deleted by fixing existing ids
 def adjust_ids(dict, removed_id):
     all_data = dict
     all_scores = all_data["scores"]
 
-    # Loop through all the scores and update the IDs
+    # Looping through scores and updating ids
     for score in all_scores:
         if score["id"] > removed_id:
             score["id"] -= 1
 
-    # Write the updated data back to the JSON file
     with open(scores_path, 'w') as f:
         json.dump(all_data, f)
 
@@ -130,14 +130,8 @@ def format_time(game_time):
 
     game_time = " ".join(time_components)
 
-    # e.g. 1 hour 3 minutes 59 seconds
+    # 1 hour 3 minutes 59 seconds
     # 3 minutes 0 seconds
     # 1 minute 1 second
 
     return game_time
-
-#def main():
-#    make_2D_array()
-
-#if __name__ == "__main__":
-#    main()
