@@ -78,8 +78,8 @@ def generate_id():
     
     return new_id
 
-def adjust_ids(removed_id):
-    all_data = json.loads(read_score())
+def adjust_ids(dict, removed_id):
+    all_data = dict
     all_scores = all_data["scores"]
 
     # Loop through all the scores and update the IDs

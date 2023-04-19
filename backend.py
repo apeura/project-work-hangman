@@ -53,24 +53,18 @@ def get_scores_limit(limit):
 def delete_score(the_id):
     if the_id < 0:
         return abort(404)
-    
-    scores_s = json.loads(scores_str)
 
-    print(type(scores_s))
+    scores_s = json.loads(read_score())
 
-    for i in scores_s["scores"]:
-        if i['id'] == the_id:
-            print(scores_s[the_id])
-            #scores_s.pop([i])
-            return make_response("Score removed succesfully!", 204)
+    try:
+        print(scores_s["scores"][the_id-1]) # {'id': 1, 'time': '00.00.01', 'name': 'Leevi'}
+        del scores_s["scores"][the_id-1]
+        adjust_ids(scores_s, the_id)
 
-    #try:
-    #    del scores["scores"][the_id-1]
-    #    adjust_ids(the_id)
-    #    return make_response("Score removed succesfully!", 204)
-    #except:
-    
-    return abort(404, description= "Score not found")
+        return make_response("Score removed succesfully!", 204)
+    except:
+
+        return abort(404, description= "Score not found")
 
 #adding a score
 @app.route('/scores', methods=['POST'])
