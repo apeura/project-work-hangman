@@ -122,7 +122,7 @@ def format_time(game_time):
     return game_time
 
 def main():
-    print(read_score())
+    print(sort_score())
 
 if __name__ == "__main__":
     main()

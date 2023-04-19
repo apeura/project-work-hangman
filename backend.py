@@ -11,16 +11,16 @@ def after_request(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
-@app.route("/")
+@app.route("/") # index? see below
 def root():
     return "<h1>hello, this is the root location for highscores</h1>"
 
-#Get all scores
+#Get all scores DONE!
 @app.route("/scores")
 def get_scores():
     return make_response(scores_str, 200)
 
-#Get a single score based on the id
+#Get a single score based on the id DONE!
 @app.route('/scores/<int:the_id>')
 def get_score(the_id):
 
@@ -34,27 +34,40 @@ def get_score(the_id):
     abort(404, description="Score not found")
 
 #Returns a descended or ascended order of the score list.
-@app.route("/scores")
+@app.route("/scores/")
 def get_asc_or_desc_scores(order_score):
-    sort_score()
+    #all_scores_sorted = sort_score()
+    #i = 0
+    w#hile i > order
+    #return make_response(scores_str, 200)
     pass
 
-
-#Fetching all scores with limit
-@app.route("/scores")
+#Fetching all scores with limit DONE!
+@app.route("/scores/limit/<int:limit>")
 def get_scores_limit(limit):
 
-    for x in scores:
-        pass
-    
+    all_scores_sorted = sort_score()
+    print(all_scores_sorted)
+    scores_within_limit = []
 
-#Delete a score
+    if limit > len(all_scores_sorted):
+        return abort(404)
+
+    i = 0
+    while i < limit:
+        scores_within_limit.append(all_scores_sorted[i])
+        i += 1
+
+    return make_response(scores_within_limit, 200)
+
+#Delete a score DONE!
 @app.route('/scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
     if the_id < 0:
         return abort(404)
 
     scores_s = json.loads(read_score())
+    print(scores_s)
 
     try:
         print(scores_s["scores"][the_id-1]) # {'id': 1, 'time': '00.00.01', 'name': 'Leevi'}
@@ -66,7 +79,7 @@ def delete_score(the_id):
 
         return abort(404, description= "Score not found")
 
-#adding a score
+#adding a score DONE! But testing?
 @app.route('/scores', methods=['POST'])
 def add_highscore():
     # load given string and turn in into dictionary
@@ -84,7 +97,7 @@ def index():
     rows = scores_dict.split('\n')
     table_data = [row.split(',') for row in rows]
 
-    return render_template('form.html', names=table_data, name=name, lname=lname)
+    return render_template('index.html', names=table_data)
 
 
 if __name__ == "__main__":

@@ -17,20 +17,20 @@
     <div class="container-fluid">
         <h1>Customer Database</h1>
         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">time</th>
-                    <th scope="col">name</th>
+            <thead> <!-- defines the header row with the column headers -->
+                <tr> <!-- table row, defines each row of data -->
+                    <th scope="col">time</th> <!-- table header -->
+                    <th scope="col">name</th> <!-- table header -->
                 </tr>
             </thead>
 
             <!-- [[1, "jaska", "jokunen"],
                   [2, "tiina", "virtanen"]]-->
 
-            {% for row in scores %}
-            <tr>
+            {% for row in scores %} <!-- is it 'scores'??  !!!!!!!!!!! -->
+            <tr> <!-- table row, defines each row of data -->
                 {% for cell in row %}
-                <td>{{cell}}</td>
+                <td>{{cell}}</td> <!-- table data, used to create a data cell -->
                 {% endfor %}
             </tr>
             {% endfor %}
@@ -41,7 +41,5 @@
             crossorigin="anonymous"></script>
 
     </div>
-
 </body>
-
 </html>
