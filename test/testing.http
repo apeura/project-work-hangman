@@ -10,6 +10,10 @@ Content-type: application/json
 {"id": 7, "time": "00:03:02", "name": "maija"}
 ###
 
+<<<<<<< HEAD
 GET http://127.0.0.1:5000/scores/limit/3
 ###
 scores[i][0]
+=======
+GET http://127.0.0.1:5000/kakka
+>>>>>>> 9215bffdeabbae14bc2500417e72d31170d27664

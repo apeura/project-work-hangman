@@ -22,6 +22,21 @@ def sort_score(descending=False):
 
     return sorted_scores
 
+#returns list without the id
+def make_2D_array(descending=False):
+    all_data = json.loads(read_score())
+    all_scores = all_data["scores"]
+    times = sorted(all_scores, key=lambda k: k['time'], reverse=descending)
+    score_list = []
+
+    for score in times:
+        time = score["time"] 
+        name = score["name"]
+        single_score = [str(time), str(name)]
+        score_list.append(single_score)
+
+    return score_list
+
 #formats score to show only time and name + time formatting?
 #
 def format_score():
@@ -122,7 +137,11 @@ def format_time(game_time):
     return game_time
 
 def main():
+<<<<<<< HEAD
     print(sort_score())
+=======
+    make_2D_array()
+>>>>>>> 9215bffdeabbae14bc2500417e72d31170d27664
 
 if __name__ == "__main__":
     main()
