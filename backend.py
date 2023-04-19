@@ -101,12 +101,8 @@ def index():
         scores_string += (f'{time}, {name}\n')
         i = i + 1
 
-<<<<<<< HEAD
-    return render_template('index.html', names=table_data)
-=======
     print (scores_string)
     #table_data = [row.split(',') for row in rows]
->>>>>>> 9215bffdeabbae14bc2500417e72d31170d27664
 
     #return render_template('form.html', name=name, lname=lname)
     return make_response("nice!", 209)
