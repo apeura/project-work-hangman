@@ -12,4 +12,11 @@ RELEASE 2
 - render cloud works
 - new functions: id generation, score_formatting
 
+RELEASE 3
+- JSON fully implemented
+- get_score functional
+- get_scores_limit functional
+- delete_score functional
+- utility functions added and updated: format_time, adjust_ids, sort_score, format_score
+- html updated
 

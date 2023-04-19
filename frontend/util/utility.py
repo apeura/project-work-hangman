@@ -137,7 +137,11 @@ def format_time(game_time):
     return game_time
 
 def main():
+<<<<<<< HEAD
+    print(sort_score())
+=======
     make_2D_array()
+>>>>>>> 9215bffdeabbae14bc2500417e72d31170d27664
 
 if __name__ == "__main__":
     main()

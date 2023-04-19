@@ -1,1 +1,38 @@
+<<<<<<< HEAD
+{
+    "scores": [
+        {
+            "id": 1,
+            "time": "00:00:01",
+            "name": "Leevi"
+        },
+        {
+            "id": 2,
+            "time": "00:33:00",
+            "name": "Hanna"
+        },
+        {
+            "id": 3,
+            "time": "02:11:01",
+            "name": "Juho"
+        },
+        {
+            "id": 4,
+            "time": "00:22:00",
+            "name": "Viivi"
+        },
+        {
+            "id": 5,
+            "time": "00:00:02",
+            "name": "ANNI"
+        },
+        {
+            "id": 6,
+            "time": "00:00:01",
+            "name": "Lasse"
+        }
+    ]
+}
+=======
 {"scores": [{"id": 1, "time": "00:00:01", "name": "Leevi"}, {"id": 2, "time": "00:33:00", "name": "Hanna"}, {"id": 3, "time": "00:22:00", "name": "Viivi"}, {"id": 4, "time": "00:00:02", "name": "ANNI"}, {"id": 5, "time": "00:00:01", "name": "Lasse"}]}
+>>>>>>> 9215bffdeabbae14bc2500417e72d31170d27664
