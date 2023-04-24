@@ -58,7 +58,7 @@ def save_to_score(user_data):
     print("DATA SAVE_TO_SCORE: ", data)
     
     with open(scores_path, 'w') as x:
-        print(json.dump(data, x))
+        json.dump(data, x, ensure_ascii=False)
 
     print("saved to json!")
 
@@ -108,7 +108,7 @@ def adjust_ids(dict, removed_id):
             score["id"] -= 1
 
     with open(scores_path, 'w') as f:
-        json.dump(all_data, f)
+        json.dump(all_data, f, ensure_ascii=False)
 
 # format game time from 00:00:00 to e.g. 1minute 20seconds
 # hours added only if time is over an hour
