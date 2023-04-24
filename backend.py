@@ -131,6 +131,8 @@ def add_highscore():
             all_data = json.load(f)
 
         all_data['scores'].append(user_data)
+        print(all_data)
+        print(user_data)
 
         with open('scores.json', 'w') as f:
             json.dump(all_data, f)
