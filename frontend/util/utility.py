@@ -77,8 +77,8 @@ def save_to_score(user_data):
 
     data["scores"].append(user_data)
     
-    with open(scores_path, 'w') as f:
-        json.dump(data, f)
+    with open(scores_path, 'w') as x:
+        json.dump(data, x)
 
     print("saved to json!")
 
