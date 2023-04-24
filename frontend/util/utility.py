@@ -68,7 +68,8 @@ def read_score():
     data = open(scores_path, "r")
     return data.read()
 
-    # Saves data to a json file
+
+ # Saves data to a json file
 def save_to_score(user_data):
 
     with open(scores_path) as f:
@@ -81,33 +82,6 @@ def save_to_score(user_data):
 
     print("saved to json!")
 
-# Checks if new score should be added to top 50
-def score_is_added_to_top50(id, time, name):
-
-    with open(scores_path) as f:
-        data = json.load(f)
-        user_data = json.load(f)
-
-    data['scores'].append(myobj)
-    if len(user_data['scores']) < 50:
-        # There are less than 50 scores, so this score should be added
-        return True
-
-    sorted_scores = sorted(data['scores'], key=lambda x: x['time'])
-    top_50_scores = sorted_scores[:6]
-    data['scores'] = top_50_scores
-    # Sort the scores by time
-    sorted_scores = sorted(user_data['scores'], key=lambda x: x['time'])
-
-    with open(scores_path, 'w') as f:
-        json.dump(data, f)
-    # If the new score is better than the worst score in the top 50, add it
-    if time < sorted_scores[-1]['time']:
-        return True
-
-    print("saved to json!")
-    # Otherwise, don't add the score
-    return False
 # Checks if new score should be added to top 50
 def score_is_added_to_top50(new_score):
 
