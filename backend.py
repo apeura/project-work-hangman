@@ -1,5 +1,5 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
-from frontend.util.utility import format_time, make_2D_array, sort_score, read_score, adjust_ids
+from frontend.util.utility import generate_id, save_to_score, format_time, make_2D_array, sort_score, read_score, adjust_ids
 
 app = Flask(__name__)
 
@@ -123,7 +123,8 @@ def add_highscore():
     
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
-    #scores_str.append(user_data)
+
+    save_to_score(user_data)
 
     return make_response("Score added succesfully!", 209)
 
