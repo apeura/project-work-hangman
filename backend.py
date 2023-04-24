@@ -49,7 +49,8 @@ def return_scores_in_format():
             time_formatted = format_time(time)
             name = array[1]
             formatted_str = f"{time_formatted}, {name}\n"
-        i += 1
+            i += 1
+        
 
     return formatted_str
 
