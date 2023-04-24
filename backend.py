@@ -136,7 +136,8 @@ def add_highscore():
 
         with open('scores.json', 'w') as f:
             json.dump(all_data, f)
-
+            
+        f.close()
         return 'Score saved successfully', 201
     else:
         return make_response("Score not good enough to be added to top 50!", 209)
