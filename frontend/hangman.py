@@ -53,6 +53,7 @@ def show_highscores():
         print(r.text)
     except requests.exceptions.RequestException as e:
         print(f"Error fetching high scores: {e}")
+        
 #runs game for max 3 rounds, takes time
 def run_game():
 

@@ -127,7 +127,7 @@ def add_highscore():
 
     if score_is_added_to_top50(user_data) == True:
         #score_str = f"{user_data['id']},{user_data['time']},{user_data['name']}\n"
-        with open('scores.json') as f:
+        with open('scores.json', 'r') as f:
             all_data = json.load(f)
 
         all_data['scores'].append(user_data)
