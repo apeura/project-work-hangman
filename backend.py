@@ -11,9 +11,25 @@ def after_request(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
-@app.route("/") # index? see below
-def root():
-    return "<h1>hello, this is the root location for highscores</h1>"
+#Fetch all scores
+@app.route('/')
+def index():
+    #2D array
+    scores_list = make_2D_array()
+    scores_string = ""
+    i = 0
+    while i < len(scores_list):
+    #for score in scores_list:
+        time = str(scores_list[i][0])
+        name = str(scores_list[i][1])
+        scores_string += (f'{time}, {name}\n')
+        i = i + 1
+    rows = scores_string.split('\n')
+
+    table_data = [row.split(',') for row in rows]
+
+    return render_template('index.html', scores=table_data, time=time, name=name)
+    #return make_response("nice!", 209)
 
 #Get all scores DONE!
 @app.route("/scores")
@@ -34,9 +50,16 @@ def get_score(the_id):
     abort(404, description="Score not found")
 
 #Returns a descended or ascended order of the score list.
-@app.route("/scores/")
-def get_asc_or_desc_scores(order_score):
-    pass
+@app.route("/order/<string:order>", methods = ['GET'])
+def get_asc_or_desc_scores(order):
+    if order == "asc":
+        return make_response(sort_score(False))
+    
+    if order == "desc":
+        return make_response(sort_score(True))
+
+    else:
+        return abort(404, description="Order must be 'asc' or 'desc'")
 
 @app.route("/scores/formatted")
 def return_scores_in_format():
@@ -103,25 +126,6 @@ def add_highscore():
     scores_str.append(user_data)
 
     return make_response("Score added succesfully!", 209)
-
-@app.route('/scores/array', methods = ['GET'])
-def index():
-    #2D array
-    scores_list = make_2D_array()
-    scores_string = ""
-    i = 0
-    while i < len(scores_list):
-    #for score in scores_list:
-        time = str(scores_list[i][0])
-        name = str(scores_list[i][1])
-        scores_string += (f'{time}, {name}\n')
-        i = i + 1
-
-    print (scores_string)
-    #table_data = [row.split(',') for row in rows]
-
-    #return render_template('form.html', name=name, lname=lname)
-    return make_response("nice!", 209)
 
 if __name__ == "__main__":
     app.run(debug=True)
