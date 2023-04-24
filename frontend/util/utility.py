@@ -77,6 +77,10 @@ def save_to_score(id, time, name):
 
     data['scores'].append(myobj)
 
+    sorted_scores = sorted(data['scores'], key=lambda x: x['time'])
+    top_50_scores = sorted_scores[:6]
+    data['scores'] = top_50_scores
+
     with open(scores_path, 'w') as f:
         json.dump(data, f)
 

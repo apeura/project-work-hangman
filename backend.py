@@ -121,6 +121,7 @@ def delete_score(the_id):
 @app.route('/scores', methods=['POST'])
 def add_highscore():
     
+    
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
     scores_str.append(user_data)
