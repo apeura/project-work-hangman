@@ -46,6 +46,7 @@ def return_scores_in_format():
     i=0
     while i < 10:
         top_10_scores += scores_in_order_list[i]
+        i += 1
 
     for array in top_10_scores:
         time = array[0]
