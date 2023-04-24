@@ -47,9 +47,12 @@ def show_highscores():
     print("HIGH SCORES")
     print("Best times")
 
-    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
-    print(r.text)
-
+    try:
+        r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
+        r.raise_for_status()
+        print(r.text)
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching high scores: {e}")
 #runs game for max 3 rounds, takes time
 def run_game():
 
@@ -117,7 +120,7 @@ def add_to_highscore(time):
         name = input("Please input a name for the leaderboard: ")
 
     id = generate_id()
-    print("id generated")
+
     myobj = {'id': id, 'time': time, 'name': name}
     x = requests.post(url, json = myobj)
     print(x.text)

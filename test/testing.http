@@ -1,5 +1,7 @@
 GET https://hangman-highscores-amif.onrender.com/scores/scores
 ###
+GET https://hangman-highscores-amif.onrender.com/scores/formatted
+###
 GET https://hangman-highscores-amif.onrender.com/scores/2
 ###
 DELETE https://hangman-highscores-amif.onrender.com/scores/3
