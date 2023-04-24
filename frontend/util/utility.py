@@ -4,8 +4,8 @@ from datetime import datetime
 import os
 
 #fix to scores.json not being found, determined path
-#scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
-scores_path = os.path.join(os.path.dirname(__file__), '..', 'scores.json')
+scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
+#scores_path = os.path.join(os.path.dirname(__file__), '..', 'scores.json')
 
 #returns data in asc order (default)
 def sort_score(descending=False):
