@@ -115,7 +115,9 @@ def add_to_highscore(time):
     while 10 > len(name) < 2:
         print("Name should be 2-10 characters.")
         name = input("Please input a name for the leaderboard: ")
- 
+
+    id = generate_id()
+
     myobj = {'id': id, 'time': time, 'name': name}
     x = requests.post(url, json = myobj)
     print(x.text)

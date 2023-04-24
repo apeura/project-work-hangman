@@ -1,5 +1,5 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
-from frontend.util.utility import generate_id, save_to_score, format_time, make_2D_array, sort_score, read_score, adjust_ids
+from frontend.util.utility import *
 
 app = Flask(__name__)
 
@@ -124,13 +124,19 @@ def add_highscore():
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
 
-    id = generate_id()
-    time = user_data['time']
-    name = user_data['name']
+    if score_is_added_to_top50(user_data) == True:
+        #score_str = f"{user_data['id']},{user_data['time']},{user_data['name']}\n"
+        with open('scores.json') as f:
+            all_data = json.load(f)
 
-    save_to_score(id, time, name)
+        all_data['scores'].append(user_data)
 
-    return make_response("Score added succesfully!", 209)
+        with open('scores.json', 'w') as f:
+            json.dump(user_data, f)
+
+        return 'Score saved successfully', 201
+    else:
+        return make_response("Score not good enough to be added to top 50!", 209)
 
 if __name__ == "__main__":
     app.run(debug=True)
