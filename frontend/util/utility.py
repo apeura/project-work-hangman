@@ -10,7 +10,7 @@ scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 def sort_score(descending=False):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
-    times = sorted(all_scores, key=lambda k: k['time'], reverse=descending)
+    times = sorted(all_scores, key=lambda k: k["time"], reverse=descending)
     sorted_scores = []
 
     for score in times:
@@ -27,7 +27,7 @@ def make_2D_array(descending=False):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
 
-    times = sorted(all_scores, key=lambda k: k['time'], reverse=descending)
+    times = sorted(all_scores, key=lambda k: k["time"], reverse=descending)
     score_list = []
 
     for score in times:
@@ -77,7 +77,7 @@ def save_to_score(user_data):
     with open(scores_path) as f:
         data = json.load(f)
 
-    data['scores'].append(user_data)
+    data["scores"].append(user_data)
     
     with open(scores_path, 'w') as f:
         json.dump(data, f)
@@ -87,21 +87,21 @@ def save_to_score(user_data):
 # Checks if new score should be added to top 50
 def score_is_added_to_top50(new_score):
 
-    new_time = new_score['time']
+    new_time = new_score["time"]
 
     with open(scores_path) as f:
         user_data = json.load(f)
     f.close()
 
-    if len(user_data['scores']) < 50:
+    if len(user_data["scores"]) < 50:
         # There are less than 50 scores, so this score should be added
         return True
 
     # Sort the scores by time
-    sorted_scores = sorted(user_data['scores'], key=lambda x: x['time'])
+    sorted_scores = sorted(user_data["scores"], key=lambda x: x["time"])
 
     # If the new score is better than the worst score in the top 50, add it
-    if new_time < sorted_scores[-1]['time']:
+    if new_time < sorted_scores[-1]["time"]:
         return True
 
     # Otherwise, don't add the score
@@ -114,7 +114,7 @@ def generate_id():
 
     with open(scores_path, 'r') as f:
         scores_dict = json.load(f)
-        new_id = len(scores_dict['scores']) + 1
+        new_id = len(scores_dict["scores"]) + 1
     
     return new_id
 
