@@ -45,9 +45,8 @@ def execute_menu_choice(user_choice):
 #### WORK IN PROGRESS ###
 def show_highscores():
     print("HIGH SCORES")
-    print("Top 10 best times")
+    print("Best times")
 
-    #r = requests.get('https://hangman-highscores-amif.onrender.com/scores')
     r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
     print(r.text)
 

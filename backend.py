@@ -45,7 +45,7 @@ def return_scores_in_format():
     formatted_str = ""
 
     if len(scores_in_order_list ) == 0:
-        formatted_str = "no scores so far!"
+        return "no scores so far!"
     
     i=0
     while i < 10 and i < len(scores_in_order_list):
@@ -97,6 +97,7 @@ def delete_score(the_id):
 #adding a score DONE! But testing?
 @app.route('/scores', methods=['POST'])
 def add_highscore():
+    
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
     scores_str.append(user_data)
