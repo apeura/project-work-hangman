@@ -133,7 +133,7 @@ def add_highscore():
         all_data['scores'].append(user_data)
 
         with open('scores.json', 'w') as f:
-            json.dump(user_data, f)
+            json.dump(all_data, f)
 
         return 'Score saved successfully', 201
     else:
