@@ -1,5 +1,5 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
-from frontend.util.utility import sort_score, read_score, adjust_ids, make_2D_array
+from frontend.util.utility import format_time, make_2D_array, sort_score, read_score, adjust_ids
 
 app = Flask(__name__)
 
@@ -37,6 +37,21 @@ def get_score(the_id):
 @app.route("/scores/")
 def get_asc_or_desc_scores(order_score):
     pass
+
+@app.route("/scores/formatted")
+def return_scores_in_format():
+    scores_in_order_list = make_2D_array()
+
+    i=0
+    while i < 10:
+        for array in scores_in_order_list:
+            time = array[0]
+            time_formatted = format_time(time)
+            name = array[1]
+            formatted_str = f"{time_formatted}, {name}\n"
+        i += 1
+
+    return formatted_str
 
 #Fetching all scores with limit DONE!
 @app.route("/scores/limit/<int:limit>")

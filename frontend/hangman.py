@@ -47,7 +47,8 @@ def show_highscores():
     print("HIGH SCORES")
     print("Top 10 best times")
 
-    r = requests.get('https://hangman-highscores-amif.onrender.com/scores')
+    #r = requests.get('https://hangman-highscores-amif.onrender.com/scores')
+    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
     print(r.text)
 
 #runs game for max 3 rounds, takes time
