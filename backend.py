@@ -42,9 +42,13 @@ def get_asc_or_desc_scores(order_score):
 def return_scores_in_format():
     scores_in_order_list = make_2D_array()
     top_10_scores = []
+    formatted_str = ""
 
+    if len(scores_in_order_list ) == 0:
+        formatted_str = "no scores so far!"
+    
     i=0
-    while i < 10 or i < len(scores_in_order_list):
+    while i < 10 and i < len(scores_in_order_list):
         top_10_scores.append(scores_in_order_list[i])
         i += 1
 
@@ -52,7 +56,7 @@ def return_scores_in_format():
         time = array[0]
         time_formatted = format_time(time)
         name = array[1]
-        formatted_str = f"{time_formatted}, {name}\n"
+        formatted_str += f"{time_formatted}, {name}\n"
 
     return formatted_str
 
