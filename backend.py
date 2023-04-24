@@ -124,7 +124,11 @@ def add_highscore():
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
 
-    save_to_score(user_data)
+    id = generate_id()
+    time = user_data['time']
+    name = user_data['name']
+
+    save_to_score(id, time, name)
 
     return make_response("Score added succesfully!", 209)
 
