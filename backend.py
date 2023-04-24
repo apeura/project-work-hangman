@@ -126,24 +126,10 @@ def add_highscore():
     print("data loaded")
 
     if score_is_added_to_top50(user_data) == True:
-        print("score gets added")
-        #score_str = f"{user_data['id']},{user_data['time']},{user_data['name']}\n"
-        #with open('scores.json', 'r') as f:
-        #    all_data = json.load(f)
-        #f.close()
 
-        #all_data['scores'].append(user_data)
-        
-
-        #print(all_data)
-        #print(user_data)
-
-        #with open('scores.json', 'w') as f:
-        #    json.dump(all_data, f)
-
-        #f.close()
         save_to_score(user_data)
         print(user_data)
+        
         return 'Score saved successfully', 201
     else:
         return make_response("Score not good enough to be added to top 50!", 209)

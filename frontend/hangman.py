@@ -53,7 +53,7 @@ def show_highscores():
         print(r.text)
     except requests.exceptions.RequestException as e:
         print(f"Error fetching high scores: {e}")
-        
+
 #runs game for max 3 rounds, takes time
 def run_game():
 
@@ -122,7 +122,7 @@ def add_to_highscore(time):
 
     id = generate_id()
 
-    myobj = {'id': id, 'time': time, 'name': name}
+    myobj = {"id": id, "time": time, "name": name}
     x = requests.post(url, json = myobj)
     print(x.text)
 

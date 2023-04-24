@@ -72,6 +72,8 @@ def read_score():
  # Saves data to a json file
 def save_to_score(user_data):
 
+    scores_path = "/path/to/scores.json"
+
     with open(scores_path) as f:
         data = json.load(f)
 
