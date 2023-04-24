@@ -67,6 +67,7 @@ def score_is_added_to_top50(new_score):
 
     with open(scores_path) as f:
         user_data = json.load(f)
+        print(user_data)
     f.close()
 
     if len(user_data["scores"]) < 50:
