@@ -45,7 +45,7 @@ def return_scores_in_format():
 
     i=0
     while i < 10 or i < len(scores_in_order_list):
-        top_10_scores += scores_in_order_list[i]
+        top_10_scores.append(scores_in_order_list[i])
         i += 1
 
     for array in top_10_scores:
