@@ -54,9 +54,11 @@ def save_to_score(user_data):
         data = json.load(f)
 
     data["scores"].append(user_data)
+    print("USER_DATA IN SAVE_TO_SCORE: ", user_data)
+    print("DATA SAVE_TO_SCORE: ", data)
     
     with open(scores_path, 'w') as x:
-        json.dump(data, x)
+        print(json.dump(data, x))
 
     print("saved to json!")
 
@@ -67,7 +69,7 @@ def score_is_added_to_top50(new_score):
 
     with open(scores_path) as f:
         user_data = json.load(f)
-        print(user_data)
+        print("SCORE_IS_ADDED... USER_DATA", user_data)
     f.close()
 
     if len(user_data["scores"]) < 50:
