@@ -41,10 +41,10 @@ def get_asc_or_desc_scores(order_score):
 @app.route("/scores/formatted")
 def return_scores_in_format():
     scores_in_order_list = make_2D_array()
-    top_10_scores = ""
+    top_10_scores = []
 
     i=0
-    while i < 10:
+    while i < 10 or i < len(scores_in_order_list):
         top_10_scores += scores_in_order_list[i]
         i += 1
 
