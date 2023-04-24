@@ -129,14 +129,16 @@ def add_highscore():
         #score_str = f"{user_data['id']},{user_data['time']},{user_data['name']}\n"
         with open('scores.json', 'r') as f:
             all_data = json.load(f)
+        f.close()
 
         all_data['scores'].append(user_data)
+
         print(all_data)
         print(user_data)
 
         with open('scores.json', 'w') as f:
             json.dump(all_data, f)
-            
+
         f.close()
         return 'Score saved successfully', 201
     else:
