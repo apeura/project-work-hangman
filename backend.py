@@ -123,6 +123,7 @@ def add_highscore():
     
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
+    print("data loaded")
 
     if score_is_added_to_top50(user_data) == True:
         #score_str = f"{user_data['id']},{user_data['time']},{user_data['name']}\n"

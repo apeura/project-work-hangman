@@ -68,7 +68,9 @@ def read_score():
     return data.read()
 
 # Checks if new score should be added to top 50
-def score_is_added_to_top50(id, time, name):
+def score_is_added_to_top50(new_score):
+
+    new_time = new_score['time']
 
     with open(scores_path) as f:
         user_data = json.load(f)
@@ -81,7 +83,7 @@ def score_is_added_to_top50(id, time, name):
     sorted_scores = sorted(user_data['scores'], key=lambda x: x['time'])
 
     # If the new score is better than the worst score in the top 50, add it
-    if time < sorted_scores[-1]['time']:
+    if new_time < sorted_scores[-1]['time']:
         return True
 
     # Otherwise, don't add the score
