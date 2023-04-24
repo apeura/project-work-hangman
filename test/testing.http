@@ -1,4 +1,4 @@
-GET https://hangman-highscores-amif.onrender.com/scores/scores
+GET https://hangman-highscores-amif.onrender.com/scores
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/formatted
 ###

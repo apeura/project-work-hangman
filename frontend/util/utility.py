@@ -4,7 +4,8 @@ from datetime import datetime
 import os
 
 #fix to scores.json not being found, determined path
-scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
+#scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
+scores_path = os.path.join(os.path.dirname(__file__), '..', 'scores.json')
 
 #returns data in asc order (default)
 def sort_score(descending=False):
@@ -38,32 +39,6 @@ def make_2D_array(descending=False):
 
     return score_list
 
-#formats score to show only time and name + time formatting?
-#outdated for current build?
-def format_score():
-    all_scores = sort_score()
-    scores_list = []
-    # scores_string = "" 
-    formatted_scores = ""
-
-    for score in all_scores:
-        #id = score["id"]
-        time = score["time"]
-        f_time = format_time(time) #format time --> 1 minute 15 seconds
-        name = score["name"]
-        score = f'{f_time} {name}' # --> 1 minute 15 seconds Jonne
-
-        #scores_string += f'{time} {name} \n' -->      "02.11.01 Leevi \n00.33.00 Hanna \n00.22.00 Anni \n00.00.01 Leevi \n" 
-        scores_list.append(score)           # -->      ["02.11.01 Leevi","00.33.00 Hanna","00.22.00 Anni","00.00.01 Leevi"]
-
-    n = 0
-    while len(scores_list) > n:
-        formatted_scores += scores_list[n]  # --> "02.11.01 Leevi00.33.00 Hanna00.22.00 Anni00.00.01 Leevi"
-        n += 1
-
-    # player_score = scores_list[n].strip('\"')
-    return formatted_scores
-
 def read_score():
     data = open(scores_path, "r")
     return data.read()
@@ -71,6 +46,9 @@ def read_score():
 
  # Saves data to a json file
 def save_to_score(user_data):
+    if not os.path.exists(scores_path):
+        with open(scores_path, "w") as f:
+            json.dump({"scores": []}, f)
 
     with open(scores_path) as f:
         data = json.load(f)
