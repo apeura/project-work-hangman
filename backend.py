@@ -142,13 +142,16 @@ def delete_score(the_id):
 @app.route('/scores', methods=['POST'])
 def add_highscore():
     
-    # load given string and turn in into dictionary
-    user_data = json.loads(request.data)
-    print("data loaded", user_data)
-    # send dict to save_to_score
-    save_to_score(user_data)
+    with open('scores.json', 'r') as f:
+        data = json.load(f)
 
-    return 'Score saved successfully', 201
+    data['scores'].append(request.json)
+
+    with open('scores.json', 'w') as f:
+        json.dump(data, f)
+
+    return 'Score added successfully', 201
+
 
 if __name__ == "__main__":
     app.run(debug=True)
