@@ -148,16 +148,16 @@ def delete_score(the_id):
 def add_highscore():
     
     with open('scores.json', 'r') as f:
-        old_data = json.load(f)
+        data = json.load(f)
 
-    new_data = request.json
+    print(data)
 
-    all_data = {"scores": old_data + new_data}
-    print(all_data)
+    data['scores'].append(request.json)
 
+    print(data)
 
     with open('scores.json', 'w') as f:
-        json.dump(all_data, f)
+        json.dump(data, f)
 
     return 'Score added successfully', 201
 
