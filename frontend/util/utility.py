@@ -52,10 +52,13 @@ def save_to_score(user_data):
     with open(scores_path) as f:
         data = json.load(f)
 
-    data["scores"].append(user_data)
+    data['scores'].append(user_data)
 
     data_json_format = json.dumps(data) # -> correct doublequoted format
-    print(data_json_format)
+    
+    data_json_format2 = json.dump(data) # -> correct doublequoted format
+    print("FORMAT2;  ",data_json_format)
+    print("FORMAT2;  ",data_json_format2)
     #print("DATA IS:", data)
 
     with open(scores_path, 'w') as f:
