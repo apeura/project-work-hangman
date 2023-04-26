@@ -5,7 +5,6 @@ import os
 
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
-#scores_path = os.path.join(os.path.dirname(__file__), '..', 'scores.json')
 
 #returns data in asc order (default)
 def sort_score(descending=False):
@@ -58,7 +57,7 @@ def save_to_score(user_data):
     #print("DATA SAVE_TO_SCORE: ", data)
     
     with open(scores_path, 'w') as f:
-        json.dumps(data, f, ensure_ascii=False)
+        json.dump(data, f, ensure_ascii=False)
 
     print("saved to json!")
 

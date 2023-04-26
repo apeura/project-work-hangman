@@ -109,8 +109,8 @@ def delete_score(the_id):
     print(scores_s)
 
     try:
-        print(scores_s['scores'][the_id-1]) # {'id': 1, 'time': '00.00.01', 'name': 'Leevi'}
-        del scores_s['scores'][the_id-1]
+        print(scores_s["scores"][the_id-1]) # {'id': 1, 'time': '00.00.01', 'name': 'Leevi'}
+        del scores_s["scores"][the_id-1]
         adjust_ids(scores_s, the_id)
 
         return make_response("Score removed succesfully!", 204)
