@@ -48,7 +48,7 @@ def read_score():
 def save_to_score(user_data):
     if not os.path.exists(scores_path):
         with open(scores_path, "w") as f:
-            json.dump({"scores": []}, f)
+            json.dumps({"scores": []}, f)
 
     with open(scores_path) as f:
         data = json.load(f)
@@ -57,8 +57,8 @@ def save_to_score(user_data):
     print("USER_DATA IN SAVE_TO_SCORE: ", user_data)
     print("DATA SAVE_TO_SCORE: ", data)
     
-    with open(scores_path, 'w') as x:
-        json.dump(data, x, ensure_ascii=False)
+    with open(scores_path, 'w') as f:
+        json.dumps(data, f, indent=4, ensure_ascii=False)
 
     print("saved to json!")
 
