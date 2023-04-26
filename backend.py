@@ -145,7 +145,7 @@ def add_highscore():
     with open('scores.json', 'r') as f:
         data = json.load(f)
 
-    data['scores'].append(request.json)
+    data.append(request.json)
 
     with open('scores.json', 'w') as f:
         json.dump(data, f)
