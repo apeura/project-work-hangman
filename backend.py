@@ -152,7 +152,7 @@ def add_highscore():
 
     new_data = request.json
 
-    all_data = {'scores': old_data['scores'] + new_data['scores']}
+    all_data = {"scores": old_data["scores"] + new_data["scores"]}
     print(all_data)
 
 
