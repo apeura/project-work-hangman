@@ -126,10 +126,10 @@ def add_highscore():
     print("data loaded")
     save_to_score(user_data)
 
-
-        
     return 'Score saved successfully', 201
 
+    ## v Checks if value should be added to top 50, if it should runs save to score
+    # / DISABLED FOR SAVE TROUBLESHOOTING 
     #if score_is_added_to_top50(user_data) == True:
 
     #    save_to_score(user_data)
