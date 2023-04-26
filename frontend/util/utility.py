@@ -70,7 +70,7 @@ def save_to_score(user_data):
         id = score['id']
         time = score['time'] 
         name = score['name']
-        single_score = {"id": {id}, "time": "{time}", "name": "{name}"}
+        single_score = {"id": {id}, "time": f'"{time}"', "name": f'"{name}"'}
         json_format_data["scores"].append(single_score)
 
     with open(scores_path, 'w') as f:
