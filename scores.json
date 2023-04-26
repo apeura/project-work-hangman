@@ -1,14 +1,1 @@
-{
-    "scores": [
-        {
-            "id": 1,
-            "time": "00:00:01",
-            "name": "Leevi"
-        },
-        {
-            "id": 2,
-            "time": "00:33:00",
-            "name": "Hanna"
-        }
-    ]
-}
+{"scores": []}
