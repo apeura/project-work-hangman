@@ -123,20 +123,10 @@ def add_highscore():
     
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
-    print("data loaded")
+    print("data loaded", user_data)
     save_to_score(user_data)
 
     return 'Score saved successfully', 201
-
-    ## v Checks if value should be added to top 50, if it should runs save to score
-    # / DISABLED FOR SAVE TROUBLESHOOTING 
-    #if score_is_added_to_top50(user_data) == True:
-
-    #    save_to_score(user_data)
-        
-    #    return 'Score saved successfully', 201
-    #else:
-    #    return make_response("Score not good enough to be added to top 50!", 209)
 
 if __name__ == "__main__":
     app.run(debug=True)

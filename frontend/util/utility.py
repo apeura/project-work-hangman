@@ -50,9 +50,11 @@ def save_to_score(user_data):
     if not os.path.exists(scores_path):
         with open(scores_path, "w") as f:
             json.dump({"scores": []}, f)
+            f.close()
 
     with open(scores_path) as f:
         data = json.load(f)
+        f.close()
         
     data['scores'].append(user_data)
 
@@ -64,7 +66,8 @@ def save_to_score(user_data):
     # {'id': 6, 'time': '00:00:02', 'name': 'PATE'}]}
 
     with open(scores_path, 'w') as f:
-        f.write(json.dumps(data))
+        json.dump(data, f)
+        f.close()
 
     print("saved to json!")
 
