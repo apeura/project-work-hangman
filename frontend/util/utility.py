@@ -53,12 +53,15 @@ def save_to_score(user_data):
         data = json.load(f)
 
     data["scores"].append(user_data)
-    print("USER_DATA IN SAVE_TO_SCORE: ", user_data)
+    #{'id': 6, 'time': '00:00:01', 'name': 'MORROJR'}
+    print("USER_DATA IN SAVE_TO_SCORE: ", user_data) 
+    #{'scores': [{'id': 1, 'time': '00:00:01', 'name': 'Leevi'}, {'id': 2, 'time': '00:33:00', 'name': 'Hanna'}, {'id': 3, 'time': '00:22:00', 'name': 'Viivi'}, {'id': 4, 'time': '00:00:02', 'name': 'ANNI'}, {'id': 5, 'time': '00:00:01', 'name': 'Lasse'}, {'id': 6, 'time': '00:00:01', 'name': 'MORROJR'}]}
     print("DATA SAVE_TO_SCORE: ", data)
+
+    data_json_format = json.dumps(data)
     
     with open(scores_path, 'w') as f:
-        x = json.dumps(data, f, ensure_ascii=False)
-        print("dumps:", x)
+        json.dumps(data_json_format, f, ensure_ascii=False)
 
     print("saved to json!")
 
