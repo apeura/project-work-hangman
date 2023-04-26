@@ -128,7 +128,6 @@ def add_highscore():
     if score_is_added_to_top50(user_data) == True:
 
         save_to_score(user_data)
-        print(user_data)
         
         return 'Score saved successfully', 201
     else:
