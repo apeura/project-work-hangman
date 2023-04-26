@@ -150,16 +150,16 @@ def add_highscore():
     with open('scores.json', 'r') as f:
         data = json.load(f)
 
-    print(data)
-
+    print(data) # {'scores': []}
+    
     data['scores'].append(request.json)
 
-    print(data)
+    print(data) # {'scores': [{'id': 1, 'time': '00:00:01', 'name': 'MOIKKA'}]}
 
     with open('scores.json', 'w') as f:
-        json.dump(data, f)
+        json.dump(data, f) # file doesn't update {"scores": []}
 
-    return 'Score added successfully', 201
+    return 'Score added successfully', 201 
 
 
 if __name__ == "__main__":
