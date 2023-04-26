@@ -64,17 +64,17 @@ def save_to_score(user_data):
     print("DATA IS:", data)
     # {'scores': [{'id': 1, 'time': '00:00:01', 'name': 'Leevi'}, {'id': 2, 'time': '00:33:00', 'name': 'Hanna'}, {'id': 3, 'time': '00:22:00', 'name': 'Viivi'}, {'id': 4, 'time': '00:00:02', 'name': 'ANNI'}, {'id': 5, 'time': '00:00:01', 'name': 'Lasse'}, {'id': 6, 'time': '00:00:03', 'name': 'HASSUA'}]}
     
-    json_format_data: {"scores":[]}
+   # json_format_data: {"scores": []}
 
-    for score in data:
-        id = score['id']
-        time = score['time'] 
-        name = score['name']
-        single_score = {"id": {id}, "time": f'"{time}"', "name": f'"{name}"'}
-        json_format_data["scores"].append(single_score)
+    #for score in data:
+    #    id = score['id']
+    #    time = score['time'] 
+    #    name = score['name']
+    #    single_score = {"id": {id}, "time": f'"{time}"', "name": f'"{name}"'}
+    #    json_format_data["scores"].append(single_score)
 
     with open(scores_path, 'w') as f:
-        json.dump(json_format_data, f, ensure_ascii=False)
+        json.dump(data, f)
 
     print("saved to json!")
 
