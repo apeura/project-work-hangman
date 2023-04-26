@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 
 #fix to scores.json not being found, determined path
-scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
+scores_path = os.path.join(os.path.dirname(__file__), '..', 'scores.json')
 
 #returns data in asc order (default)
 def sort_score(descending=False):
@@ -44,7 +44,10 @@ def read_score():
 
 
  # Saves data to a json file
+
 def save_to_score(user_data):
+    print("USER DATA: ", user_data)
+
     if not os.path.exists(scores_path):
         with open(scores_path, "w") as f:
             json.dump({"scores": []}, f)
