@@ -43,7 +43,7 @@ def get_score(the_id):
     #dict version of scores
     scores_s = json.loads(scores_str)
     #go through scores, if id match return that
-    for s in scores_s['scores']:  
+    for s in scores_s["scores"]:  
         if s["id"] == the_id: 
             return s
 
@@ -125,13 +125,18 @@ def add_highscore():
     user_data = json.loads(request.data)
     print("data loaded")
 
-    if score_is_added_to_top50(user_data) == True:
-
-        save_to_score(user_data)
+    
+    save_to_score(user_data)
         
-        return 'Score saved successfully', 201
-    else:
-        return make_response("Score not good enough to be added to top 50!", 209)
+    return 'Score saved successfully', 201
+
+    #if score_is_added_to_top50(user_data) == True:
+
+    #    save_to_score(user_data)
+        
+    #    return 'Score saved successfully', 201
+    #else:
+    #    return make_response("Score not good enough to be added to top 50!", 209)
 
 if __name__ == "__main__":
     app.run(debug=True)
