@@ -53,11 +53,12 @@ def save_to_score(user_data):
         data = json.load(f)
 
     data["scores"].append(user_data)
-    #print("USER_DATA IN SAVE_TO_SCORE: ", user_data)
-    #print("DATA SAVE_TO_SCORE: ", data)
+    print("USER_DATA IN SAVE_TO_SCORE: ", user_data)
+    print("DATA SAVE_TO_SCORE: ", data)
     
     with open(scores_path, 'w') as f:
-        json.dump(data, f, ensure_ascii=False)
+        x = json.dumps(data, f, ensure_ascii=False)
+        print("dumps:", x)
 
     print("saved to json!")
 
