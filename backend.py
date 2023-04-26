@@ -1,7 +1,27 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
 from frontend.util.utility import *
+from dotenv import load_dotenv
+import os
+import bcrypt
 
 app = Flask(__name__)
+
+load_dotenv()
+
+API_KEY = os.environ.get('API_KEY')
+
+# this method is used to check the validity of the password
+# sent with requests to the backend
+def check_api_key(pw):
+    if type(pw) != str:
+        raise Exception("Give password as string object")
+    # hashing the API_KEY that has been turned to bytes array
+    # with randomly generated salt
+    hash = bcrypt.hashpw(API_KEY.encode('utf-8'), bcrypt.gensalt())
+    # checking password received as parameter with api key
+    result = bcrypt.checkpw(pw.encode('utf-8'), hash)
+    # returned values are boolean type
+    return True if result else False
 
 scores_str = read_score()
 
@@ -32,9 +52,10 @@ def index():
     #return make_response("nice!", 209)
 
 #Get all scores DONE!
-@app.route("/scores")
+@app.route("/all_scores/")
 def get_scores():
-    return make_response(scores_str, 200)
+    password = request.args.get('pw')
+    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
 
 #Get a single score based on the id DONE!
 @app.route('/scores/<int:the_id>')
