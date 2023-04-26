@@ -59,9 +59,10 @@ def save_to_score(user_data):
     print("DATA SAVE_TO_SCORE: ", data)
 
     data_json_format = json.dumps(data)
+    print(data_json_format)
     
     with open(scores_path, 'w') as f:
-        json.dumps(data_json_format, f, ensure_ascii=False)
+        json.dump(data_json_format, f, ensure_ascii=False)
 
     print("saved to json!")
 
