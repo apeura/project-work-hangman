@@ -66,6 +66,7 @@ def save_to_score(user_data):
 def score_is_added_to_top50(new_score):
 
     new_time = new_score["time"]
+    print("SCORE_IS_ADDED new_time is", new_time)
 
     with open(scores_path) as f:
         user_data = json.load(f)
