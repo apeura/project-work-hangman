@@ -145,6 +145,7 @@ def add_highscore():
     # load given string and turn in into dictionary
     user_data = json.loads(request.data)
     print("data loaded", user_data)
+    # send dict to save_to_score
     save_to_score(user_data)
 
     return 'Score saved successfully', 201
