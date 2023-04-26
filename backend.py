@@ -37,6 +37,10 @@ def index():
     #2D array
     scores_list = make_2D_array()
     scores_string = ""
+
+    if len(scores_list) == 0:
+        return render_template('index.html', scores="-", time="-", name="-")
+
     i = 0
     while i < len(scores_list):
     #for score in scores_list:
@@ -44,6 +48,7 @@ def index():
         name = str(scores_list[i][1])
         scores_string += (f'{time}, {name}\n')
         i = i + 1
+    
     rows = scores_string.split('\n')
 
     table_data = [row.split(',') for row in rows]
