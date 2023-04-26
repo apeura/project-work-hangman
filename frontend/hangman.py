@@ -3,7 +3,7 @@ import random
 import time
 from datetime import datetime
 from util.drawings import draw_hangman
-from util.utility import generate_id
+from util.utility import *
 
 #url = "https://hangman-highscores-amif.onrender.com/scores"
 
@@ -123,9 +123,16 @@ def add_to_highscore(time):
     id = generate_id()
 
     myobj = {"id": id, "time": time, "name": name}
-    x = requests.post(url, json = myobj)
-    print(x.text)
 
+    if score_is_added_to_top50(myobj) == True:
+
+        x = requests.post(url, json = myobj)
+        print(x.text)
+
+        print("score saved to top 50!")
+    else:
+        print("good job, but score is not good enough for top 50!")
+    
 #takes user guess & checks it's valid
 def user_guess(guessed_letters):
 

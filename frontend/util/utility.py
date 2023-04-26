@@ -5,7 +5,6 @@ import os
 
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
-#scores_path = os.path.join(os.path.dirname(__file__), '..', 'scores.json')
 
 #returns data in asc order (default)
 def sort_score(descending=False):
@@ -45,20 +44,30 @@ def read_score():
 
 
  # Saves data to a json file
+
 def save_to_score(user_data):
+    
     if not os.path.exists(scores_path):
         with open(scores_path, "w") as f:
             json.dump({"scores": []}, f)
+            f.close()
 
     with open(scores_path) as f:
         data = json.load(f)
+        f.close()
+        
+    data['scores'].append(user_data)
 
-    data["scores"].append(user_data)
-    print("USER_DATA IN SAVE_TO_SCORE: ", user_data)
-    print("DATA SAVE_TO_SCORE: ", data)
-    
-    with open(scores_path, 'w') as x:
-        json.dump(data, x, ensure_ascii=False)
+    # user_data) -->  {'id': 6, 'time': '00:00:02', 'name': 'PATE'}
+
+    # data --> {'scores': [{'id': 1, 'time': '00:00:01', 'name': 'Leevi'}, 
+    # {'id': 2, 'time': '00:33:00', 'name': 'Hanna'}, {'id': 3, 'time': '00:22:00', 'name': 'Viivi'}, 
+    # {'id': 4, 'time': '00:00:02', 'name': 'ANNI'}, {'id': 5, 'time': '00:00:01', 'name': 'Lasse'}, 
+    # {'id': 6, 'time': '00:00:02', 'name': 'PATE'}]}
+
+    with open(scores_path, 'w') as f:
+        json.dump(data, f)
+        f.close()
 
     print("saved to json!")
 
@@ -66,24 +75,22 @@ def save_to_score(user_data):
 def score_is_added_to_top50(new_score):
 
     new_time = new_score["time"]
+    #print("SCORE_IS_ADDED new_time is", new_time)
 
     with open(scores_path) as f:
         user_data = json.load(f)
-        print("SCORE_IS_ADDED... USER_DATA", user_data)
+        #print("SCORE_IS_ADDED... USER_DATA", user_data)
     f.close()
 
     if len(user_data["scores"]) < 50:
-        # There are less than 50 scores, so this score should be added
         return True
 
     # Sort the scores by time
     sorted_scores = sorted(user_data["scores"], key=lambda x: x["time"])
 
-    # If the new score is better than the worst score in the top 50, add it
     if new_time < sorted_scores[-1]["time"]:
         return True
 
-    # Otherwise, don't add the score
     return False
 
 # Generates id
