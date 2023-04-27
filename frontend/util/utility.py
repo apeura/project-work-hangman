@@ -33,6 +33,8 @@ bucket = storage.bucket()
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 
+url = "https://hangman-highscores-amif.onrender.com/scores"
+
 #returns data in asc order (default)
 def sort_score(descending=False):
     all_data = json.loads(read_score())
@@ -49,7 +51,8 @@ def sort_score(descending=False):
 
     return sorted_scores
 
-#returns list without the id
+#Returns the scores as a list, excluding the id (id is not needed)
+#So that the scores can be shown in the html page
 def make_2D_array(descending=False):
     all_data = json.loads(read_score())
     all_scores = all_data["scores"]
@@ -155,3 +158,9 @@ def format_time(game_time):
     # 1 minute 1 second
 
     return game_time
+
+def main():
+    save_to_score()
+
+if __name__ == "__main__":
+    main()
