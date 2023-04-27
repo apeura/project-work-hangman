@@ -37,7 +37,6 @@ else:
 
 load_dotenv()
 API_KEY = os.environ.get('API_KEY')
-scores_str = read_score()
 
 #bucket = initialize_app(app_name='backend-app')
 
