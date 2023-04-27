@@ -48,8 +48,8 @@ def show_highscores():
     print("Best times")
 
     try:
-        #r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
-        r = requests.get('https://hangman-highscores-amif.onrender.com/scores')
+        r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
+        #r = requests.get('https://hangman-highscores-amif.onrender.com/scores')
         r.raise_for_status()
         print(r.text)
     except requests.exceptions.RequestException as e:

@@ -189,7 +189,7 @@ def add_highscore():
         existing_scores = {"scores": []}
 
     new_score = request.get_json()
-    existing_scores["scores"].append(new_score)  
+    existing_scores['scores'].append(new_score)  
 
     #with open('scores.json', 'r') as f:
     #    data = json.load(f)
