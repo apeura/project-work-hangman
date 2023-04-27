@@ -4,6 +4,7 @@ import time
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
+from backend import *
 
 url = "https://hangman-highscores-amif.onrender.com/scores"
 

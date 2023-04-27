@@ -3,6 +3,27 @@ import os
 import bcrypt
 from frontend.util.utility import *
 from dotenv import load_dotenv
+import tempfile
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import storage
+
+
+json_str = os.environ.get('firebase')
+
+with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+    f.write(json_str)
+    temp_path = f.name
+
+# luetaan tiedostosta json filu
+cred = credentials.Certificate(temp_path)
+
+# initialize the app without a name
+firebase_admin.initialize_app(cred)
+
+bucket = storage.bucket()
+
+##########################################
 
 app = Flask(__name__)
 load_dotenv()
@@ -62,7 +83,6 @@ def get_scores():
 
 #    password = request.args.get('pw')
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
-    bucket = initialize_app(app_name='backend-app')
 
     blob = bucket.blob('scores.json')
     content = blob.download_as_string().decode('utf-8')
@@ -156,8 +176,6 @@ def delete_score(the_id):
 @app.route('/scores', methods=['POST'])
 def add_highscore():
 
-    bucket = initialize_app(app_name='backend-app')
-
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
     if score_data:
@@ -186,6 +204,22 @@ def add_highscore():
     return 'Score added successfully', 201 
 
 
+def generate_id():
+
+    ###### FIREBASE IMPLEMENTATION?
+    blob = bucket.blob('scores.json')
+    score_data = blob.download_as_string()
+    scores_dict = json.loads(score_data) if score_data else {"scores": []}
+
+    new_id = len(scores_dict["scores"]) + 1
+
+    ######
+    # Counts the amount of lines in the text file
+    # so that the value can be used for the ID generation.
+    
+    return new_id
+
 
 if __name__ == "__main__":
     app.run(debug=True)
+

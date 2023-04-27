@@ -5,34 +5,8 @@ import os
 
 ## COPIED ###
 
-import tempfile
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import storage
 
-
-def initialize_app(app_name='default'):
-    json_str = os.environ.get('firebase')
-
-    with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-        f.write(json_str)
-        temp_path = f.name
-
-    cred = credentials.Certificate(temp_path)
-
-    if app_name:
-        app = firebase_admin.initialize_app(cred, name=app_name, options={
-            'storageBucket': os.environ.get('bucket')
-        })
-    else:
-        app = firebase_admin.initialize_app(cred, options={
-            'storageBucket': os.environ.get('bucket')
-        })
-        
-    return storage.bucket(app=app)
 ## COPIED ###
-
-bucket = initialize_app()
 
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
