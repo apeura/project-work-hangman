@@ -73,20 +73,20 @@ def score_is_added_to_top50(new_score):
     return False
 
 # Generates id
-def generate_id():
+#def generate_id():
 
     ###### FIREBASE IMPLEMENTATION?
-    blob = bucket.blob('scores.json')
-    score_data = blob.download_as_string()
-    scores_dict = json.loads(score_data) if score_data else {"scores": []}
+#    blob = bucket.blob('scores.json')
+#    score_data = blob.download_as_string()
+#    scores_dict = json.loads(score_data) if score_data else {"scores": []}
 
-    new_id = len(scores_dict["scores"]) + 1
+#    new_id = len(scores_dict["scores"]) + 1
 
     ######
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
     
-    return new_id
+#    return new_id
 
 #fills any gaps when a score has been deleted by fixing existing ids
 def adjust_ids(dict, removed_id):

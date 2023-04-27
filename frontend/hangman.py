@@ -6,11 +6,6 @@ from util.drawings import draw_hangman
 from util.utility import *
 
 import os
-import sys
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(project_dir)
-
-from backend import *
 
 
 url = "https://hangman-highscores-amif.onrender.com/scores"
@@ -130,8 +125,7 @@ def add_to_highscore(time):
         name = input("Please input a name for the leaderboard: ")
 
     #generate id for new score
-    id = generate_id()
-    myobj = {"id": id, "time": time, "name": name}
+    myobj = {"time": time, "name": name}
     
     #if score should be added to file (less than 50 scores total
     # /better than worst score on record) a post request is sent

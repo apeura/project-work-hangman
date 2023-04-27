@@ -8,6 +8,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
 
+app = Flask(__name__)
+
 
 json_str = os.environ.get('firebase')
 
@@ -33,7 +35,7 @@ else:
 
 ##########################################
 
-app = Flask(__name__)
+
 load_dotenv()
 
 API_KEY = os.environ.get('API_KEY')
@@ -88,7 +90,7 @@ def index():
 #Get all scores DONE!
 @app.route("/all_scores")
 def get_scores():
-
+    print(generate_id())
 #    password = request.args.get('pw')
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
 
@@ -184,6 +186,8 @@ def delete_score(the_id):
 @app.route('/scores', methods=['POST'])
 def add_highscore():
 
+    score_id = generate_id()
+    
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
     if score_data:
@@ -191,13 +195,15 @@ def add_highscore():
     else:
         existing_scores = {"scores": []}
 
-    new_score = request.get_json()
-    existing_scores['scores'].append(new_score)
+    print("Score ID:", score_id)
 
-    #scores_object = {"scores": existing_scores}
+    new_score = request.get_json()
+    new_score['id'] = score_id
+    existing_scores['scores'].append(new_score)
 
     updated_score_data = json.dumps(existing_scores)
     blob.upload_from_string(updated_score_data, content_type='text/plain')
+
 
 
     #print("NEW SCORE  ", new_score, "existing scores  ", existing_scores)
@@ -224,7 +230,7 @@ def generate_id():
     ######
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
-    
+
     return new_id
 
 
