@@ -21,12 +21,8 @@ from firebase_admin import credentials
 from firebase_admin import storage
 import tempfile
 
-# luetaan firebase ympäristömuuttuja
-# tee render.comiin uusi muuttuja nimeltä firebase jonka
-# sisältö on json tiedosto jonka saat firebaselta
 json_str = os.environ.get('firebase')
 
-# tallennetaan ympäristömuuttujan sisältö väliaikaiseen tiedostoon
 with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
     f.write(json_str)
     temp_path = f.name
@@ -39,31 +35,9 @@ cred = credentials.Certificate(temp_path)
 firebase_admin.initialize_app(cred, {
     'storageBucket': os.environ.get('bucket')
 })
+
 bucket = storage.bucket()
-
-@app.route('/scores', methods=['GET'])
-def get_scores():
-    # Load the contents of the highscores file from Firebase Storage
-    blob = bucket.blob('scores.json')
-    content = blob.download_as_string().decode('utf-8')
-    data = json.loads(content)
-    return jsonify(data)
-
-@app.route('/scores', methods=['POST'])
-def add_score():
-    # Load the score data from the request
-    score = request.get_json()
-    score_json = json.dumps(score)
-
-    # Upload the updated highscores file to Firebase Storage
-    blob = bucket.blob('scores.json')
-    blob.upload_from_string(score_json, content_type='text/plain')
-    return jsonify({'message': 'score added successfully!'})
-
-
-####################### FIX FOR SAVING
-####################### FIX FOR SAVING END
-
+scores_str = read_score()
 
 # this method is used to check the validity of the password
 # sent with requests to the backend
@@ -77,8 +51,6 @@ def check_api_key(pw):
     result = bcrypt.checkpw(pw.encode('utf-8'), hash)
     # returned values are boolean type
     return True if result else False
-
-scores_str = read_score()
 
 #Allow origins
 @app.after_request
@@ -112,10 +84,17 @@ def index():
     #return make_response("nice!", 209)
 
 #Get all scores DONE!
-#@app.route("/all_scores/")
-#def get_scores():
+@app.route("/all_scores/")
+def get_scores():
+
 #    password = request.args.get('pw')
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
+
+    blob = bucket.blob('scores.json')
+    content = blob.download_as_string().decode('utf-8')
+    data = json.loads(content)
+    return jsonify(data)
+
 
 #Get a single score based on the id DONE!
 @app.route('/scores/<int:the_id>')
@@ -199,22 +178,37 @@ def delete_score(the_id):
         return abort(404, description= "Score not found")
 
 #adding a score DONE! But testing?
-#@app.route('/scores', methods=['POST'])
-#def add_highscore():
-    
- #   with open('scores.json', 'r') as f:
- #       data = json.load(f)
+@app.route('/scores', methods=['POST'])
+def add_highscore():
 
-#    print(data) # {'scores': []}
-    
-#    data['scores'].append(request.json)
+    blob = bucket.blob('scores.json')
+    score_data = blob.download_as_string()
+    if score_data:
+        existing_scores = json.loads(score_data)
+    else:
+        existing_scores = {"scores": []}
 
-#    print(data) # {'scores': [{'id': 1, 'time': '00:00:01', 'name': 'MOIKKA'}]}
+    new_score = request.get_json()
+    existing_scores["scores"].append(new_score)  
 
-#    with open('scores.json', 'w') as f:
-#        json.dump(data, f) # file doesn't update {"scores": []}
+    #with open('scores.json', 'r') as f:
+    #    data = json.load(f)
 
-#    return 'Score added successfully', 201 
+    #data['scores'].append(request.json)
+
+    #with open('scores.json', 'w') as f:
+    #    json.dump(data, f) # file doesn't update {"scores": []}
+
+    # Upload the updated highscores file to Firebase Storage
+
+    updated_score_data = json.dumps(existing_scores)
+    blob.upload_from_string(updated_score_data, content_type='text/plain')
+
+    print(updated_score_data)
+
+    #return jsonify({'message': 'score added successfully!'})
+    return 'Score added successfully', 201 
+
 
 
 if __name__ == "__main__":
