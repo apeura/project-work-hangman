@@ -4,29 +4,13 @@ import bcrypt
 from frontend.util.utility import *
 from dotenv import load_dotenv
 
-bucket = initialize_app()
-
 app = Flask(__name__)
 load_dotenv()
 
 API_KEY = os.environ.get('API_KEY')
-json_str = os.environ.get('firebase')
-
-with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-    f.write(json_str)
-    temp_path = f.name
-
-# luetaan tiedostosta json filu
-cred = credentials.Certificate(temp_path)
-
-# tee render.comiin ympäristömuuttuja bucket, jonka sisältö
-# esim: mydatabase-38cf0.appspot.com
-firebase_admin.initialize_app(cred, {
-    'storageBucket': os.environ.get('bucket')
-})
-
-bucket = storage.bucket()
 scores_str = read_score()
+
+bucket = initialize_app()
 
 # this method is used to check the validity of the password
 # sent with requests to the backend
