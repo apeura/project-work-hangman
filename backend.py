@@ -11,20 +11,25 @@ from firebase_admin import storage
 
 json_str = os.environ.get('firebase')
 
-with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-    f.write(json_str)
-    temp_path = f.name
+if json_str:
+    with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+        f.write(json_str)
+        temp_path = f.name
 
-# luetaan tiedostosta json filu
-cred = credentials.Certificate(temp_path)
+    # luetaan tiedostosta json filu
+    cred = credentials.Certificate(temp_path)
 
-# tee render.comiin ympäristömuuttuja bucket, jonka sisältö
-# esim: mydatabase-38cf0.appspot.com
-firebase_admin.initialize_app(cred, {
-    'storageBucket': os.environ.get('bucket')
-})
+    # tee render.comiin ympäristömuuttuja bucket, jonka sisältö
+    # e sim: mydatabase-38cf0.appspot.com
+    firebase_admin.initialize_app(cred, {
+        'storageBucket': os.environ.get('bucket')
+    })
 
-bucket = storage.bucket()
+    # get the storage bucket object
+    bucket = storage.bucket()
+
+else:
+    raise ValueError("Firebase configuration is not set")
 
 ##########################################
 

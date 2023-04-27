@@ -4,7 +4,14 @@ import time
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
-from ..backend import *
+
+import os
+import sys
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(project_dir)
+
+from backend import *
+
 
 url = "https://hangman-highscores-amif.onrender.com/scores"
 
@@ -130,7 +137,6 @@ def add_to_highscore(time):
     # /better than worst score on record) a post request is sent
     if score_is_added_to_top50(myobj) == True:
         
-        #url = "https://hangman-highscores-amif.onrender.com/scores
         x = requests.post(url, json = myobj)
         print(x.text)
 
