@@ -2,6 +2,7 @@
 import json
 from datetime import datetime
 import os
+from backend import read_score
 
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
@@ -10,7 +11,7 @@ url = "https://hangman-highscores-amif.onrender.com/scores"
 
 #returns data in asc order (default)
 def sort_score(descending=False):
-    all_data = json.loads(read_score())
+    all_data = read_score()
     all_scores = all_data["scores"]
     times = sorted(all_scores, key=lambda k: k["time"], reverse=descending)
     sorted_scores = []
@@ -27,7 +28,7 @@ def sort_score(descending=False):
 #Returns the scores as a list, excluding the id (id is not needed)
 #So that the scores can be shown in the html page
 def make_2D_array(descending=False):
-    all_data = json.loads(read_score())
+    all_data = read_score()
     all_scores = all_data["scores"]
 
     times = sorted(all_scores, key=lambda k: k["time"], reverse=descending)
@@ -40,10 +41,6 @@ def make_2D_array(descending=False):
         score_list.append(single_score)
 
     return score_list
-
-def read_score():
-    data = open(scores_path, "r")
-    return data.read()
 
 # Checks if new score should be added to top 50
 def score_is_added_to_top50(new_score):
@@ -109,6 +106,7 @@ def format_time(game_time):
     # 1 minute 1 second
 
     return game_time
+
 
 
 if __name__ == "__main__":
