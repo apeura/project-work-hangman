@@ -1,26 +1,19 @@
-
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
-from frontend.util.utility import *
-from dotenv import load_dotenv
 import os
-import bcrypt
-
-app = Flask(__name__)
-
-load_dotenv()
-
-API_KEY = os.environ.get('API_KEY')
-
-####################### FIX FOR SAVING START
-####################### FIX FOR SAVING
-
-import os
-from flask import Flask, request, jsonify, json
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
 import tempfile
+import os
+import bcrypt
+from frontend.util.utility import *
+from dotenv import load_dotenv
 
+
+app = Flask(__name__)
+load_dotenv()
+
+API_KEY = os.environ.get('API_KEY')
 json_str = os.environ.get('firebase')
 
 with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
@@ -84,7 +77,7 @@ def index():
     #return make_response("nice!", 209)
 
 #Get all scores DONE!
-@app.route("/all_scores/")
+@app.route("/all_scores")
 def get_scores():
 
 #    password = request.args.get('pw')

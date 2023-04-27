@@ -3,6 +3,33 @@ import json
 from datetime import datetime
 import os
 
+## COPIED ###
+
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import storage
+
+
+json_str = os.environ.get('firebase')
+
+with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+    f.write(json_str)
+    temp_path = f.name
+
+# luetaan tiedostosta json filu
+cred = credentials.Certificate(temp_path)
+
+# tee render.comiin ympäristömuuttuja bucket, jonka sisältö
+# esim: mydatabase-38cf0.appspot.com
+firebase_admin.initialize_app(cred, {
+    'storageBucket': os.environ.get('bucket')
+})
+
+bucket = storage.bucket()
+## COPIED ###
+
+
+
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 
@@ -42,36 +69,6 @@ def read_score():
     data = open(scores_path, "r")
     return data.read()
 
-
- # Saves data to a json file
-
-def save_to_score(user_data):
-
-    #if no file create one with correct format for score data
-    if not os.path.exists(scores_path):
-        with open(scores_path, "w") as f:
-            json.dump({"scores": []}, f)
-            f.close()
-
-# scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
-
-    with open(scores_path) as f:
-        data = json.load(f)
-        
-    data['scores'].append(user_data)
-
-    # user_data) -->  {'id': 6, 'time': '00:00:02', 'name': 'PATE'}
-
-    # data --> {'scores': [{'id': 1, 'time': '00:00:01', 'name': 'Leevi'}, 
-    # {'id': 2, 'time': '00:33:00', 'name': 'Hanna'}, {'id': 3, 'time': '00:22:00', 'name': 'Viivi'}, 
-    # {'id': 4, 'time': '00:00:02', 'name': 'ANNI'}, {'id': 5, 'time': '00:00:01', 'name': 'Lasse'}, 
-    # {'id': 6, 'time': '00:00:02', 'name': 'PATE'}]}
-
-    with open(scores_path, 'w') as f:
-        json.dump(data, f)
-
-    print("saved to json!")
-
 # Checks if new score should be added to top 50
 def score_is_added_to_top50(new_score):
 
@@ -96,6 +93,17 @@ def score_is_added_to_top50(new_score):
 
 # Generates id
 def generate_id():
+
+    ###### FIREBASE IMPLEMENTATION?
+    blob = bucket.blob('scores.json')
+    score_data = blob.download_as_string()
+    existing_scores = json.loads(score_data)
+
+    new_id = len(scores_dict["scores"]) + 1
+    
+    blob.upload_from_string(updated_score_data, content_type='text/plain')
+
+    ######
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
 
