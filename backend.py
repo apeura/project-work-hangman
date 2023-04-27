@@ -1,3 +1,4 @@
+
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
 from frontend.util.utility import *
 from dotenv import load_dotenv
@@ -9,6 +10,34 @@ app = Flask(__name__)
 load_dotenv()
 
 API_KEY = os.environ.get('API_KEY')
+
+####################### FIX FOR SAVING START
+####################### FIX FOR SAVING
+
+import os
+from flask import Flask, request, jsonify, json
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import storage
+import tempfile
+
+json_str = os.environ.get('firebase')
+
+with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+    f.write(json_str)
+    temp_path = f.name
+
+# luetaan tiedostosta json filu
+cred = credentials.Certificate(temp_path)
+
+# tee render.comiin ympäristömuuttuja bucket, jonka sisältö
+# esim: mydatabase-38cf0.appspot.com
+firebase_admin.initialize_app(cred, {
+    'storageBucket': os.environ.get('bucket')
+})
+
+bucket = storage.bucket()
+scores_str = read_score()
 
 # this method is used to check the validity of the password
 # sent with requests to the backend
@@ -23,8 +52,6 @@ def check_api_key(pw):
     # returned values are boolean type
     return True if result else False
 
-scores_str = read_score()
-
 #Allow origins
 @app.after_request
 def after_request(response):
@@ -37,6 +64,10 @@ def index():
     #2D array
     scores_list = make_2D_array()
     scores_string = ""
+
+    if len(scores_list) == 0:
+        return render_template('index.html', scores="-", time="-", name="-")
+
     i = 0
     while i < len(scores_list):
     #for score in scores_list:
@@ -44,6 +75,7 @@ def index():
         name = str(scores_list[i][1])
         scores_string += (f'{time}, {name}\n')
         i = i + 1
+    
     rows = scores_string.split('\n')
 
     table_data = [row.split(',') for row in rows]
@@ -54,8 +86,16 @@ def index():
 #Get all scores DONE!
 @app.route("/all_scores/")
 def get_scores():
-    password = request.args.get('pw')
-    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
+
+#    password = request.args.get('pw')
+#    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
+
+    blob = bucket.blob('scores.json')
+    content = blob.download_as_string().decode('utf-8')
+    data = json.loads(content)
+    print(data)
+    return jsonify(data)
+
 
 #Get a single score based on the id DONE!
 @app.route('/scores/<int:the_id>')
@@ -141,13 +181,35 @@ def delete_score(the_id):
 #adding a score DONE! But testing?
 @app.route('/scores', methods=['POST'])
 def add_highscore():
-    
-    # load given string and turn in into dictionary
-    user_data = json.loads(request.data)
-    print("data loaded", user_data)
-    save_to_score(user_data)
 
-    return 'Score saved successfully', 201
+    blob = bucket.blob('scores.json')
+    score_data = blob.download_as_string()
+    if score_data:
+        existing_scores = json.loads(score_data)
+    else:
+        existing_scores = {"scores": []}
+
+    new_score = request.get_json()
+    existing_scores['scores'].append(new_score)
+
+    #scores_object = {"scores": existing_scores}
+
+    updated_score_data = json.dumps(existing_scores)
+    blob.upload_from_string(updated_score_data, content_type='text/plain')
+
+
+    #print("NEW SCORE  ", new_score, "existing scores  ", existing_scores)
+    #existing_scores['scores'].append(new_score)  
+    #print("existing scores  ", existing_scores)
+
+    #updated_score_data = json.dumps(existing_scores)
+    #blob.upload_from_string(updated_score_data, content_type='text/plain')
+
+    print(updated_score_data)
+
+    return 'Score added successfully', 201 
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

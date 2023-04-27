@@ -48,7 +48,8 @@ def show_highscores():
     print("Best times")
 
     try:
-        r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
+        #r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
+        r = requests.get('https://hangman-highscores-amif.onrender.com/all_scores')
         r.raise_for_status()
         print(r.text)
     except requests.exceptions.RequestException as e:
@@ -120,12 +121,15 @@ def add_to_highscore(time):
         print("Name should be 2-10 characters.")
         name = input("Please input a name for the leaderboard: ")
 
+    #generate id for new score
     id = generate_id()
-
     myobj = {"id": id, "time": time, "name": name}
-
+    
+    #if score should be added to file (less than 50 scores total
+    # /better than worst score on record) a post request is sent
     if score_is_added_to_top50(myobj) == True:
-
+        
+        #url = "https://hangman-highscores-amif.onrender.com/scores
         x = requests.post(url, json = myobj)
         print(x.text)
 

@@ -48,6 +48,7 @@ def read_score():
 
 
 
+<<<<<<< HEAD
 def save_to_score():
     
     user_data = ""
@@ -56,14 +57,20 @@ def save_to_score():
 
     print (test)
 
+=======
+def save_to_score(user_data):
+
+    #if no file create one with correct format for score data
+>>>>>>> 1053ea60255ce5136eebf44db2ea2c5c195ab20d
     if not os.path.exists(scores_path):
         with open(scores_path, "w") as f:
             json.dump({"scores": []}, f)
             f.close()
 
+# scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
+
     with open(scores_path) as f:
         data = json.load(f)
-        f.close()
         
     data['scores'].append(user_data)
 
@@ -76,7 +83,6 @@ def save_to_score():
 
     with open(scores_path, 'w') as f:
         json.dump(data, f)
-        f.close()
 
     print("saved to json!")
 
