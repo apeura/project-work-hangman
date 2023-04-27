@@ -93,6 +93,7 @@ def get_scores():
     blob = bucket.blob('scores.json')
     content = blob.download_as_string().decode('utf-8')
     data = json.loads(content)
+    print(data)
     return jsonify(data)
 
 
@@ -184,16 +185,16 @@ def add_highscore():
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
     if score_data:
-        existing_scores = json.loads(score_data)
+        existing_scores = {"scores": [json.loads(score_data)]}
     else:
-        existing_scores = []
+        existing_scores = {"scores": []}
 
     new_score = request.get_json()
-    existing_scores.append(new_score)
+    existing_scores['scores'].append(new_score)
 
-    scores_object = {"scores": existing_scores}
+    #scores_object = {"scores": existing_scores}
 
-    updated_score_data = json.dumps(scores_object)
+    updated_score_data = json.dumps(existing_scores)
     blob.upload_from_string(updated_score_data, content_type='text/plain')
 
 
