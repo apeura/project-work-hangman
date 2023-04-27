@@ -11,7 +11,7 @@ from firebase_admin import credentials
 from firebase_admin import storage
 
 
-def initialize_app(app_name=None):
+def initialize_app(app_name='default'):
     json_str = os.environ.get('firebase')
 
     with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:

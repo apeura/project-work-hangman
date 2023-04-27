@@ -2,8 +2,8 @@ import requests
 import random
 import time
 from datetime import datetime
-from frontend.util.drawings import draw_hangman
-from frontend.util.utility import *
+from util.drawings import draw_hangman
+from util.utility import *
 
 url = "https://hangman-highscores-amif.onrender.com/scores"
 
