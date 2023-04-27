@@ -186,29 +186,26 @@ def add_highscore():
     if score_data:
         existing_scores = json.loads(score_data)
     else:
-        existing_scores = {"scores": []}
+        existing_scores = []
 
     new_score = request.get_json()
-    print("NEW SCORE  ", new_score, "existing scores  ", existing_scores)
-    existing_scores['scores'].append(new_score)  
-    print("existing scores  ", existing_scores)
+    existing_scores.append(new_score)
 
-    #with open('scores.json', 'r') as f:
-    #    data = json.load(f)
+    scores_object = {"scores": existing_scores}
 
-    #data['scores'].append(request.json)
-
-    #with open('scores.json', 'w') as f:
-    #    json.dump(data, f) # file doesn't update {"scores": []}
-
-    # Upload the updated highscores file to Firebase Storage
-
-    updated_score_data = json.dumps(existing_scores)
+    updated_score_data = json.dumps(scores_object)
     blob.upload_from_string(updated_score_data, content_type='text/plain')
+
+
+    #print("NEW SCORE  ", new_score, "existing scores  ", existing_scores)
+    #existing_scores['scores'].append(new_score)  
+    #print("existing scores  ", existing_scores)
+
+    #updated_score_data = json.dumps(existing_scores)
+    #blob.upload_from_string(updated_score_data, content_type='text/plain')
 
     print(updated_score_data)
 
-    #return jsonify({'message': 'score added successfully!'})
     return 'Score added successfully', 201 
 
 
