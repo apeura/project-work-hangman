@@ -1,14 +1,12 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
 import os
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import storage
-import tempfile
-import os
 import bcrypt
 from frontend.util.utility import *
 from dotenv import load_dotenv
 
+from firebase import initialize_app
+
+bucket = initialize_app()
 
 app = Flask(__name__)
 load_dotenv()

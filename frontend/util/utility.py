@@ -11,19 +11,23 @@ from firebase_admin import credentials
 from firebase_admin import storage
 
 
-json_str = os.environ.get('firebase')
+def initialize_app():
+    json_str = os.environ.get('firebase')
 
-with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-    f.write(json_str)
-    temp_path = f.name
+    with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+        f.write(json_str)
+        temp_path = f.name
 
-# luetaan tiedostosta json filu
-cred = credentials.Certificate(temp_path)
+    cred = credentials.Certificate(temp_path)
 
-bucket = storage.bucket()
+    firebase_admin.initialize_app(cred, {
+        'storageBucket': os.environ.get('bucket')
+    })
+
+    return storage.bucket()
 ## COPIED ###
 
-
+bucket = initialize_app()
 
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
