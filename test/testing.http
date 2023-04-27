@@ -9,9 +9,9 @@ DELETE https://hangman-highscores-amif.onrender.com/all_scores/4
 post https://hangman-highscores-amif.onrender.com/scores
 Content-type: application/json
 
-{"id": 6, "time": "00:03:02", "name": "maija"}
+{"id": 3, "time": "00:03:02", "name": "maija"}
 ###
-GET http://127.0.0.1:5000/scores/array
+GET https://hangman-highscores-amif.onrender.com/order/asc
 ###
 GET https://hangman-highscores-amif.onrender.com/order/desc
 ###

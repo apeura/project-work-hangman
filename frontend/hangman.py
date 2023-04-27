@@ -4,13 +4,7 @@ import time
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
-
-import os
-
-
-url = "https://hangman-highscores-amif.onrender.com/scores"
-
-#url = "http://127.0.0.1:5000/scores"
+from backend import score_is_added_to_top50
 
 #global variables
 amount_of_correct_letters = 0
@@ -50,13 +44,9 @@ def show_highscores():
     print("HIGH SCORES")
     print("Best times")
 
-    try:
-        #r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
-        r = requests.get('https://hangman-highscores-amif.onrender.com/all_scores')
-        r.raise_for_status()
-        print(r.text)
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching high scores: {e}")
+    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
+    r.raise_for_status()
+    print(r.text)
 
 #runs game for max 3 rounds, takes time
 def run_game():
@@ -129,7 +119,7 @@ def add_to_highscore(time):
     
     if score_is_added_to_top50(myobj) == True:
         
-        x = requests.post(url, json = myobj)
+        x = requests.post('https://hangman-highscores-amif.onrender.com/scores', json = myobj)
         print(x.text)
 
         print("score saved to top 50!")

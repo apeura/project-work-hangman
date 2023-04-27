@@ -1,12 +1,4 @@
-#match-case formatointi funtioiden sijaan?
 import json
-from datetime import datetime
-import os
-
-#fix to scores.json not being found, determined path
-scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
-
-url = "https://hangman-highscores-amif.onrender.com/scores"
 
 #fills any gaps when a score has been deleted by fixing existing ids
 def adjust_ids(dict, removed_id):

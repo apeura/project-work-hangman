@@ -8,8 +8,7 @@ import bcrypt
 
 import tempfile
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import storage
+from firebase_admin import credentials, storage
 
 import io
 
@@ -39,8 +38,6 @@ else:
 
 load_dotenv()
 API_KEY = os.environ.get('API_KEY')
-
-#bucket = initialize_app(app_name='backend-app')
 
 # This method is used to check the validity of the password
 # Sent with requests to the backend
@@ -139,6 +136,7 @@ def get_asc_or_desc_scores(order):
 
 @app.route("/scores/formatted")
 def return_scores_in_format():
+
     scores_in_order_list = make_2D_array()
     top_10_scores = []
     formatted_str = ""
@@ -164,7 +162,6 @@ def return_scores_in_format():
 def get_scores_limit(limit):
 
     all_scores_sorted = sort_score()
-    print(all_scores_sorted)
     scores_within_limit = []
 
     if limit > len(all_scores_sorted):
@@ -181,7 +178,6 @@ def get_scores_limit(limit):
 @app.route('/all_scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
 
-    #scores_s = json.loads(read_score())
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
 
@@ -208,6 +204,7 @@ def add_highscore():
     
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
+
     if score_data:
         existing_scores = json.loads(score_data)
     else:
@@ -229,10 +226,7 @@ def add_highscore():
 
     return 'Score added successfully', 201 
 
-################################################################################
-############### METHODS FROM UTILITY 
-################################################################################
-url = "https://hangman-highscores-amif.onrender.com/scores"
+
 
 # Checks if new score should be added to top 50
 def score_is_added_to_top50(new_score):
@@ -260,6 +254,7 @@ def sort_score(descending=False):
     all_data = read_score()
     all_scores = all_data["scores"]
     times = sorted(all_scores, key=lambda k: k["time"], reverse=descending)
+
     sorted_scores = []
 
     for score in times:
@@ -274,6 +269,7 @@ def sort_score(descending=False):
 #Returns the scores as a list, excluding the id (id is not needed)
 #So that the scores can be shown in the html page
 def make_2D_array(descending=False):
+
     all_data = read_score()
     all_scores = all_data["scores"]
 
@@ -287,8 +283,6 @@ def make_2D_array(descending=False):
         score_list.append(single_score)
 
     return score_list
-
-################################################################################
 
 # Loads the scores file from firebase and puts it into json format
 def read_score():
