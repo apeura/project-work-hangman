@@ -100,19 +100,13 @@ def generate_id():
     ###### FIREBASE IMPLEMENTATION?
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
-    existing_scores = json.loads(score_data)
+    scores_dict = json.loads(score_data) if score_data else {"scores": []}
 
     new_id = len(scores_dict["scores"]) + 1
-    
-    blob.upload_from_string(updated_score_data, content_type='text/plain')
 
     ######
     # Counts the amount of lines in the text file
     # so that the value can be used for the ID generation.
-
-    with open(scores_path, 'r') as f:
-        scores_dict = json.load(f)
-        new_id = len(scores_dict["scores"]) + 1
     
     return new_id
 
