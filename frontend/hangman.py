@@ -127,8 +127,6 @@ def add_to_highscore(time):
     #generate id for new score
     myobj = {"time": time, "name": name}
     
-    #if score should be added to file (less than 50 scores total
-    # /better than worst score on record) a post request is sent
     if score_is_added_to_top50(myobj) == True:
         
         x = requests.post(url, json = myobj)

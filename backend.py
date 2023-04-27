@@ -1,15 +1,17 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
-import os
-import bcrypt
+
 from frontend.util.utility import *
 from dotenv import load_dotenv
+
+import os
+import bcrypt
+
 import tempfile
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
 
 app = Flask(__name__)
-
 
 json_str = os.environ.get('firebase')
 
@@ -33,11 +35,7 @@ if json_str:
 else:
     raise ValueError("Firebase configuration is not set")
 
-##########################################
-
-
 load_dotenv()
-
 API_KEY = os.environ.get('API_KEY')
 scores_str = read_score()
 
@@ -90,7 +88,6 @@ def index():
 #Get all scores DONE!
 @app.route("/all_scores")
 def get_scores():
-    print(generate_id())
 #    password = request.args.get('pw')
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
 
@@ -99,7 +96,6 @@ def get_scores():
     data = json.loads(content)
     print(data)
     return jsonify(data)
-
 
 #Get a single score based on the id DONE!
 @app.route('/scores/<int:the_id>')
@@ -182,11 +178,10 @@ def delete_score(the_id):
     except:
         return abort(404, description= "Score not found")
 
-#adding a score DONE! But testing?
+
+#adding a score DONE!
 @app.route('/scores', methods=['POST'])
 def add_highscore():
-
-    score_id = generate_id()
     
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
@@ -195,28 +190,25 @@ def add_highscore():
     else:
         existing_scores = {"scores": []}
 
-    print("Score ID:", score_id)
+    new_score = {}
+    received_score = request.get_json()
 
-    new_score = request.get_json()
-    new_score['id'] = score_id
+    new_score['id'] = generate_id()
+    new_score['time'] = received_score['time']
+    new_score['name'] = received_score['name']
+    
     existing_scores['scores'].append(new_score)
 
     updated_score_data = json.dumps(existing_scores)
     blob.upload_from_string(updated_score_data, content_type='text/plain')
 
-
-
-    #print("NEW SCORE  ", new_score, "existing scores  ", existing_scores)
-    #existing_scores['scores'].append(new_score)  
-    #print("existing scores  ", existing_scores)
-
-    #updated_score_data = json.dumps(existing_scores)
-    #blob.upload_from_string(updated_score_data, content_type='text/plain')
-
     print(updated_score_data)
 
     return 'Score added successfully', 201 
 
+################################################################################
+############### METHODS FROM UTILITY 
+################################################################################
 
 def generate_id():
 

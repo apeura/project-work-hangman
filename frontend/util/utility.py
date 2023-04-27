@@ -3,11 +3,6 @@ import json
 from datetime import datetime
 import os
 
-## COPIED ###
-
-
-## COPIED ###
-
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
 
@@ -72,22 +67,6 @@ def score_is_added_to_top50(new_score):
 
     return False
 
-# Generates id
-#def generate_id():
-
-    ###### FIREBASE IMPLEMENTATION?
-#    blob = bucket.blob('scores.json')
-#    score_data = blob.download_as_string()
-#    scores_dict = json.loads(score_data) if score_data else {"scores": []}
-
-#    new_id = len(scores_dict["scores"]) + 1
-
-    ######
-    # Counts the amount of lines in the text file
-    # so that the value can be used for the ID generation.
-    
-#    return new_id
-
 #fills any gaps when a score has been deleted by fixing existing ids
 def adjust_ids(dict, removed_id):
     all_data = dict
@@ -131,8 +110,6 @@ def format_time(game_time):
 
     return game_time
 
-def main():
-    save_to_score()
 
 if __name__ == "__main__":
     main()
