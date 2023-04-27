@@ -229,7 +229,7 @@ def add_highscore():
 
 
 # Checks if new score should be added to top 50
-def score_is_added_to_top50(new_score):
+def score_is_added_to_top501(new_score):
 
     new_time = new_score["time"]
     #print("SCORE_IS_ADDED new_time is", new_time)

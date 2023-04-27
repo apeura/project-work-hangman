@@ -4,7 +4,6 @@ import time
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
-from backend import score_is_added_to_top50
 
 #global variables
 amount_of_correct_letters = 0
