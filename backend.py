@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.environ.get('API_KEY')
 scores_str = read_score()
 
-bucket = initialize_app(app_name='backend-app')
+#bucket = initialize_app(app_name='backend-app')
 
 # this method is used to check the validity of the password
 # sent with requests to the backend
@@ -62,6 +62,7 @@ def get_scores():
 
 #    password = request.args.get('pw')
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
+    bucket = initialize_app(app_name='backend-app')
 
     blob = bucket.blob('scores.json')
     content = blob.download_as_string().decode('utf-8')
@@ -154,6 +155,8 @@ def delete_score(the_id):
 #adding a score DONE! But testing?
 @app.route('/scores', methods=['POST'])
 def add_highscore():
+
+    bucket = initialize_app(app_name='backend-app')
 
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
