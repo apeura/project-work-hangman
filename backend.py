@@ -11,6 +11,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
 
+import io
+
 app = Flask(__name__)
 
 json_str = os.environ.get('firebase')
