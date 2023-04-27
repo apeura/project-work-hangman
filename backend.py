@@ -39,8 +39,6 @@ load_dotenv()
 API_KEY = os.environ.get('API_KEY')
 scores_str = read_score()
 
-#bucket = initialize_app(app_name='backend-app')
-
 # this method is used to check the validity of the password
 # sent with requests to the backend
 def check_api_key(pw):
@@ -163,16 +161,25 @@ def get_scores_limit(limit):
     return make_response(scores_within_limit, 200)
 
 #Delete a score DONE!
-@app.route('/scores/<int:the_id>', methods=['DELETE'])
+@app.route('/all_scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
 
-    scores_s = json.loads(read_score())
-    print(scores_s)
+    #scores_s = json.loads(read_score())
+    blob = bucket.blob('scores.json')
+    score_data = blob.download_as_string()
+
+    if score_data:
+        all_data = json.loads(score_data)
+    else:
+        return abort(404, description= "No scores to delete!")
 
     try:
-        print(scores_s["scores"][the_id-1]) # {'id': 1, 'time': '00.00.01', 'name': 'Leevi'}
-        del scores_s["scores"][the_id-1]
-        adjust_ids(scores_s, the_id)
+        print(all_data['scores'][the_id-1]) # {'id': 1, 'time': '00.00.01', 'name': 'Leevi'}
+        del all_data['scores'][the_id-1]
+        adjust_ids(all_data, the_id)
+
+        updated_score_data = json.dumps(all_data)
+        blob.upload_from_string(updated_score_data, content_type='text/plain')
 
         return make_response("Score removed succesfully!", 204)
     except:
