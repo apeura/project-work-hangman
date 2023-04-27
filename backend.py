@@ -23,13 +23,13 @@ if json_str:
     # luetaan tiedostosta json filu
     cred = credentials.Certificate(temp_path)
 
-    # tee render.comiin ympäristömuuttuja bucket, jonka sisältö
-    # e sim: mydatabase-38cf0.appspot.com
+    # Creates an "environmental variable bucket" into render.com
+    # Example of the .env: mydatabase-38cf0.appspot.com
     firebase_admin.initialize_app(cred, {
         'storageBucket': os.environ.get('bucket')
     })
 
-    # get the storage bucket object
+    # Get the storage bucket object
     bucket = storage.bucket()
 
 else:
@@ -41,8 +41,8 @@ scores_str = read_score()
 
 #bucket = initialize_app(app_name='backend-app')
 
-# this method is used to check the validity of the password
-# sent with requests to the backend
+# This method is used to check the validity of the password
+# Sent with requests to the backend
 def check_api_key(pw):
     if type(pw) != str:
         raise Exception("Give password as string object")
@@ -54,19 +54,21 @@ def check_api_key(pw):
     # returned values are boolean type
     return True if result else False
 
-#Allow origins
+# Allow origins
 @app.after_request
 def after_request(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
-#Fetch all scores
+# Fetches all scores and puts them into HTML form
 @app.route('/')
 def index():
     #2D array
     scores_list = make_2D_array()
     scores_string = ""
 
+    # If the length of the scores_list is 0, returns "-" to the HTML
+    # Making it show empty
     if len(scores_list) == 0:
         return render_template('index.html', scores="-", time="-", name="-")
 
@@ -78,6 +80,8 @@ def index():
         scores_string += (f'{time}, {name}\n')
         i = i + 1
     
+    # Splits each score into rows, which can be shown on their own rows on
+    # The HTML site
     rows = scores_string.split('\n')
 
     table_data = [row.split(',') for row in rows]
@@ -85,7 +89,8 @@ def index():
     return render_template('index.html', scores=table_data, time=time, name=name)
     #return make_response("nice!", 209)
 
-#Get all scores DONE!
+# Get all scores DONE!
+# Gets all scores from firebase and shows them in json form
 @app.route("/all_scores")
 def get_scores():
 #    password = request.args.get('pw')
@@ -97,7 +102,8 @@ def get_scores():
     print(data)
     return jsonify(data)
 
-#Get a single score based on the id DONE!
+# Get a single score based on the id DONE!
+# Error 404, if the score with the value of "the_id" is not found
 @app.route('/scores/<int:the_id>')
 def get_score(the_id):
 
@@ -110,7 +116,8 @@ def get_score(the_id):
 
     abort(404, description="Score not found")
 
-#Returns a descended or ascended order of the score list.
+# Returns a descended or ascended order of the score list.
+# Error 404 if the parameter in <order> is wrong
 @app.route("/order/<string:order>", methods = ['GET'])
 def get_asc_or_desc_scores(order):
     if order == "asc":
@@ -144,7 +151,7 @@ def return_scores_in_format():
 
     return formatted_str
 
-#Fetching all scores with limit DONE!
+# Fetching all scores with limit DONE!
 @app.route("/scores/limit/<int:limit>")
 def get_scores_limit(limit):
 
@@ -209,6 +216,15 @@ def add_highscore():
 ################################################################################
 ############### METHODS FROM UTILITY 
 ################################################################################
+
+# Loads the scores file from firebase and puts it into json format
+def read_score():
+    blob = bucket.blob('scores.json')
+    scores_data = blob.download_as_string()
+    scores_data_json = json.load(scores_data)
+
+    return scores_data_json
+
 
 def generate_id():
 
