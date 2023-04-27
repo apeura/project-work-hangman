@@ -292,7 +292,8 @@ def make_2D_array(descending=False):
 def read_score():
     blob = bucket.blob('scores.json')
     scores_data = blob.download_as_string()
-    scores_data_json = json.load(scores_data)
+    scores_data_io = io.StringIO(scores_data.decode('utf-8'))
+    scores_data_json = json.load(scores_data_io)
 
     return scores_data_json
 
