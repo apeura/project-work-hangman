@@ -4,8 +4,6 @@ import bcrypt
 from frontend.util.utility import *
 from dotenv import load_dotenv
 
-from firebase import initialize_app
-
 bucket = initialize_app()
 
 app = Flask(__name__)
