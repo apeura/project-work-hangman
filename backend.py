@@ -112,10 +112,10 @@ def index():
     #return make_response("nice!", 209)
 
 #Get all scores DONE!
-@app.route("/all_scores/")
-def get_scores():
-    password = request.args.get('pw')
-    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
+#@app.route("/all_scores/")
+#def get_scores():
+#    password = request.args.get('pw')
+#    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
 
 #Get a single score based on the id DONE!
 @app.route('/scores/<int:the_id>')
@@ -199,22 +199,22 @@ def delete_score(the_id):
         return abort(404, description= "Score not found")
 
 #adding a score DONE! But testing?
-@app.route('/scores', methods=['POST'])
-def add_highscore():
+#@app.route('/scores', methods=['POST'])
+#def add_highscore():
     
-    with open('scores.json', 'r') as f:
-        data = json.load(f)
+ #   with open('scores.json', 'r') as f:
+ #       data = json.load(f)
 
-    print(data) # {'scores': []}
+#    print(data) # {'scores': []}
     
-    data['scores'].append(request.json)
+#    data['scores'].append(request.json)
 
-    print(data) # {'scores': [{'id': 1, 'time': '00:00:01', 'name': 'MOIKKA'}]}
+#    print(data) # {'scores': [{'id': 1, 'time': '00:00:01', 'name': 'MOIKKA'}]}
 
-    with open('scores.json', 'w') as f:
-        json.dump(data, f) # file doesn't update {"scores": []}
+#    with open('scores.json', 'w') as f:
+#        json.dump(data, f) # file doesn't update {"scores": []}
 
-    return 'Score added successfully', 201 
+#    return 'Score added successfully', 201 
 
 
 if __name__ == "__main__":
