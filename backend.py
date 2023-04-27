@@ -41,23 +41,28 @@ firebase_admin.initialize_app(cred, {
 })
 bucket = storage.bucket()
 
-@app.route('/customers', methods=['GET'])
-def get_customers():
+@app.route('/scores', methods=['GET'])
+def get_scores():
     # Load the contents of the highscores file from Firebase Storage
-    blob = bucket.blob('highscores.json')
+    blob = bucket.blob('scores.json')
     content = blob.download_as_string().decode('utf-8')
     data = json.loads(content)
     return jsonify(data)
 
-@app.route('/customers', methods=['POST'])
-def add_customer():
-    # Load the customer data from the request
-    customer = request.get_json()
-    customer_json = json.dumps(customer)
+@app.route('/scores', methods=['POST'])
+def add_score():
+    # Load the score data from the request
+    score = request.get_json()
+    score_json = json.dumps(score)
+
     # Upload the updated highscores file to Firebase Storage
-    blob = bucket.blob('highscores.json')
-    blob.upload_from_string(customer_json, content_type='text/plain')
-    return jsonify({'message': 'Customer added successfully!'})
+    blob = bucket.blob('scores.json')
+    blob.upload_from_string(score_json, content_type='text/plain')
+    return jsonify({'message': 'score added successfully!'})
+
+
+####################### FIX FOR SAVING
+####################### FIX FOR SAVING END
 
 
 # this method is used to check the validity of the password
@@ -72,9 +77,6 @@ def check_api_key(pw):
     result = bcrypt.checkpw(pw.encode('utf-8'), hash)
     # returned values are boolean type
     return True if result else False
-
-####################### FIX FOR SAVING
-####################### FIX FOR SAVING END
 
 scores_str = read_score()
 
