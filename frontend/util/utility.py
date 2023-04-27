@@ -2,7 +2,7 @@
 import json
 from datetime import datetime
 import os
-from backend import read_score
+from ..backend import read_score
 
 #fix to scores.json not being found, determined path
 scores_path = os.path.join(os.path.dirname(__file__), '..', '..', 'scores.json')
