@@ -13,6 +13,6 @@ Content-type: application/json
 ###
 GET http://127.0.0.1:5000/scores/array
 ###
-GET http://127.0.0.1:5000/scores/order/asc
+GET https://hangman-highscores-amif.onrender.com/order/desc
 ###
 GET http://127.0.0.1:5000/all_scores/?pw=kissapissa

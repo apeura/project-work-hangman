@@ -42,13 +42,17 @@ scores_str = read_score()
 # this method is used to check the validity of the password
 # sent with requests to the backend
 def check_api_key(pw):
+
     if type(pw) != str:
         raise Exception("Give password as string object")
+    
     # hashing the API_KEY that has been turned to bytes array
     # with randomly generated salt
     hash = bcrypt.hashpw(API_KEY.encode('utf-8'), bcrypt.gensalt())
+
     # checking password received as parameter with api key
     result = bcrypt.checkpw(pw.encode('utf-8'), hash)
+
     # returned values are boolean type
     return True if result else False
 
@@ -100,7 +104,10 @@ def get_scores():
 def get_score(the_id):
 
     #dict version of scores
-    scores_s = json.loads(scores_str)
+    blob = bucket.blob('scores.json')
+    content = blob.download_as_string().decode('utf-8')
+    scores_s = json.loads(content)
+
     #go through scores, if id match return that
     for s in scores_s["scores"]:  
         if s["id"] == the_id: 
@@ -174,7 +181,6 @@ def delete_score(the_id):
         return abort(404, description= "No scores to delete!")
 
     try:
-        print(all_data['scores'][the_id-1]) # {'id': 1, 'time': '00.00.01', 'name': 'Leevi'}
         del all_data['scores'][the_id-1]
         adjust_ids(all_data, the_id)
 
