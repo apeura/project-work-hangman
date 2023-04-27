@@ -18,8 +18,11 @@ with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
 # luetaan tiedostosta json filu
 cred = credentials.Certificate(temp_path)
 
-# initialize the app without a name
-firebase_admin.initialize_app(cred)
+# tee render.comiin ympäristömuuttuja bucket, jonka sisältö
+# esim: mydatabase-38cf0.appspot.com
+firebase_admin.initialize_app(cred, {
+    'storageBucket': os.environ.get('bucket')
+})
 
 bucket = storage.bucket()
 
