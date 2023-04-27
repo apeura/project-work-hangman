@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.environ.get('API_KEY')
 scores_str = read_score()
 
-bucket = initialize_app()
+bucket = initialize_app(app_name='backend-app')
 
 # this method is used to check the validity of the password
 # sent with requests to the backend

@@ -11,7 +11,7 @@ from firebase_admin import credentials
 from firebase_admin import storage
 
 
-def initialize_app():
+def initialize_app(app_name=None):
     json_str = os.environ.get('firebase')
 
     with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
@@ -20,11 +20,16 @@ def initialize_app():
 
     cred = credentials.Certificate(temp_path)
 
-    firebase_admin.initialize_app(cred, {
-        'storageBucket': os.environ.get('bucket')
-    })
-
-    return storage.bucket()
+    if app_name:
+        app = firebase_admin.initialize_app(cred, name=app_name, options={
+            'storageBucket': os.environ.get('bucket')
+        })
+    else:
+        app = firebase_admin.initialize_app(cred, options={
+            'storageBucket': os.environ.get('bucket')
+        })
+        
+    return storage.bucket(app=app)
 ## COPIED ###
 
 bucket = initialize_app()
