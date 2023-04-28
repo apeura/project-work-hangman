@@ -190,7 +190,7 @@ def delete_score(the_id):
 
     try:
         del all_data['scores'][the_id-1]
-        adjust_ids(all_data, the_id)
+        all_data = adjust_ids(all_data, the_id)
 
         updated_score_data = json.dumps(all_data)
         blob.upload_from_string(updated_score_data, content_type='text/plain')

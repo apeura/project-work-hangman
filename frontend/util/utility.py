@@ -1,5 +1,4 @@
 import json
-import requests
 
 #fills any gaps when a score has been deleted by fixing existing ids
 def adjust_ids(dict, removed_id):
@@ -11,8 +10,7 @@ def adjust_ids(dict, removed_id):
         if score["id"] > removed_id:
             score["id"] -= 1
 
-    with open(scores_path, 'w') as f:
-        json.dump(all_data, f, ensure_ascii=False)
+    return all_data
 
 # format game time from 00:00:00 to e.g. 1minute 20seconds
 # hours added only if time is over an hour
