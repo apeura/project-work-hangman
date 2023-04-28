@@ -6,10 +6,12 @@ Anni Peura
 
 # Screenshots
 ![Hangman game win](https://user-images.githubusercontent.com/113358099/235179778-35753261-36dd-428a-93d2-1211604dd15b.jpg)
-Alt text
 
 # Tech/framework used
-Python (What language is used, what external modules are used (if any).)
+Language: Python, HTHML, JavaScript
+Web Framework: Flask
+Backend Database: Firebase
+Cloud platform: Render
 
 # Installation and running
 Provide step by step series of examples and explanations about how to get a development env running. Example:
