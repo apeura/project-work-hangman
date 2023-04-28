@@ -66,7 +66,7 @@ def run_game():
         print("     *** ROUND ", rounds, "! ***", sep="")
         secret_word = choose_secret_word()
         incorrect_guess_limit = len(secret_word)
-        
+
         guessed_letters = []
         amount_of_correct_letters = 0
         amount_of_wrong_letters = 0
@@ -193,8 +193,8 @@ def choose_secret_word():
     -------
         Returns the secrect word
     """
-        
-    with open('words.txt', 'r') as file:
+    path = "project-work-hangman/frontend/words.txt"
+    with open(path, 'r') as file:
         word_list = file.read().split()
         file.close()
     return random.choice(word_list)
