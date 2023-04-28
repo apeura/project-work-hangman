@@ -20,3 +20,9 @@ RELEASE 3
 - utility functions added and updated: format_time, adjust_ids, sort_score, format_score
 - html updated
 
+RELEASE 4
+- Firebase implementation made to fix issue with saving scores.json
+- Updated and relocated relevant methods to work with firebase
+- Password implementation
+- Code commented, pdoc created
+- ReadMe updated, repository cleaned up and organized

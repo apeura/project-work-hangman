@@ -13,8 +13,8 @@ Firebase and API_KEY functionalities are implemented.
 app = Flask(__name__)
 
 load_dotenv()
-
 API_KEY = os.environ.get('API_KEY')
+
 json_str = os.environ.get('firebase')
 
 if json_str:

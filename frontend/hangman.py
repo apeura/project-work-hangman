@@ -1,9 +1,12 @@
-import requests
-import random
-import time
+import requests, random, time, os
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
+from dotenv import load_dotenv
+
+load_dotenv()
+API_KEY = os.environ.get('API_KEY')
+
 """
 Module that contains functions relating to running hangman game and storing and displaying highscores.
 Module uses global variables for keeping count of correct and wrong letters as well as the secret word.
@@ -50,7 +53,7 @@ def show_highscores():
     print("HIGH SCORES")
     print("Best times")
 
-    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
+    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted?pw={API_KEY}')
     r.raise_for_status()
     print(r.text)
 
@@ -141,7 +144,7 @@ def add_to_highscore(time):
     
     if score_is_added_to_top50(myobj) == True:
         
-        x = requests.post('https://hangman-highscores-amif.onrender.com/scores', json = myobj)
+        x = requests.post('https://hangman-highscores-amif.onrender.com/scores?pw={API_KEY}', json = myobj)
         print(x.text)
 
         print("score saved to top 50!")
