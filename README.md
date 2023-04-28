@@ -30,4 +30,4 @@ API implementation
 API is deployed to cloud and can be accessed using following url:
 [https://hangman-highscores-amif.onrender.com/]
 Screencast
-Screencast
+[https://youtu.be/22FnxVjrZVM]
