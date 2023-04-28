@@ -11,7 +11,7 @@ Content-type: application/json
 
 {"id": 8, "time": "00:10:12", "name": "Tarmo"}
 ###
-GET https://hangman-highscores-amif.onrender.com/order/asc
+GET https://hangman-highscores-amif.onrender.com/order/desc
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/limit/4
 ###
