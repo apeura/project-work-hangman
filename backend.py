@@ -1,5 +1,5 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
-from .frontend.util.utility import *
+from frontend.util.utility import *
 from dotenv import load_dotenv
 import os, bcrypt, tempfile, firebase_admin, io
 from firebase_admin import credentials, storage
