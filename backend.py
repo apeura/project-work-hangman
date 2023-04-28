@@ -303,6 +303,16 @@ def generate_id():
 
     new_id = len(scores_dict["scores"]) + 1
 
+    #url = "https://hangman-highscores-amif.onrender.com/all_scores"
+    #response = requests.get(url)
+
+    #if response.status_code == 200:
+    #    scores_dict = response.json()
+    #else:
+    #    scores_dict = {"scores": []}
+
+    new_id = len(scores_dict["scores"]) + 1
+
     return new_id
 
 
