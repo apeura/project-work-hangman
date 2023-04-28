@@ -2,6 +2,7 @@ import requests, random, time
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
+import os
 
 """
 Module that contains functions relating to running hangman game and storing and displaying highscores.
@@ -193,7 +194,8 @@ def choose_secret_word():
     -------
         Returns the secrect word
     """
-    path = "frontend/words.txt"
+
+    path = os.path.join(os.path.dirname(__file__), 'words.txt')
     with open(path, 'r') as file:
         word_list = file.read().split()
         file.close()
