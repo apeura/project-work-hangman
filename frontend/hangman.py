@@ -193,7 +193,7 @@ def choose_secret_word():
     -------
         Returns the secrect word
     """
-    path = "project-work-hangman/frontend/words.txt"
+    path = "frontend/words.txt"
     with open(path, 'r') as file:
         word_list = file.read().split()
         file.close()
