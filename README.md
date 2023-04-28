@@ -1,5 +1,5 @@
-# Hangman project with restful API implementation
-This repository is made for a hangman game with highscore that is stored in the cloud. The game goes through three rounds of hangman (given the player is able to guess the secret words) at the end of which the player's score gets added to the highscores.  This project is a part of TAMK's Python programming module and was made by Anni Peura and Leevi Heikkinen.
+# Hangman project with RESTful API implementation
+This repository is made for a hangman game with highscore that is stored in the cloud. The game goes through three rounds of hangman (given the player is able to guess the secret words) at the end of which the player's score is saved and displayed if it's good enough. The score is saved to a firebase database and the server is hosted on Render. This project is a part of TAMK's Python programming module and was made by Anni Peura and Leevi Heikkinen.
 
 # Author
 Anni Peura
