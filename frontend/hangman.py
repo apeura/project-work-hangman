@@ -43,7 +43,7 @@ def show_highscores():
     print("HIGH SCORES")
     print("Best times")
 
-    r = requests.get('https://hangman-highscores-amif.onrender.com/formatted')
+    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted')
     r.raise_for_status()
     print(r.text)
 

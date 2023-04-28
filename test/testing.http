@@ -1,6 +1,6 @@
 GET https://hangman-highscores-amif.onrender.com/all_scores
 ###
-GET https://hangman-highscores-amif.onrender.com/formatted
+GET https://hangman-highscores-amif.onrender.com/scores/formatted
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/2
 ###
