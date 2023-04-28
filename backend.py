@@ -194,7 +194,7 @@ def return_scores_in_format():
         return formatted_str
 
     else:
-        make_response("Incorrect password", 404)
+        return make_response("Incorrect password", 404)
 
 # Fetching all scores with limit DONE!
 @app.route("/scores/limit/<int:limit>")
