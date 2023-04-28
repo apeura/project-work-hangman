@@ -1,8 +1,19 @@
-import json
 import requests
-
-#fills any gaps when a score has been deleted by fixing existing ids
+"""
+Module that contains functions relating to formatting validating data
+"""
 def adjust_ids(dict, removed_id):
+    """ Adjusts score ids after deletion has occurred so score ids have no gaps.
+    Parameters
+    ----------
+    Dictionary : `dict`
+        Dictionary that contains all scores data after deletion.
+    Int : `removed_id`
+        The id that was removed previously.
+    Returns
+    -------
+        Data with corrected ids
+    """
     all_data = dict
     all_scores = all_data["scores"]
 
@@ -13,9 +24,17 @@ def adjust_ids(dict, removed_id):
 
     return all_data
 
-# format game time from 00:00:00 to e.g. 1minute 20seconds
-# hours added only if time is over an hour
 def format_time(game_time):
+    """ Formats time from 00:00:00 to 0 minutes 0 seconds format. 
+    Hours get added only if time is over 60 minutes.
+    Parameters
+    ----------
+    String : `game_time`
+        The string that gets re-formatted to 0 minutes 0 seconds format.
+    Returns
+    -------
+        Game time in new format
+    """
 
     # Split the time string into hours, minutes, and seconds
     hours, minutes, seconds = map(int, game_time.split(':'))
@@ -39,8 +58,17 @@ def format_time(game_time):
 
     return game_time
 
-# Checks if new score should be added to top 50
 def score_is_added_to_top50(new_score):
+    """ Checks if new score should be added to scores.json file. If file has less than
+    50 scores of if the new score is better than the worst score on record method returns True.
+    Parameters
+    ----------
+    Dictionary : `new_score`
+        Dictionary that contains new_score data name and time.
+    Returns
+    -------
+        Boolean value True if score should be added, False if score not.
+    """
 
     new_time = new_score["time"]
 

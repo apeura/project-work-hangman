@@ -55,7 +55,7 @@ def show_highscores():
     print(r.text)
 
 def run_game():
-    """Runs hangman game for max three rounds and takes time. 
+    """Runs hangman game for max three rounds and takes time.
     If the game is won runs game_won function with game time.
     """
     global secret_word, amount_of_correct_letters, amount_of_wrong_letters
@@ -188,13 +188,10 @@ def print_game(secret_word, guessed_letters):
     print(" ".join([c if c in guessed_letters else "_" for c in secret_word]))
 
 def choose_secret_word():
-    """ Chooses secret word from a 
-    Parameters
-    ----------
-    String : `secret_word`
-        The word that is being guessed.
-    String : `guessed_letters`
-        The letters the player has previously guessed.
+    """ Chooses secret word from a list based on the contents of words.txt file
+    Returns
+    -------
+        Returns the secrect word
     """
         
     with open('words.txt', 'r') as file:
@@ -203,6 +200,8 @@ def choose_secret_word():
     return random.choice(word_list)
 
 def main():
+    """ Starts application by activating print_menu_take_choice 
+    """
     print_menu_take_choice()
 
 if __name__ == "__main__":
