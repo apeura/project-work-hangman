@@ -2,17 +2,17 @@ GET https://hangman-highscores-amif.onrender.com/all_scores
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/formatted
 ###
-GET https://hangman-highscores-amif.onrender.com/scores/2
+GET https://hangman-highscores-amif.onrender.com/scores/4
 ###
-DELETE https://hangman-highscores-amif.onrender.com/all_scores/4
+DELETE https://hangman-highscores-amif.onrender.com/all_scores/6
 ###
 post https://hangman-highscores-amif.onrender.com/scores
 Content-type: application/json
 
-{"id": 3, "time": "00:03:02", "name": "maija"}
+{"id": 8, "time": "00:10:12", "name": "Tarmo"}
 ###
 GET https://hangman-highscores-amif.onrender.com/order/asc
 ###
-GET https://hangman-highscores-amif.onrender.com/order/desc
+GET https://hangman-highscores-amif.onrender.com/scores/limit/4
 ###
 GET http://127.0.0.1:5000/all_scores/?pw=kissapissa

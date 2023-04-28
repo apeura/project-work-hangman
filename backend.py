@@ -178,6 +178,8 @@ def get_scores_limit(limit):
 @app.route('/all_scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
 
+    print(the_id)
+
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
 
