@@ -132,7 +132,7 @@ def get_asc_or_desc_scores(order):
     else:
         return abort(404, description="Order must be 'asc' or 'desc'")
 
-@app.route("/scores/formatted")
+@app.route("/formatted")
 def return_scores_in_format():
 
     scores_in_order_list = make_2D_array()

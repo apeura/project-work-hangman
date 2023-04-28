@@ -85,8 +85,9 @@ def make_2D_array(descending=False):
 def read_score():
 
     scores_data_json = requests.get('https://hangman-highscores-amif.onrender.com/all_scores')
-
-    return scores_data_json
+    all_data = json.loads(scores_data_json)
+    
+    return all_data
 
 def generate_id():
 
