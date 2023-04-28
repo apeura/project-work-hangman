@@ -2,11 +2,9 @@ import requests, random, time, os
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
-from dotenv import load_dotenv
+from backend import get_api_key
 
-API_KEY = os.environ.get('API_KEY')
-url = 'https://hangman-highscores-amif.onrender.com/scores'
-headers = {'Authorization': 'Bearer ' + API_KEY}
+API_KEY = get_api_key()
 
 #load_dotenv()
 #API_KEY = os.environ.get('API_KEY')
@@ -57,10 +55,10 @@ def show_highscores():
     print("HIGH SCORES")
     print("Best times")
 
-    response = requests.get(url, headers=headers)
-    #r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted?pw=')
-    #r.raise_for_status()
-    print(response.text)
+    #response = requests.get(url, headers=headers)
+    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted?pw={API_KEY}')
+    r.raise_for_status()
+    print(r.text)
 
 def run_game():
     """Runs hangman game for max three rounds and takes time.
