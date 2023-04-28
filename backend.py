@@ -3,12 +3,10 @@ from frontend.util.utility import *
 from dotenv import load_dotenv
 import os, bcrypt, tempfile, firebase_admin, io
 from firebase_admin import credentials, storage
-from os.path import join, dirname
 
 app = Flask(__name__)
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+load_dotenv()
 
 API_KEY = os.environ.get('API_KEY')
 json_str = os.environ.get('firebase')
@@ -96,8 +94,7 @@ def get_scores():
 #    password = request.args.get('pw')
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
 
-    pw = request.args.get('pw')
-    password = str(pw)
+    password = request.args.get('pw')
 
     blob = bucket.blob('scores.json')
     content = blob.download_as_string().decode('utf-8')
