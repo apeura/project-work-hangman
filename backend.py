@@ -4,6 +4,12 @@ from dotenv import load_dotenv
 import os, bcrypt, tempfile, firebase_admin, io
 from firebase_admin import credentials, storage
 
+"""
+This module contains functions related to Flask and backend operations.
+Methods format, add, delete and sort data.
+Firebase and API_KEY functionalities are implemented.
+"""
+
 app = Flask(__name__)
 
 load_dotenv()
@@ -27,13 +33,14 @@ if json_str:
 else:
     raise ValueError("Firebase configuration is not set")
 
-##############################################
-# THE CODE BELOW IS COPIED FROM TOPIAS LAATU #
-##############################################
 
-# This method is used to check the validity of the password
-# Sent with requests to the backend
 def check_api_key(pw):
+    """ Checks the validity of the password that's been sent to backend
+    Returns
+    -------
+        Boolean true or false depending on passwords validity
+    """
+    # This implementation was resourced from Topias Laatu
 
     if type(pw) != str:
         raise Exception("Give password as string object")
@@ -48,20 +55,21 @@ def check_api_key(pw):
     # returned values are boolean type
     return True if result else False
 
-##############################################
-# THE CODE ABOVE IS COPIED FROM TOPIAS LAATU #
-##############################################
-
-# Allow origins
 @app.after_request
 def after_request(response):
+    """
+    Sets the Access-Control-Allow-Origin header to allow cross-origin resource sharing for all origins 
+    """
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
-# Fetches all scores and puts them into HTML form
 @app.route('/')
 def index():
-
+    """ Formats scores data into rows and table_data that can be used in HTML leaderboard
+    Returns
+    -------
+        Renders template for index.html with scores data 
+    """
     scores_list = make_2D_array()
     scores_string = ""
 
@@ -85,15 +93,14 @@ def index():
     table_data = [row.split(',') for row in rows]
 
     return render_template('index.html', scores=table_data, time=time, name=name)
-    #return make_response("nice!", 209)
 
-# Get all scores DONE!
-# Gets all scores from firebase and shows them in json form
 @app.route("/all_scores")
 def get_scores():
-#    password = request.args.get('pw')
-#    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
-
+    """ Returns all scores dict 
+    Returns
+    -------
+        Returns all score data in dict form or if password is incorrect gives 404
+    """
     password = request.args.get('pw')
 
     blob = bucket.blob('scores.json')
@@ -103,10 +110,17 @@ def get_scores():
 
     return jsonify(data) if check_api_key(password) else make_response("Incorrect password", 404)
 
-# Get a single score based on the id DONE!
-# Error 404, if the score with the value of "the_id" is not found
 @app.route('/scores/<int:the_id>')
 def get_score(the_id):
+    """ Returns one score based on id.
+    Parameters
+    ----------
+    Int : `the_id`
+        The id the function searches for and returns
+    Returns
+    -------
+        Returns score with matching id, if the_id is not found or password is incorrect gives 404
+    """
 
     password = request.args.get('pw')
     if check_api_key(password):
@@ -123,10 +137,17 @@ def get_score(the_id):
     else:
         make_response("Incorrect password", 404)
 
-# Returns a descended or ascended order of the score list.
-# Error 404 if the parameter in <order> is wrong
 @app.route("/order/<string:order>", methods = ['GET'])
 def get_asc_or_desc_scores(order):
+    """ Returns scores in ascending or decending order based on 'order' variable.
+    Parameters
+    ----------
+    String : `order`
+        Determines if scores are shown in asc or desc order
+    Returns
+    -------
+        Returns scores in desired order, if order is not valid or password is incorrect gives 404
+    """
 
     password = request.args.get('pw')
     if check_api_key(password):
@@ -144,6 +165,11 @@ def get_asc_or_desc_scores(order):
 
 @app.route("/scores/formatted")
 def return_scores_in_format():
+    """ Returns scores formatted into string including time and name.
+    Returns
+    -------
+        Returns no scores message if no scores or formatted string of scores. 404 if password incorrect
+    """
 
     password = request.args.get('pw')
     if check_api_key(password):
@@ -173,6 +199,15 @@ def return_scores_in_format():
 # Fetching all scores with limit DONE!
 @app.route("/scores/limit/<int:limit>")
 def get_scores_limit(limit):
+    """ Returns scores within limit set in url.
+    Parameters
+    ----------
+    Int : `limit`
+        The limit that determines how many scores are shown
+    Returns
+    -------
+        Returns 200 and scores within limit or 404 if password incorrect
+    """
 
     password = request.args.get('pw')
     if check_api_key(password):
@@ -194,7 +229,15 @@ def get_scores_limit(limit):
 #Delete a score DONE!
 @app.route('/all_scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
-
+    """ Deletes a score based on int user gives in url (if password is valid).
+        Parameters
+    ----------
+    Int : `the_id`
+        The id of the score that is being deleted.
+    Returns
+    -------
+        204 if score was deleted, 404 if incorrect password or score not found
+    """
 
     password = request.args.get('pw')
     if check_api_key(password):
@@ -222,11 +265,15 @@ def delete_score(the_id):
     else:
         make_response("Incorrect password", 404)
 
-
-#adding a score DONE!
 @app.route('/scores', methods=['POST'])
 def add_highscore():
-    
+    """ Saves highscore to scores.json if password is valid. Generates id for new score
+    and adds id, time and name to dict that is appended to existing scores. 
+    Data is dumped to firebase.
+    Returns
+    -------
+        Returns 'Score added successfully' 201 if score was added, 'Incorrect password' 404 if not.
+    """
     password = request.args.get('pw')
     if check_api_key(password):
         blob = bucket.blob('scores.json')
@@ -254,10 +301,19 @@ def add_highscore():
         return 'Score added successfully', 201 
     
     else:
-        make_response("Incorrect password", 404)
+        return make_response("Incorrect password", 404)
 
-#returns data in asc order (default)
 def sort_score(descending=False):
+    """ Sorts the score into ascending or decending order with all keys included.
+    Parameters
+    ----------
+    Boolean : `descending=False`
+        Boolean value determining whether the data is shown in ascending or decending order.
+        Default is False (ascending).
+    Returns
+    -------
+       Dict of scores with ids, times and names.
+    """
 
     all_data = read_score()
     all_scores = all_data["scores"]
@@ -274,10 +330,18 @@ def sort_score(descending=False):
 
     return sorted_scores
 
-#Returns the scores as a list, excluding the id (id is not needed)
-#So that the scores can be shown in the html page
 def make_2D_array(descending=False):
-
+    """ Makes a 2d list with scores ignoring time and name. 
+    Method is used  with html page.
+    Parameters
+    ----------
+    Boolean : `descending=False`
+        Boolean value determining whether the data is shown in ascending or decending order.
+        Default is False (ascending).
+    Returns
+    -------
+       List of scores with times and names.
+    """
     all_data = read_score()
     all_scores = all_data["scores"]
 
@@ -292,8 +356,12 @@ def make_2D_array(descending=False):
 
     return score_list
 
-# Loads the scores file from firebase and puts it into json format
 def read_score():
+    """ Reads scores from firebase
+    Returns
+    -------
+        Dict with all scores.json data
+    """
     blob = bucket.blob('scores.json')
     scores_data = blob.download_as_string()
     scores_data_io = io.StringIO(scores_data.decode('utf-8'))
@@ -302,21 +370,15 @@ def read_score():
     return scores_data_json
 
 def generate_id():
-
-    ###### FIREBASE IMPLEMENTATION?
+    """ Generates id based on how many scores are currently saved.
+    Returns
+    -------
+        New id, int.
+    """
+    # firebase implementation
     blob = bucket.blob('scores.json')
     score_data = blob.download_as_string()
     scores_dict = json.loads(score_data) if score_data else {"scores": []}
-
-    new_id = len(scores_dict["scores"]) + 1
-
-    #url = "https://hangman-highscores-amif.onrender.com/all_scores"
-    #response = requests.get(url)
-
-    #if response.status_code == 200:
-    #    scores_dict = response.json()
-    #else:
-    #    scores_dict = {"scores": []}
 
     new_id = len(scores_dict["scores"]) + 1
 
