@@ -1,12 +1,6 @@
 #python3 -m unittest discover 
 
-#import sys
-#import os
-
-#root_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
-#sys.path.append(root_dir)
-
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 import unittest
 from util.utility import *
 from util.drawings import *
@@ -15,7 +9,8 @@ from hangman import *
 class TestValidation(unittest.TestCase):
 
     def test_format_time(self):
-        # Test case for time with including hour, minute and second
+        # ASSERT EQUAL
+        # Test case for time with including hour, minute and seconds
         game_time = "01:23:45"
         expected_output = "1 hour 23 minutes 45 seconds"
         self.assertEqual(format_time(game_time), expected_output)
@@ -29,6 +24,20 @@ class TestValidation(unittest.TestCase):
         game_time = "00:00:45"
         expected_output = "0 minutes 45 seconds"
         self.assertEqual(format_time(game_time), expected_output)
+
+        # ASSERT NOT EQUAL
+        # Test case for time with only seconds
+        # should output only seconds
+        game_time = "00:00:45"
+        expected_output = "0 hours 0 minutes 45 seconds"
+        self.assertNotEqual(format_time(game_time), expected_output)
+
+        # Test case for time with hour, minute and seconds
+        # game_time format is incorrect as the hour is 1, not 01
+        game_time = "10:10:10"
+        expected_output = "10 hour 10 minute 10 seconds"
+        self.assertNotEqual(format_time(game_time), expected_output)
+
 
     def test_print_menu_take_choice(self):
         

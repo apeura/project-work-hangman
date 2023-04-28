@@ -1,18 +1,29 @@
-GET https://hangman-highscores-amif.onrender.com/all_scores/?pw=h0tD0g!!!?.
+
+## ALL REQUESTS REQUIRE PASSWORD ##
+#
+# GET ALL SCORES AS JSON
+GET https://hangman-highscores-amif.onrender.com/all_scores?pw=salasana
 ###
-GET https://hangman-highscores-amif.onrender.com/scores/formatted
+# GET ALL SCORES AS STRING
+GET https://hangman-highscores-amif.onrender.com/scores/formatted?pw=salasana
 ###
-GET https://hangman-highscores-amif.onrender.com/scores/4
+# GET A SCORE BY ID
+GET https://hangman-highscores-amif.onrender.com/scores/4?pw=salasana
 ###
+# DELETE A SCORE BY ID
 DELETE https://hangman-highscores-amif.onrender.com/all_scores/5
 ###
+# POST A SCORE IN JSON FORMAT
 post https://hangman-highscores-amif.onrender.com/scores
 Content-type: application/json
 
 {"id": 8, "time": "00:10:12", "name": "Tarmo"}
 ###
-GET https://hangman-highscores-amif.onrender.com/order/desc
+# SHOW ALL SCORES WITH DESCENDING ORDER
+GET https://hangman-highscores-amif.onrender.com/order/desc?pw=salasana
 ###
-GET https://hangman-highscores-amif.onrender.com/scores/limit/4
+# SHOW ALL SCORES WITH ASCENDING ORDER
+GET https://hangman-highscores-amif.onrender.com/order/asc?pw=salasana
 ###
-GET http://127.0.0.1:5000/all_scores/?pw=kissapissa
+# SHOW SCORES WITHIN A SPECIFIED LIMIT
+GET https://hangman-highscores-amif.onrender.com/scores/limit/4?pw=salasana
