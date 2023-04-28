@@ -1,10 +1,10 @@
-GET https://hangman-highscores-amif.onrender.com/all_scores
+GET https://hangman-highscores-amif.onrender.com/all_scores/?pw=kA4L1A1v0
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/formatted
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/4
 ###
-DELETE https://hangman-highscores-amif.onrender.com/all_scores/6/?pw=kA4L1A1v0
+DELETE https://hangman-highscores-amif.onrender.com/all_scores/5
 ###
 post https://hangman-highscores-amif.onrender.com/scores
 Content-type: application/json

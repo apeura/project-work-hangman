@@ -94,15 +94,13 @@ def get_scores():
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
 
     password = str(request.args.get('pw'))
-    if check_api_key(password):
-        blob = bucket.blob('scores.json')
-        content = blob.download_as_string().decode('utf-8')
-        data = json.loads(content)
-        print(data)
-        return jsonify(data)
+
+    blob = bucket.blob('scores.json')
+    content = blob.download_as_string().decode('utf-8')
+    data = json.loads(content)
+    print(data)
     
-    else:
-        make_response("Incorrect password", 404)
+    return jsonify(data) if check_api_key(password) else make_response("Incorrect password", 404)
 
 # Get a single score based on the id DONE!
 # Error 404, if the score with the value of "the_id" is not found
