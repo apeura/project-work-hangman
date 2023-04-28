@@ -13,6 +13,7 @@ Firebase and API_KEY functionalities are implemented.
 app = Flask(__name__)
 
 load_dotenv()
+
 API_KEY = os.environ.get('API_KEY')
 json_str = os.environ.get('firebase')
 
@@ -101,15 +102,13 @@ def get_scores():
         Returns all score data in dict form or if password is incorrect gives 404
     """
     password = request.args.get('pw')
-    if check_api_key(password):
-        blob = bucket.blob('scores.json')
-        content = blob.download_as_string().decode('utf-8')
-        data = json.loads(content)
-        print(data)
-        return jsonify(data)
-    
-    else:
-        make_response("Incorrect password", 404)
+
+    blob = bucket.blob('scores.json')
+    content = blob.download_as_string().decode('utf-8')
+    data = json.loads(content)
+    print(data)
+
+    return jsonify(data) if check_api_key(password) else make_response("Incorrect password", 404)
 
 @app.route('/scores/<int:the_id>')
 def get_score(the_id):

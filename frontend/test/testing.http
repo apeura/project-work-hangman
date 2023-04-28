@@ -1,17 +1,17 @@
-GET https://hangman-highscores-amif.onrender.com/all_scores
+GET https://hangman-highscores-amif.onrender.com/all_scores/?pw=h0tD0g!!!?.
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/formatted
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/4
 ###
-DELETE https://hangman-highscores-amif.onrender.com/all_scores/6
+DELETE https://hangman-highscores-amif.onrender.com/all_scores/5
 ###
 post https://hangman-highscores-amif.onrender.com/scores
 Content-type: application/json
 
 {"id": 8, "time": "00:10:12", "name": "Tarmo"}
 ###
-GET https://hangman-highscores-amif.onrender.com/order/asc
+GET https://hangman-highscores-amif.onrender.com/order/desc
 ###
 GET https://hangman-highscores-amif.onrender.com/scores/limit/4
 ###
