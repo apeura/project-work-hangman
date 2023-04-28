@@ -55,6 +55,3 @@ def score_is_added_to_top50(new_score):
         return True
 
     return False
-
-if __name__ == "__main__":
-    main()

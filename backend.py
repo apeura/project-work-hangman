@@ -1,12 +1,8 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
 from frontend.util.utility import *
 from dotenv import load_dotenv
-import os
-import bcrypt
-import tempfile
-import firebase_admin
+import os, bcrypt, tempfile, firebase_admin, io
 from firebase_admin import credentials, storage
-import io
 
 app = Flask(__name__)
 
@@ -30,6 +26,9 @@ if json_str:
 else:
     raise ValueError("Firebase configuration is not set")
 
+##############################################
+# THE CODE BELOW IS COPIED FROM TOPIAS LAATU #
+##############################################
 
 # This method is used to check the validity of the password
 # Sent with requests to the backend
@@ -47,6 +46,10 @@ def check_api_key(pw):
 
     # returned values are boolean type
     return True if result else False
+
+##############################################
+# THE CODE ABOVE IS COPIED FROM TOPIAS LAATU #
+##############################################
 
 # Allow origins
 @app.after_request
@@ -90,133 +93,169 @@ def get_scores():
 #    password = request.args.get('pw')
 #    return make_response(scores_str, 200) if check_api_key(password) else make_response("Incorrect password", 404)
 
-    blob = bucket.blob('scores.json')
-    content = blob.download_as_string().decode('utf-8')
-    data = json.loads(content)
-    print(data)
-    return jsonify(data)
+    password = request.args.get('pw')
+    if check_api_key(password):
+        blob = bucket.blob('scores.json')
+        content = blob.download_as_string().decode('utf-8')
+        data = json.loads(content)
+        print(data)
+        return jsonify(data)
+    
+    else:
+        make_response("Incorrect password", 404)
 
 # Get a single score based on the id DONE!
 # Error 404, if the score with the value of "the_id" is not found
 @app.route('/scores/<int:the_id>')
 def get_score(the_id):
 
-    blob = bucket.blob('scores.json')
-    content = blob.download_as_string().decode('utf-8')
-    scores_s = json.loads(content)
+    password = request.args.get('pw')
+    if check_api_key(password):
+        blob = bucket.blob('scores.json')
+        content = blob.download_as_string().decode('utf-8')
+        scores_s = json.loads(content)
 
-    for s in scores_s["scores"]:  
-        if s["id"] == the_id: 
-            return s
+        for s in scores_s["scores"]:  
+            if s["id"] == the_id: 
+                return s
 
-    abort(404, description="Score not found")
+        abort(404, description="Score not found")
+    
+    else:
+        make_response("Incorrect password", 404)
 
 # Returns a descended or ascended order of the score list.
 # Error 404 if the parameter in <order> is wrong
 @app.route("/order/<string:order>", methods = ['GET'])
 def get_asc_or_desc_scores(order):
-    if order == "asc":
-        return make_response(sort_score(False))
-    
-    if order == "desc":
-        return make_response(sort_score(True))
 
+    password = request.args.get('pw')
+    if check_api_key(password):
+        if order == "asc":
+            return make_response(sort_score(False))
+        
+        if order == "desc":
+            return make_response(sort_score(True))
+
+        else:
+            return abort(404, description="Order must be 'asc' or 'desc'")
+    
     else:
-        return abort(404, description="Order must be 'asc' or 'desc'")
+        make_response("Incorrect password", 404)
 
 @app.route("/scores/formatted")
 def return_scores_in_format():
 
-    scores_in_order_list = make_2D_array()
-    top_10_scores = []
-    formatted_str = ""
+    password = request.args.get('pw')
+    if check_api_key(password):
+        scores_in_order_list = make_2D_array()
+        top_10_scores = []
+        formatted_str = ""
 
-    if len(scores_in_order_list ) == 0:
-        return "no scores so far!"
-    
-    i=0
-    while i < 10 and i < len(scores_in_order_list):
-        top_10_scores.append(scores_in_order_list[i])
-        i += 1
+        if len(scores_in_order_list ) == 0:
+            return "no scores so far!"
+        
+        i=0
+        while i < 10 and i < len(scores_in_order_list):
+            top_10_scores.append(scores_in_order_list[i])
+            i += 1
 
-    for array in top_10_scores:
-        time = array[0]
-        time_formatted = format_time(time)
-        name = array[1]
-        formatted_str += f"{time_formatted}, {name}\n"
+        for array in top_10_scores:
+            time = array[0]
+            time_formatted = format_time(time)
+            name = array[1]
+            formatted_str += f"{time_formatted}, {name}\n"
 
-    return formatted_str
+        return formatted_str
+
+    else:
+        make_response("Incorrect password", 404)
 
 # Fetching all scores with limit DONE!
 @app.route("/scores/limit/<int:limit>")
 def get_scores_limit(limit):
 
-    all_scores_sorted = sort_score()
-    scores_within_limit = []
+    password = request.args.get('pw')
+    if check_api_key(password):
+        all_scores_sorted = sort_score()
+        scores_within_limit = []
 
-    if limit > len(all_scores_sorted):
-        return abort(404)
+        if limit > len(all_scores_sorted):
+            return abort(404)
 
-    i = 0
-    while i < limit:
-        scores_within_limit.append(all_scores_sorted[i])
-        i += 1
+        i = 0
+        while i < limit:
+            scores_within_limit.append(all_scores_sorted[i])
+            i += 1
 
-    return make_response(scores_within_limit, 200)
+        return make_response(scores_within_limit, 200)
+
+    else: make_response("Incorrect password", 404)
 
 #Delete a score DONE!
 @app.route('/all_scores/<int:the_id>', methods=['DELETE'])
 def delete_score(the_id):
 
-    print(the_id)
 
-    blob = bucket.blob('scores.json')
-    score_data = blob.download_as_string()
+    password = request.args.get('pw')
+    if check_api_key(password):
+        print(the_id)
 
-    if score_data:
-        all_data = json.loads(score_data)
+        blob = bucket.blob('scores.json')
+        score_data = blob.download_as_string()
+
+        if score_data:
+            all_data = json.loads(score_data)
+        else:
+            return abort(404, description= "No scores to delete!")
+
+        try:
+            del all_data['scores'][the_id-1]
+            all_data = adjust_ids(all_data, the_id)
+
+            updated_score_data = json.dumps(all_data)
+            blob.upload_from_string(updated_score_data, content_type='text/plain')
+
+            return make_response(f'Score {the_id} removed succesfully!', 204)
+        except:
+            return abort(404, description= "Score not found")
+
     else:
-        return abort(404, description= "No scores to delete!")
-
-    try:
-        del all_data['scores'][the_id-1]
-        all_data = adjust_ids(all_data, the_id)
-
-        updated_score_data = json.dumps(all_data)
-        blob.upload_from_string(updated_score_data, content_type='text/plain')
-
-        return make_response("Score removed succesfully!", 204)
-    except:
-        return abort(404, description= "Score not found")
+        make_response("Incorrect password", 404)
 
 
 #adding a score DONE!
 @app.route('/scores', methods=['POST'])
 def add_highscore():
     
-    blob = bucket.blob('scores.json')
-    score_data = blob.download_as_string()
+    password = request.args.get('pw')
+    if check_api_key(password):
+        blob = bucket.blob('scores.json')
+        score_data = blob.download_as_string()
 
-    if score_data:
-        existing_scores = json.loads(score_data)
-    else:
-        existing_scores = {"scores": []}
+        if score_data:
+            existing_scores = json.loads(score_data)
+        else:
+            existing_scores = {"scores": []}
 
-    new_score = {}
-    received_score = request.get_json()
+        new_score = {}
+        received_score = request.get_json()
 
-    new_score['id'] = generate_id()
-    new_score['time'] = received_score['time']
-    new_score['name'] = received_score['name']
+        new_score['id'] = generate_id()
+        new_score['time'] = received_score['time']
+        new_score['name'] = received_score['name']
+        
+        existing_scores['scores'].append(new_score)
+
+        updated_score_data = json.dumps(existing_scores)
+        blob.upload_from_string(updated_score_data, content_type='text/plain')
+
+        print(updated_score_data)
+
+        return 'Score added successfully', 201 
     
-    existing_scores['scores'].append(new_score)
-
-    updated_score_data = json.dumps(existing_scores)
-    blob.upload_from_string(updated_score_data, content_type='text/plain')
-
-    print(updated_score_data)
-
-    return 'Score added successfully', 201 
+    else:
+        make_response("Incorrect password", 404)
 
 #returns data in asc order (default)
 def sort_score(descending=False):
