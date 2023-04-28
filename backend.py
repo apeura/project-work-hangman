@@ -3,10 +3,13 @@ from frontend.util.utility import *
 from dotenv import load_dotenv
 import os, bcrypt, tempfile, firebase_admin, io
 from firebase_admin import credentials, storage
+from os.path import join, dirname
 
 app = Flask(__name__)
 
-load_dotenv()
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 API_KEY = os.environ.get('API_KEY')
 json_str = os.environ.get('firebase')
 
