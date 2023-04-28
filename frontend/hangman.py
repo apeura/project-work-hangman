@@ -49,7 +49,6 @@ def show_highscores():
     print("HIGH SCORES")
     print("Best times")
 
-    #response = requests.get(url, headers=headers)
     r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted?pw=salasana')
     r.raise_for_status()
     print(r.text)
@@ -59,14 +58,15 @@ def run_game():
     If the game is won runs game_won function with game time.
     """
     global secret_word, amount_of_correct_letters, amount_of_wrong_letters
-    incorrect_guess_limit = 6
+    
     rounds = 1
     start = time.time()
 
     while rounds < 4:
-
         print("     *** ROUND ", rounds, "! ***", sep="")
         secret_word = choose_secret_word()
+        incorrect_guess_limit = len(secret_word)
+        
         guessed_letters = []
         amount_of_correct_letters = 0
         amount_of_wrong_letters = 0
