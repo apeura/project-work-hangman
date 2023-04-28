@@ -44,7 +44,7 @@ def score_is_added_to_top50(new_score):
 
     new_time = new_score["time"]
 
-    all_data = requests.get('https://hangman-highscores-amif.onrender.com/all_scores')
+    all_data = requests.get('https://hangman-highscores-amif.onrender.com/all_scores').json()
 
     if len(all_data["scores"]) < 50:
         return True

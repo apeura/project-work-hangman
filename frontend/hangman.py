@@ -122,6 +122,7 @@ def add_to_highscore(time):
 
         print("score saved to top 50!")
     else:
+        
         print("good job, but score is not good enough for top 50!")
     
 #takes user guess & checks it's valid
