@@ -1,7 +1,7 @@
 import requests, random, time
 from datetime import datetime
-from util.drawings import draw_hangman
-from util.utility import *
+from .util.drawings import draw_hangman
+from .util.utility import *
 
 """
 Module that contains functions relating to running hangman game and storing and displaying highscores.
