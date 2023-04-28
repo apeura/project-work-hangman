@@ -12,12 +12,8 @@ Firebase and API_KEY functionalities are implemented.
 
 app = Flask(__name__)
 
-
-
-def get_api_key():
-    load_dotenv()
-    API_KEY = os.environ.get('API_KEY')
-    return API_KEY
+load_dotenv()
+API_KEY = os.environ.get('API_KEY')
 
 json_str = os.environ.get('firebase')
 
@@ -51,7 +47,7 @@ def check_api_key(pw):
     
     # hashing the API_KEY that has been turned to bytes array
     # with randomly generated salt
-    hash = bcrypt.hashpw(get_api_key().encode('utf-8'), bcrypt.gensalt())
+    hash = bcrypt.hashpw(API_KEY.encode('utf-8'), bcrypt.gensalt())
 
     # checking password received as parameter with api key
     result = bcrypt.checkpw(pw.encode('utf-8'), hash)

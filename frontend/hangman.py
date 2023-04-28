@@ -1,13 +1,7 @@
-import requests, random, time, os
+import requests, random, time
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
-from backend import get_api_key
-
-API_KEY = get_api_key()
-
-#load_dotenv()
-#API_KEY = os.environ.get('API_KEY')
 
 """
 Module that contains functions relating to running hangman game and storing and displaying highscores.
@@ -56,7 +50,7 @@ def show_highscores():
     print("Best times")
 
     #response = requests.get(url, headers=headers)
-    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted?pw={API_KEY}')
+    r = requests.get('https://hangman-highscores-amif.onrender.com/scores/formatted?pw=salasana')
     r.raise_for_status()
     print(r.text)
 
