@@ -9,7 +9,6 @@ import unittest
 from util.utility import *
 from util.drawings import *
 from hangman import *
-from ..backend import *
 
 class TestValidation(unittest.TestCase):
 
@@ -28,6 +27,17 @@ class TestValidation(unittest.TestCase):
         game_time = "00:00:45"
         expected_output = "0 minutes 45 seconds"
         self.assertEqual(format_time(game_time), expected_output)
+
+    def test_print_menu_take_choice(self):
+        
+        # Ensure menu is printed and user input is taken
+        with patch('builtins.input', side_effect=["1"]):
+            with patch('hangman.execute_menu_choice', return_value=None) as mock_exec:
+                print_menu_take_choice()
+                mock_exec.assert_called_once_with("1")
+
+    
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -10,8 +10,6 @@ import tempfile
 import firebase_admin
 from firebase_admin import credentials, storage
 
-import io
-
 app = Flask(__name__)
 
 json_str = os.environ.get('firebase')
@@ -225,85 +223,6 @@ def add_highscore():
     print(updated_score_data)
 
     return 'Score added successfully', 201 
-
-
-
-# Checks if new score should be added to top 50
-def score_is_added_to_top501(new_score):
-
-    new_time = new_score["time"]
-    #print("SCORE_IS_ADDED new_time is", new_time)
-
-    user_data = read_score()
-
-    if len(user_data["scores"]) < 50:
-        return True
-
-    # Sort the scores by time
-    sorted_scores = sorted(user_data["scores"], key=lambda x: x["time"])
-
-    if new_time < sorted_scores[-1]["time"]:
-        return True
-
-    return False
-
-
-#returns data in asc order (default)
-def sort_score(descending=False):
-
-    all_data = read_score()
-    all_scores = all_data["scores"]
-    times = sorted(all_scores, key=lambda k: k["time"], reverse=descending)
-
-    sorted_scores = []
-
-    for score in times:
-        id = score["id"]
-        time = score["time"] 
-        name = score["name"]
-        single_score = {"id": id, "time": str(time), "name": str(name)}
-        sorted_scores.append(single_score)
-
-    return sorted_scores
-
-#Returns the scores as a list, excluding the id (id is not needed)
-#So that the scores can be shown in the html page
-def make_2D_array(descending=False):
-
-    all_data = read_score()
-    all_scores = all_data["scores"]
-
-    times = sorted(all_scores, key=lambda k: k["time"], reverse=descending)
-    score_list = []
-
-    for score in times:
-        time = score["time"] 
-        name = score["name"]
-        single_score = [str(time), str(name)]
-        score_list.append(single_score)
-
-    return score_list
-
-# Loads the scores file from firebase and puts it into json format
-def read_score():
-    blob = bucket.blob('scores.json')
-    scores_data = blob.download_as_string()
-    scores_data_io = io.StringIO(scores_data.decode('utf-8'))
-    scores_data_json = json.load(scores_data_io)
-
-    return scores_data_json
-
-def generate_id():
-
-    ###### FIREBASE IMPLEMENTATION?
-    blob = bucket.blob('scores.json')
-    score_data = blob.download_as_string()
-    scores_dict = json.loads(score_data) if score_data else {"scores": []}
-
-    new_id = len(scores_dict["scores"]) + 1
-
-    return new_id
-
 
 if __name__ == "__main__":
     app.run(debug=True)
