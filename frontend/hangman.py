@@ -55,7 +55,7 @@ def show_highscores():
     print(r.text)
 
 def run_game():
-    """Runs hangman game for max three rounds and takes time. 
+    """Runs hangman game for max three rounds and takes time.
     If the game is won runs game_won function with game time.
     """
     global secret_word, amount_of_correct_letters, amount_of_wrong_letters
