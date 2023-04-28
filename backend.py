@@ -1,19 +1,17 @@
 from flask import render_template, Flask, jsonify, abort, make_response, request, json
-
 from frontend.util.utility import *
 from dotenv import load_dotenv
-
 import os
 import bcrypt
-
 import tempfile
 import firebase_admin
 from firebase_admin import credentials, storage
-
 import io
 
 app = Flask(__name__)
 
+load_dotenv()
+API_KEY = os.environ.get('API_KEY')
 json_str = os.environ.get('firebase')
 
 if json_str:
@@ -21,23 +19,17 @@ if json_str:
         f.write(json_str)
         temp_path = f.name
 
-    # Reads the file and gives it's json content
     cred = credentials.Certificate(temp_path)
 
-    # Creates an "environmental variable bucket" into render.com
-    # Example of the .env: mydatabase-38cf0.appspot.com
     firebase_admin.initialize_app(cred, {
         'storageBucket': os.environ.get('bucket')
     })
 
-    # Get the storage bucket object
     bucket = storage.bucket()
 
 else:
     raise ValueError("Firebase configuration is not set")
 
-load_dotenv()
-API_KEY = os.environ.get('API_KEY')
 
 # This method is used to check the validity of the password
 # Sent with requests to the backend
@@ -65,7 +57,7 @@ def after_request(response):
 # Fetches all scores and puts them into HTML form
 @app.route('/')
 def index():
-    #2D array
+
     scores_list = make_2D_array()
     scores_string = ""
 
@@ -109,12 +101,10 @@ def get_scores():
 @app.route('/scores/<int:the_id>')
 def get_score(the_id):
 
-    #dict version of scores
     blob = bucket.blob('scores.json')
     content = blob.download_as_string().decode('utf-8')
     scores_s = json.loads(content)
 
-    #go through scores, if id match return that
     for s in scores_s["scores"]:  
         if s["id"] == the_id: 
             return s
@@ -228,27 +218,6 @@ def add_highscore():
 
     return 'Score added successfully', 201 
 
-
-# Checks if new score should be added to top 50
-def score_is_added_to_top501(new_score):
-
-    new_time = new_score["time"]
-    #print("SCORE_IS_ADDED new_time is", new_time)
-
-    user_data = read_score()
-
-    if len(user_data["scores"]) < 50:
-        return True
-
-    # Sort the scores by time
-    sorted_scores = sorted(user_data["scores"], key=lambda x: x["time"])
-
-    if new_time < sorted_scores[-1]["time"]:
-        return True
-
-    return False
-
-
 #returns data in asc order (default)
 def sort_score(descending=False):
 
@@ -314,8 +283,6 @@ def generate_id():
     new_id = len(scores_dict["scores"]) + 1
 
     return new_id
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)

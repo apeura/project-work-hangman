@@ -1,4 +1,5 @@
 import json
+import requests
 
 #fills any gaps when a score has been deleted by fixing existing ids
 def adjust_ids(dict, removed_id):
@@ -36,11 +37,24 @@ def format_time(game_time):
 
     game_time = " ".join(time_components)
 
-    # 1 hour 3 minutes 59 seconds
-    # 3 minutes 0 seconds
-    # 1 minute 1 second
-
     return game_time
+
+# Checks if new score should be added to top 50
+def score_is_added_to_top50(new_score):
+
+    new_time = new_score["time"]
+
+    all_data = requests.get('https://hangman-highscores-amif.onrender.com/all_scores')
+
+    if len(all_data["scores"]) < 50:
+        return True
+
+    sorted_scores = sorted(all_data["scores"], key=lambda x: x["time"])
+
+    if new_time < sorted_scores[-1]["time"]:
+        return True
+
+    return False
 
 if __name__ == "__main__":
     main()

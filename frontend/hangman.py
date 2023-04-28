@@ -98,7 +98,6 @@ def game_won(time):
 
     minutes = time/60
     seconds = (time-minutes)
-    #time_taken = (f"{minutes:.0f}m {seconds:.0f}s")
     print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
     
     full_format_time = datetime.strftime(datetime.utcfromtimestamp(time), '%H:%M:%S')
@@ -109,11 +108,11 @@ def game_won(time):
 def add_to_highscore(time):
 
     name = input("Please input a name for the leaderboard: ")
+
     while 10 > len(name) < 2:
         print("Name should be 2-10 characters.")
         name = input("Please input a name for the leaderboard: ")
 
-    #generate id for new score
     myobj = {"time": time, "name": name}
     
     if score_is_added_to_top50(myobj) == True:
