@@ -1,11 +1,11 @@
-# project-work-hangman
-Hangman game with highscore that is stored in the cloud
-A little info about your project and/ or overview that explains what the project is about.
+# project work hangman
+Hangman game with highscore that is stored in the cloud. This project is a part of TAMK's Python programming module.
 
-# Author
+# Author!
 Anni Peura
 
 # Screenshots
+[HangmanWin py](https://user-images.githubusercontent.com/113358099/235179778-35753261-36dd-428a-93d2-1211604dd15b.jpg)
 Alt text
 
 # Tech/framework used
