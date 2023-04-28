@@ -1,8 +1,10 @@
-import sys
-import os
+#python3 -m unittest discover 
 
-root_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
-sys.path.append(root_dir)
+#import sys
+#import os
+
+#root_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
+#sys.path.append(root_dir)
 
 from unittest.mock import MagicMock, patch
 import unittest
@@ -35,8 +37,6 @@ class TestValidation(unittest.TestCase):
             with patch('hangman.execute_menu_choice', return_value=None) as mock_exec:
                 print_menu_take_choice()
                 mock_exec.assert_called_once_with("1")
-
-    
 
 
 if __name__ == '__main__':

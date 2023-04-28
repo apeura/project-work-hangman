@@ -4,21 +4,27 @@ import time
 from datetime import datetime
 from util.drawings import draw_hangman
 from util.utility import *
-
-#global variables
+"""
+Module that contains functions relating to running hangman game and storing and displaying highscores.
+Module uses global variables for keeping count of correct and wrong letters as well as the secret word.
+"""
 amount_of_correct_letters = 0
 amount_of_wrong_letters = 0
 secret_word = ""
 
-#prints menu and takes user choice
 def print_menu_take_choice():
-
+    """Prints main menu and takes user input, which is sent to execute_menu_choice
+    """
     print("1) Play Game", "2) Display high scores", "3) Quit", sep="\n")
     execute_menu_choice(input())
 
-#match-case for executing user's choice
 def execute_menu_choice(user_choice):
-
+    """Validates user input and runs relevant functions.
+    Parameters
+    ----------
+    String : `user_choice`
+        The input that is validated and that decides which functions are ran.
+    """
     try:
         int(user_choice)
     except ValueError:
@@ -38,8 +44,9 @@ def execute_menu_choice(user_choice):
             print("Please input a number from the menu")
             print_menu_take_choice()
 
-#### WORK IN PROGRESS ###
 def show_highscores():
+    """Prints top 10 highscores to console.
+    """
     print("HIGH SCORES")
     print("Best times")
 
@@ -47,9 +54,10 @@ def show_highscores():
     r.raise_for_status()
     print(r.text)
 
-#runs game for max 3 rounds, takes time
 def run_game():
-
+    """Runs hangman game for max three rounds and takes time. 
+    If the game is won runs game_won function with game time.
+    """
     global secret_word, amount_of_correct_letters, amount_of_wrong_letters
     incorrect_guess_limit = 6
     rounds = 1
@@ -93,19 +101,35 @@ def run_game():
         
         rounds += 1
 
-#formats game time & gives game won message
 def game_won(time):
-
+    """Tells time taken to win in minutes and seconds, sends time in 00:00:00 format to add_to_highscore
+    Parameters
+    ----------
+    Int : `time`
+        The input that is re-formatted and sent foward to add_to_highscore.
+    """
     minutes = time/60
     seconds = (time-minutes)
-    print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
+
+    if minutes >= 60:
+        hours = minutes//60
+        minutes = minutes % 60
+        print(f"WINNER! It took you {hours:.0f} hour(s) {minutes:.0f} min & {seconds:.0f} sec to finish\n")
+    else:
+        print(f"WINNER! It took you {minutes:.0f} min & {seconds:.0f} sec to finish\n")
     
     full_format_time = datetime.strftime(datetime.utcfromtimestamp(time), '%H:%M:%S')
     
     add_to_highscore(full_format_time)
 
-#### DONE? ###
 def add_to_highscore(time):
+    """Takes player name and validates it's length, sends score information to score_is_added_to_top50 validation.
+    If valid score gets added via post request. If not prints a message. 
+    Parameters
+    ----------
+    String : `time`
+        The input that is sent with player name to top50 validation
+    """
 
     name = input("Please input a name for the leaderboard: ")
 
@@ -125,9 +149,18 @@ def add_to_highscore(time):
         
         print("good job, but score is not good enough for top 50!")
     
-#takes user guess & checks it's valid
-def user_guess(guessed_letters):
 
+def user_guess(guessed_letters):
+    """ Takes user guess and validates it (hasn't been quessed before and is a single letter).
+    If guess is not valid it's asked again.
+    Parameters
+    ----------
+    String : `guessed_letters`
+        The letters the player has previously guessed. Used in new guess validation.
+    Returns
+    -------
+        The validated letter user has guessed.
+    """
     guess = input("Guess a letter: ").lower()
 
     while guess in guessed_letters or not guess.isalpha() or len(guess) != 1:
@@ -141,15 +174,28 @@ def user_guess(guessed_letters):
 
     return guess
 
-#prints hangman and secret word ( _ _ _ _ _ / k i _ _ a / etc)
 def print_game(secret_word, guessed_letters):
-
+    """ Prints game taking into account guessed letters in the secret word.
+    Parameters
+    ----------
+    String : `secret_word`
+        The word that is being guessed.
+    String : `guessed_letters`
+        The letters the player has previously guessed.
+    """
     global amount_of_wrong_letters
     draw_hangman(amount_of_wrong_letters)
     print(" ".join([c if c in guessed_letters else "_" for c in secret_word]))
 
-#chooses secret word randomly from a list
 def choose_secret_word():
+    """ Chooses secret word from a 
+    Parameters
+    ----------
+    String : `secret_word`
+        The word that is being guessed.
+    String : `guessed_letters`
+        The letters the player has previously guessed.
+    """
         
     with open('words.txt', 'r') as file:
         word_list = file.read().split()
