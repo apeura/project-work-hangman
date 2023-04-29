@@ -57,4 +57,5 @@ https://hangman-highscores-amif.onrender.com/
 After reviewing the screencast a few potential bugs were noticed:
   - When player loses the game the last picture doesn't print
   - score_is_added_to_top50 function should delete the worst score so there are no conflicts with adding the new score
-So there are a few oversights in the code that can be patched relatively easily.
+
+These oversights are minor and can be patched relatively easily.
