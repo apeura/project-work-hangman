@@ -50,11 +50,8 @@ API implementation
 API is deployed to cloud and can be accessed using following url:
 https://hangman-highscores-amif.onrender.com/
 
-# Screencast
-[Watch video](https://youtu.be/22FnxVjrZVM)
-
 ### Author's note
-After reviewing the screencast a few potential bugs were noticed:
+A few potential bugs were noticed:
   - When player loses the game the last picture doesn't print
   - score_is_added_to_top50 function should delete the worst score so there are no conflicts with adding the new score
 
