@@ -3,3 +3,4 @@ gunicorn==22.0.0
 bcrypt
 python-dotenv
 firebase-admin
+httpx[http2]
